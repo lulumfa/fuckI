@@ -1,0 +1,50 @@
+//You are given an array of integers (both positive and negetive). Find the continuous sequence with the largest sum.
+//From Xin Guo
+
+#include <vector>
+#include <iostream>
+using namespace std;
+
+int find(vector<int> &list)
+{
+	int sum = 0;
+	vector<int> output;
+	int maxsum = 0;
+	for (int i = 0; i < list.size(); ++i)
+	{
+		int temp = list[i];
+		output.push_back(temp);
+		sum = sum + temp;
+		if (sum < 0)
+		{
+			output.clear();
+		}
+		if (sum > maxsum)
+		{
+			maxsum = sum;
+			for (int j = 0; j < output.size(); ++j)
+			{
+				cout << output[j]<<"	";
+			}
+			cout << endl;
+		}
+	}
+	return maxsum;
+}
+
+int main()
+{
+	vector<int> input;
+	input.push_back(1);
+	input.push_back(-2);
+	input.push_back(3);
+	input.push_back(1);
+	input.push_back(-2);
+	input.push_back(4);
+	input.push_back(-10);
+	int output;
+	output = find(input);
+
+	system("pause");
+
+}

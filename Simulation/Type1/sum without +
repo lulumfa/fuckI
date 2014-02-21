@@ -1,0 +1,26 @@
+//Question: Write a function that adds two numbers. You should not use + or any arithmetic operator
+//Explaination: Use bit manipulation. Store the addition with XOR and the carry with AND and shifted by 1
+//From Xin Guo
+
+#include<iostream>
+using namespace std;
+
+int sum(int a, int b)
+{
+	if (a&b == 0x0)
+	{
+		return a|b;
+	}
+	int c = a^b; 
+	int d = (a&b)<<1;
+	sum(c,d);
+}
+
+int main()
+{
+	int a, b;
+	cin>>a;
+	cin>>b;
+	cout << sum(a,b)<<endl;
+	system("pause");
+}

@@ -1,0 +1,82 @@
+//Question: output a tree level by level
+//From Xin Guo
+
+
+#include <string>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+class node
+{
+public:
+	node(int n);
+	void assign(node &l, node &r);
+	node* left;
+	node* right;
+	bool status;
+	int value;
+};
+
+inline node::node(int n)
+{
+	left = 0;
+	right = 0;
+	status = false;
+	value = n;
+}
+
+inline void node::assign(node &l, node &r)
+{
+	left = &l;
+	right = &r;
+}
+
+
+void search(vector<node*> upper, vector<vector<node*> > &list)
+{
+	vector<node*> current;
+	for (int i = 0; i < upper.size(); ++i)
+	{
+		if (upper[i]->left != 0) {current.push_back(upper[i]->left);}
+		if (upper[i]->right != 0) {current.push_back(upper[i]->right);}
+	}
+	if (current.size() == 0) return;
+	list.push_back(current);
+	search(current, list);
+}
+
+int main()
+{
+	node a(1);
+	node b(2);
+	node c(3);
+	node d(4);
+	node e(5); 
+	node f(6);
+	node g(7);
+
+	a.assign(b,c);
+	b.assign(d,e);
+	c.assign(f,g);
+
+	vector<vector<node*> > list;
+	vector<node*> first;
+	node* head = &a;
+	first.push_back(head);
+	list.push_back(first);
+
+	search(first,list);
+	
+	for (int i = 0; i < list.size(); ++i)
+	{
+		for (int j = 0; j <list[i].size(); ++j)
+		{
+			cout << list[i][j]->value << "		";
+		}
+		cout << endl;
+	}
+
+	system("pause");
+
+}

@@ -1,0 +1,83 @@
+Questions: Java question
+
+Contributor: Ziyi Jiang
+
+1. Expain the reason for each keyword of public static void main(String args[])?
+
+Answer:
+
+public : main(..) is the first method called by java environment when a program is executed so it has to accessible from java environment. Hence the access specifier has to be public.
+static : Java environment should be able to call this method without creating an instance of the class , so this method must be declared as static.
+void : main does not return anything so the return type must be void
+
+
+
+2. What gives java it’s “write once and run anywhere” nature?
+
+Answer:
+
+All Java programs are compiled into class files that contain bytecodes. 
+These byte codes can be run in any platform and hence java is said to be platform independent.
+
+
+3. Why there are no global variables in Java?
+
+Answer:
+
+Global variables are globally accessible. Java does not support globally accessible variables due to following reasons:
+
+The global variables breaks the referential transparency
+Global variables create collisions in namespace.
+
+
+4. What is a native method?
+
+Answer:
+
+A native method is a method that is implemented in a language other than Java.
+
+
+5. Can an application have multiple classes having main method?
+
+Answer:
+
+Yes. While starting the application we mention the class name to be run. 
+The JVM will look for the main method only in the class whose name you have mentioned. 
+Hence there is not conflict amongst the multiple classes having main method.
+
+
+
+6. When is static variable loaded? Is it at compile time or runtime? When exactly a static block is loaded in Java?
+
+Answer:
+
+Static variable are loaded when classloader brings the class to the JVM. 
+It is not necessary that an object has to be created. 
+Static variables will be allocated memory space when they have been loaded. 
+The code in a static block is loaded/executed only once i.e. when the class is first initialized. 
+A class can have any number of static blocks. Static block is not member of a class, they do not have a return statement 
+and they cannot be called directly. Cannot contain this or super. They are primarily used to initialize static fields.
+
+
+7.If a java class has methods declared 
+as follows
+
+
+class A
+
+public synchronized void m1() {
+    //whatever code
+}
+
+public synchronized void m2 {
+ // whatever code
+
+}
+// note that return type is not relevant here.
+if a class is created with A a = new A() and 
+if a thread T1 is executing a.m1 and another thread T2 wants to execute a,m2 - what will happen?
+
+Answer:
+If both the threads are created on the same object(which is the case in above), then only one of the thread would be able to enter any synchronized methods in that class. Reason being that non-static synchronized methods obtain lock on Object ,and thus say if T1 enters m1() it means it has acquired lock on Object a1 and now if T2 tries to enter m2() it would fail to obtain the lock on a1 and thus would go in wait state. 
+
+Note:If both Threads would have been created on different objects then both threads would have executed m1() and m2() simultaneously.

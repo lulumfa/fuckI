@@ -1,0 +1,10 @@
+1. What technique so these sort algorithms use? Briefly describe how the algorithm performs the sort: (insertion sort, bubble sort, selection sort, quick sort and merge sort) 
+
+Insertion Sort: Each iteration, insertion sort removes one element from the input data, finds the location it belongs within the sorted list, and inserts it there. It repeats until no input elements remain.
+Bubble Sort:  Repeatedly stepping through the list to be sorted, comparing each pair of adjacent items and swapping them if they are in the wrong order.
+Selection Sort:  The algorithm divides the input list into two parts: the sublist of items already sorted, which is built up from left to right at the front (left) of the list, and the sublist of items remaining to be sorted that occupy the rest of the list. The algorithm proceeds by finding the smallest (or largest, depending on sorting order) element in the unsorted sublist, exchanging it with the leftmost unsorted element (putting it in sorted order), and moving the sublist boundaries one element to the right.
+Quick Sort: 1, Pick an element, called a pivot, from the list. 2, Reorder the list so that all elements with values less than the pivot come before the pivot, while all elements with values greater than the pivot come after it (equal values can go either way). After this partitioning, the pivot is in its final position. This is called the partition operation. 3, Recursively apply the above steps to the sub-list of elements with smaller values and separately the sub-list of elements with greater values.
+merge sort: 1, Divide the unsorted list into n sublists, each containing 1 element (a list of 1 element is considered sorted). 2, Repeatedly merge sublists to produce new sorted sublists until there is only 1 sublist remaining. This will be the sorted list.
+
+2. How many queues would it take to use a radix sort to sort the names stored as all lowercase?
+We assume the the longest name has k letters, and there are n names stored. Radix sort will take at most k*(26 + n) times queries.

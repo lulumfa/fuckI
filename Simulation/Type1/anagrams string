@@ -1,0 +1,60 @@
+//Write a method to decide if two strings are anagrams or not
+//From Xin Guo
+
+#include<iostream>
+#include<string>
+#include<vector>
+using namespace std;
+
+void sort(string &s, int start, int end)
+{
+	int mid = ((int)s[start] + (int)s[end])/2;
+	int i = start;
+	int j = end;
+	while(i<=j)
+	{
+		while ((int)s[i] < mid)
+		{
+			++i;
+		}
+		while ((int)s[j] > mid)
+		{
+			--j;
+		}
+		if (i<=j)
+		{
+			char temp = s[i];
+			s[i] = s[j];
+			s[j] = temp;
+			++i;
+			--j;
+		}
+	}
+	if (i<end)
+	{
+		sort(s, i, end);
+	}
+	if (j>start)
+	{
+		sort(s,start,j);
+	}
+}
+
+
+
+int main()
+{
+	string s1 = "abcd";
+	string s2 = "bcad";
+	sort(s1,0,s1.size()-1);
+	sort(s2,0,s2.size()-1);
+	if (s1 == s2)
+	{
+		cout << "yes"<<endl;
+	}
+	else
+	{
+		cout << "No" << endl; 
+	}
+	system("pause");
+}

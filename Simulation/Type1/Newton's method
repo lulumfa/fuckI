@@ -1,0 +1,16 @@
+//Implement Newton's method
+//From Xin Guo
+
+public static float findzero()
+{
+    float delta = 0.01f;
+    float epsilon = 0.00001f;
+    float x = 0.0f;
+    float fxn = f(x);
+    while (Math.abs(fxn) > epsilon) {
+        float fxnp = (f(x+delta) - f(x-delta)) / (2 * delta);
+        x = x - fxn / fxnp;
+        fxn = f(x);
+    }
+    return x;
+}

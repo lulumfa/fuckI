@@ -1,0 +1,23 @@
+//Question: Given two numbers. Write a algorithm to select the larger one without using comparison operator and if sentence.
+//Solution: Using bit manipulate. We first calculate the results of substracting one number from another. Then we judge if this 
+//result is a positive number or a negative number. We should notice that when computer store a signed number, it will use
+//the first bit to indicate the sign of the number (0 means positive and 1 means negative).
+
+#include<iostream>
+
+int main()
+{
+	int a, b;
+	cin>>a;
+	cin>>b;
+	int temp = a-b;
+
+	temp = (temp>>31) & 0x1;
+	cout<<temp<<endl;
+	cout << a+temp*(b-a)<<endl;
+
+
+
+	system("pause");
+
+}

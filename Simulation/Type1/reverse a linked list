@@ -1,0 +1,50 @@
+//Question: reverse a linked list
+//From Xin Guo
+
+
+class node
+{
+public:	
+	node(int n);
+	node* next;
+	int value;
+};
+
+inline node::node(int n)
+{
+	value = n;
+	next = 0;
+}
+
+
+void reverse(node* head)
+{
+	node* pre = 0;
+	node* current = 0;
+	node* next = 0;
+	current = head;
+	while (current != 0)
+	{
+		next = current->next;
+		current->next = pre;
+		pre = current;
+		current = next;
+	}
+
+}
+
+int main()
+{
+	node a = node(1);
+	node b = node(2);
+	node c = node(3);
+	a.next = &b;
+	b.next = &c;
+	node* head = &a;
+	reverse(head);
+
+	cout << c.value<<"	"<<c.next->value<<"	"<<c.next->next->value<<endl;
+	system("pause");
+
+
+}

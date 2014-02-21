@@ -1,0 +1,72 @@
+//Question: Remove duplicate nodes from a linked list
+//From Xin Guo
+
+#include<iostream>
+using namespace std;
+
+class node
+{
+public:
+	node();
+	node(int i);
+	void assign(node &n);
+	int value;
+	node* next;
+};
+
+inline node::node(int i)
+{
+	value = i;
+	next = 0;
+}
+
+inline void node::assign(node &n)
+{
+	next = &n;
+}
+
+void remove(node* head)
+{
+	node* current = head->next;
+	node* pre = head;
+	while(current != 0)
+	{
+		node* iter = head;
+		while(iter != current)
+		{
+			if (iter->value == current->value) break;
+			iter = iter->next;
+		}
+
+		if (iter == current)
+		{			
+			current = current->next;
+			pre = pre->next;
+		}
+		else 
+		{
+			current = current->next;
+			pre->next = current;
+		}
+	}
+
+	
+}
+
+int main()
+{
+	node a(1);
+	node b(2);
+	node c(2);
+	node d(3);
+	a.assign(b);
+	b.assign(c);
+	c.assign(d);
+
+	node* head = &a;
+	remove(head);
+	cout<<a.value<<"	"<<a.next->value<<"    "<<a.next->next->value<<endl;
+	system("pause");
+
+
+}

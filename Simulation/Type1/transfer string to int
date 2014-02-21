@@ -1,0 +1,14 @@
+//Given a string that represent a int (e.g. "3450"). Transfer this string to a int type
+//From Xin Guo
+
+int transfer(string s)
+{
+    char c;
+    int x = 0;
+    for (int i = 0; i < s.size(); ++i)
+    {
+        c = s[i]-'0';
+        x = 10*x + c;
+    }
+    return x;
+}

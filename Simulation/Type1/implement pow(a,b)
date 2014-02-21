@@ -1,0 +1,20 @@
+//Question: Implement pow(a,b)
+//Comments: Very easy but interesing question. A problem asked by Linked in.
+//From Xin Guo
+
+#include<iostream>
+using namespace std;
+
+double pow(double a, double b)
+{
+	return exp(b*log(a));
+}
+
+int main()
+{
+	double a, b;
+	cin>>a;
+	cin>>b;
+	cout <<pow(a,b)<<endl;
+	system("pause");
+}

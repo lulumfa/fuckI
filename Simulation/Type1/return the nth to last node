@@ -1,0 +1,63 @@
+//Implement an algorithm to find the nth to last element of a singly linked list
+//From Xin Guo
+
+#include<iostream>
+using namespace std;
+
+class node
+{
+public:
+	node();
+	node(int i);
+	void assign(node &n);
+	int value;
+	node* next;
+};
+
+inline node::node(int i)
+{
+	value = i;
+	next = 0;
+}
+
+inline void node::assign(node &n)
+{
+	next = &n;
+}
+
+node* find(node* head, int n)
+{
+	node* runner = head;
+	int length = 0;
+	while(runner != 0)
+	{
+		++length;
+		runner = runner->next;
+	}
+	int count = 0;
+	runner = head;
+	while (count<(length-n-1))
+	{
+		++count;
+		runner = runner->next;
+	}
+    return runner;
+}
+
+int main()
+{
+	node a(1);
+	node b(2);
+	node c(2);
+	node d(3);
+	a.assign(b);
+	b.assign(c);
+	c.assign(d);
+
+	node* head = &a;
+	node* output = find(head,3);
+	cout<<output->value<<endl;
+	system("pause");
+
+
+}

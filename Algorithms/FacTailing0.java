@@ -1,6 +1,34 @@
 package Cracking;
 
 public class FacTailing0 {
+	package Leet;
+// better way, from cc
+// complexity, O(logn), actually base is 5;, count 5 inorder to get tailing 0,and careful about the 25, 125,...
+public class CountTailingZeroFromFac {
+
+	public static int countTailingZero(int n)
+	{
+		if(n<0)
+		{
+			System.out.println("Input should be non-negative!");
+		}
+		int count=0;
+		for(int i=5; n/i>0; i*=5)
+		{
+			count+= n/i;
+		}
+		return count;
+	}
+	public static void main(String args[])
+	{
+		System.out.println(countTailingZero(11));
+	}
+}
+
+	
+	
+	
+	// worse way, O(n)
 	public static void main(String args[])
 	{
 		int output = facTailing0(0);

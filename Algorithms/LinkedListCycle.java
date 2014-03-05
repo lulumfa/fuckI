@@ -29,6 +29,9 @@ public class Solution {
 
 //Given a linked list, return the node where the cycle begins. If there is no cycle, return null.
 
+// ZThe first joint node you found is NOT the beginning!!! the rest(R) of the cycle is equal to the L1(distance before the cycle)
+
+// S2 = S1+R+ S1-L1, S2=2*S1, so L1=R
 
 /**
  * Definition for singly-linked list.

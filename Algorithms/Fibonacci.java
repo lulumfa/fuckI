@@ -2,6 +2,11 @@ package Leet;
 
 public class Fibonacci 
 {
+	//!! log(n) algorithm
+	//http://tech-queries.blogspot.com/2010/09/nth-fibbonacci-number-in-ologn.html
+	
+	
+	
 	// recursive way
 	public int getFib(int n)
 	{
@@ -36,5 +41,5 @@ public class Fibonacci
 		for (int j=2; j<=i; j++)
 		fib[j]=fib[j-1]+fib[j-2];
 		return fib[i];
-		}
+	}
 }

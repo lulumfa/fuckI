@@ -33,24 +33,27 @@ public class BinaryTreePostorderTraversal {
         return solution;
     }
     
-    public static ArrayList<Integer> postorderTraversalIterative(TreeNode root) {
-        ArrayList<Integer> solution = new ArrayList<Integer>();
-        if(root==null) return solution;
-        Stack<TreeNode> childStack = new Stack<TreeNode>();
-        Stack<TreeNode> parentStack = new Stack<TreeNode>();
-        childStack.push(root);
-        TreeNode peekNode;
-        while(!childStack.empty()){
-            peekNode = childStack.peek();
-            parentStack.push(childStack.pop());
-            if(peekNode.left!=null) childStack.push(peekNode.left);
-            if(peekNode.right!=null) childStack.push(peekNode.right);
+    public ArrayList<Integer> postorderTraversal(TreeNode root) 
+    {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(root==null) return res;
+        Stack<TreeNode> stack1 = new Stack<TreeNode>();
+        Stack<TreeNode> stack2 = new Stack<TreeNode>();
+        stack2.push(root);
+        TreeNode node;
+        while(!stack1.empty()||!stack2.empty())
+        {
+            if(!stack2.empty())
+            {
+                node = stack2.pop();
+                stack1.push(node);
+                if(node.left!=null) stack2.push(node.left);
+                if(node.right!=null) stack2.push(node.right);
+            }
+            else res.add(stack1.pop().val);
         }
-        while(!parentStack.empty()){
-            solution.add(parentStack.pop().val);
-        }
-        return solution;
-  }
+        return res;
+    }
 }
 
 // Iterative way with one stack, wiki

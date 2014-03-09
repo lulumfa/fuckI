@@ -1,3 +1,6 @@
+
+//http://www.programcreek.com/2013/03/leetcode-lru-cache-java/ 
+
 import java.util.HashMap;
  
 public class LRUCache {

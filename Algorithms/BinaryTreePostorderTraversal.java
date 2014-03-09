@@ -114,3 +114,43 @@ public class Solution
         res.add(root.val);
     }
 }
+
+// my while method
+public ArrayList<Integer> postorderTraversal(TreeNode root) {
+        ArrayList<Integer> res = new ArrayList<Integer>();
+        if(root==null) return res;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.push(root);
+        TreeNode temp; 
+        TreeNode pre=null;
+        while(!stack.empty())
+        {
+            temp = stack.peek();
+            if(temp.right==null&&temp.left==null)
+            {
+                pre = stack.pop();
+                res.add(pre.val);
+            }
+            if(temp.right!=null&& temp.right!=pre)
+            {
+                stack.push(temp.right);
+            }
+            else if(temp.right!=null&&temp.right==pre) 
+            {
+                pre = stack.pop();
+                res.add(pre.val);
+                continue;
+            }
+            if(temp.left!=null&& temp.left!=pre)
+            {
+                stack.push(temp.left);
+            }
+            else if(temp.left!=null&&temp.left==pre) 
+            {
+                pre = stack.pop();
+                res.add(pre.val);
+                continue;
+            }
+        }
+        return res;
+    }

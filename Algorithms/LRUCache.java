@@ -1,5 +1,7 @@
-
 //http://www.programcreek.com/2013/03/leetcode-lru-cache-java/ 
+// 实现LRU需要使用一个hash map和一个双向链表，map用于O(1)时间内查早指定元素是否在cache里，
+// 而双向链表则允许在O(1)时间内将一个指定节点移到表头和删除尾部节点。如果使用数组的话，那么把一个元素移到表头，
+//或者在表头插入新元素，都会用O(N)时间。
 
 import java.util.HashMap;
  

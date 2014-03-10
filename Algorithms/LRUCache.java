@@ -3,6 +3,19 @@
 // 而双向链表则允许在O(1)时间内将一个指定节点移到表头和删除尾部节点。如果使用数组的话，那么把一个元素移到表头，
 //或者在表头插入新元素，都会用O(N)时间。
 
+// what is LRU, http://en.wikipedia.org/wiki/Cache_algorithms
+
+// Least Recently Used (LRU): discards the least recently used items first. 
+// This algorithm requires keeping track of what was used when, which is expensive if one wants to make sure 
+// the algorithm always discards the least recently used item. General implementations of this technique require 
+// keeping "age bits" for cache-lines and track the "Least Recently Used" cache-line based on age-bits. 
+// In such an implementation, every time a cache-line is used, the age of all other cache-lines changes. 
+// LRU is actually a family of caching algorithms with members including
+
+// Compare with FIFO
+
+//http://stackoverflow.com/questions/2058403/why-is-lru-better-than-fifo
+// 
 import java.util.HashMap;
  
 public class LRUCache {

@@ -84,6 +84,7 @@ public class Solution
                 {
                     res.add(stack.pop().val);
                     lastVisitedNode = peek;
+                    // break here when iteration
                 }
             }
         }

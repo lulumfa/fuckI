@@ -51,3 +51,20 @@ public Node reverse(Node current)
  nextItem.next = current; // nextItem will always be the one before the new last one
  return reverseRest;
 }
+	
+public static Node reverse(Node root)
+{
+	if(root==null) return root;
+	Node head = new Node(0);
+	head.next = root;
+	Node current = root;
+	Node temp;
+	while(current.next!=null)
+	{
+		temp = current.next;
+		current.next=temp.next;
+		temp.next = head.next;
+		head.next = temp;
+	}
+	return head.next;
+}

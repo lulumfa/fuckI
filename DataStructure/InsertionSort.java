@@ -6,6 +6,8 @@ Stable; i.e., does not change the relative order of elements with equal keys
 In-place; i.e., only requires a constant amount O(1) of additional memory space
 Online; i.e., can sort a list as it receives it
 */
+
+// http://en.wikipedia.org/wiki/Insertion_sort
 public class InsertionSort{
   public static void main(String a[]){
     int i;

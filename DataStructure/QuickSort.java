@@ -10,6 +10,8 @@ Average case performance	O(n log n)
 Worst case space complexity	O(n) auxiliary (naive)
 O(log n) auxiliary (Sedgewick 1978)
 */
+
+// http://en.wikipedia.org/wiki/Quicksort
 public class Quicksort  {
   private int[] numbers;
   private int number;

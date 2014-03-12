@@ -7,6 +7,8 @@ O(n) natural variant
 Average case performance	O(n log n)
 Worst case space complexity	O(n) auxiliary
 */
+
+// http://en.wikipedia.org/wiki/Merge_sort
 public class Mergesort {
   private int[] numbers;
   private int[] helper;

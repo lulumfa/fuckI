@@ -5,6 +5,7 @@ Average case performance	O(n^2)
 Worst case space complexity	O(1) auxiliary
 */
 
+// http://en.wikipedia.org/wiki/Bubble_sort
 public class TestBubbleSort {
     public static void main(String[] args) {
         int unsortedArray[] = {10, 97, 6, 23, 0, -45, 697, -1000, 1, 0}; //Random set of numbers for example.

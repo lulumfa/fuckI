@@ -2,6 +2,7 @@ package leetcode;
 
 import leetcode.FlattenBinaryTreeToLinkedList.TreeNode;
 
+// recursive way
 public class MinimumDepthOfBinaryTree {
 	public class TreeNode {
 	      int val;
@@ -20,3 +21,6 @@ public class MinimumDepthOfBinaryTree {
 	        return Math.min(leftMin, rightMin) +1;
     	}
 }
+
+
+// or non-recursive way, DFS, queue, find the first node.left/ node.right == null

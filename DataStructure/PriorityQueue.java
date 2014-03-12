@@ -1,3 +1,4 @@
+// http://en.wikipedia.org/wiki/Priority_queue
 
 /**
  * This class implements a priority queue that fits into

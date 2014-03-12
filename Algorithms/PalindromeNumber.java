@@ -1,3 +1,5 @@
+//http://www.programcreek.com/2013/02/leetcode-palindrome-number-java/
+
 public class Solution {
     public boolean isPalindrome(int x) {
         //negative numbers are not palindrome

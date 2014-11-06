@@ -8,68 +8,47 @@
  * }
  */
 public class Solution {
-    public int maxPoints(Point[] points) 
-    {
-        if(points ==null) return 0;
-        int len = points.length;
-        if(len<=2) return len;
-        int res = 2;
-        ArrayList<Integer> temp = new ArrayList<Integer>();
-        int[] convert;
-        int count = 0;
-        for(int i =0; i< len; i++)
-        {
-            int dup = 1;
-            temp.clear();
-            for(int j = 0; j< len; j++)
-            {
-                if(i==j) continue;
-              
-                if(points[i].x==points[j].x)
-                {
-                    if(points[i].y==points[j].y)
-                    {
-                        dup++;
+    public int maxPoints(Point[] points) {
+        if(points==null || points.length==0) return 0;
+        if(points.length==1) return 1;
+        
+        HashMap<Double, Integer> map = new HashMap<Double, Integer>();
+        Point a, b;
+        int max = 1;
+        int temp = 1;
+        double k;
+        for(int i=0; i< points.length; i++) {
+            map.clear();
+            temp = 1;
+            a = points[i];
+            for(int j = 0; j< points.length; j++) {
+                b = points[j];
+                if(i==j) {
+                    continue;
+                }
+                if(a.x==b.x && a.y==b.y) {
+                    temp++;
+                } else {
+                    
+                    if(a.x==b.x) {
+                        k = Double.MAX_VALUE;
+                    } else {
+                        k = ((double)b.y-(double)a.y)/((double)a.x-(double)b.x);
                     }
-                    else
-                    {
-                        temp.add(9999);
+                    if(map.containsKey(k)) {
+                        map.put(k, map.get(k)+1);
+                    }else {
+                        map.put(k, 1);
                     }
                 }
-                else
-                {
-                    temp.add(10000*(points[i].y-points[j].y)/(points[i].x-points[j].x));
-                }
             }
-            if(dup==len) return len;
-            if(temp.size()==0) continue;
-            convert = new int[temp.size()];
-            for(int k=0; k < temp.size(); k++)
-            {
-                convert[k] = temp.get(k);
+            int count = 0;
+            for(Integer num : map.values()) {
+                if(num>count) count = num;
             }
-            Arrays.sort(convert);
-            count = 1;
-            for(int k=1; k< convert.length;k++)
-            {
-                if(convert[k-1]==convert[k])
-                {
-                    count++; 
-                }
-                else
-                {
-                    if((count+dup)>res)
-                    {
-                        res = count+dup;
-                    }
-                    count=1;
-                }
-            }
-            if((count+dup)>res)
-            {
-                res = count+dup;
-            }
+            count += temp;
+            max = Math.max(count, max);
         }
-        return res;
+        return max;
     }
 }

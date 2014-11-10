@@ -1,3 +1,73 @@
+// my solution
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode sortList(ListNode head) {
+        if(head ==null || head.next==null) return head;
+        int length = getLength(head);
+        int middle = length/2;
+        ListNode temp = head;
+        for(int i=0; i<middle-1; i++) {
+            temp = temp.next;
+        }
+        ListNode post = temp.next;
+        temp.next = null;
+        ListNode pre = sortList(head);
+        post = sortList(post);
+        return merge(pre, post);
+    }
+    
+    public int getLength(ListNode node) {
+        int length = 0;
+        ListNode temp = node;
+        while(temp!=null) {
+            length++;
+            temp = temp.next;
+        }
+        return length;
+    }
+    public ListNode merge(ListNode node1, ListNode node2) {
+        ListNode head;
+        if(node1.val <= node2.val) {
+            head = node1;
+            node1 = node1.next;
+        } else {
+            head = node2;
+            node2 = node2.next;
+        }
+        ListNode temp = head;
+        while(node1!=null && node2!=null) {
+            if(node1.val <= node2.val) {
+                temp.next = node1;
+                node1 = node1.next;
+            } else {
+                temp.next = node2;
+                node2 = node2.next;
+            }
+            temp = temp.next;
+        }
+        if(node1==null) {
+            temp.next = node2;
+        } else {
+            temp.next = node1;
+        }
+        return head;
+        
+    }
+    
+}
+
+
+
 /**
  * Definition for singly-linked list.
  * class ListNode {

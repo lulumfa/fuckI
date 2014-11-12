@@ -60,3 +60,46 @@ class ListNode {
         val = x;
     }
 }
+
+// using only one ListNode
+
+class MinStack {
+    ListNode stackHead;
+    public void push(int x) {
+        ListNode temp = new ListNode(x);
+        temp.next = stackHead;
+        if(stackHead==null) {
+            stackHead = temp;
+            stackHead.min = x;
+        } else {
+            stackHead = temp;
+            stackHead.min = Math.min(stackHead.next.min, x);
+        }
+        
+    }
+
+    public void pop() {
+        if(stackHead!=null) {
+            stackHead  = stackHead.next;
+        } 
+    }
+
+    public int top() {
+        return stackHead ==null ? 0 : stackHead.val;
+    }
+
+    public int getMin() {
+        return stackHead==null ? 0 : stackHead.min;
+    }
+}
+
+class ListNode {
+    int val;
+    int min;
+    ListNode next;
+    
+    ListNode(int x) {
+        val = x;
+    }
+}
+

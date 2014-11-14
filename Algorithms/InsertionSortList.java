@@ -1,6 +1,35 @@
 package leetcode;
 
-
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode insertionSortList(ListNode head) {
+        if(head==null || head.next==null) return head;
+        ListNode cap = new ListNode(0);
+        ListNode temp = cap;
+        ListNode next;
+        while(head!=null) {
+            while(temp.next!=null && temp.next.val <=head.val) {
+                temp = temp.next;
+            }
+            next = head.next;
+            head.next = temp.next;
+            temp.next = head;
+            head = next;
+            temp = cap;
+        }
+        return cap.next;
+    }
+}
 //More efficient in practice than most other simple quadratic (i.e., O(n2)) 
 //algorithms such as selection sort or bubble sort; the best case (nearly sorted input) is O(n)
 public class InsertionSortList.java  {

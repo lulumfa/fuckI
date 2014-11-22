@@ -119,6 +119,39 @@ public class Solution
     }
 }
 
+
+// my better iterative way
+
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> result = new ArrayList<Integer>();
+        if(root==null) return result;
+        
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode node = root;
+        TreeNode temp;
+        TreeNode pre = null;
+        while(!stack.isEmpty() || node!=null) {
+            if(node!=null) {
+                stack.push(node);
+                node = node.left;
+            } else {
+                temp = stack.peek();
+                if(temp.right==null || temp.right == pre) {
+                    temp = stack.pop();
+                    result.add(temp.val);
+                    pre = temp;
+                } else {
+                    stack.push(temp.right);
+                    node = temp.right.left;
+                }
+            }
+        }
+        return result;
+    }
+}
+
+
 // my while method
 public ArrayList<Integer> postorderTraversal(TreeNode root) {
         ArrayList<Integer> res = new ArrayList<Integer>();

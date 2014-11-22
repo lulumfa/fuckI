@@ -11,46 +11,51 @@
  */
 public class Solution {
     public void reorderList(ListNode head) {
-        // IMPORTANT: Please reset any member data you declared, as
-        // the same Solution instance will be reused for each test case.
-        if(head ==null|| head.next==null) return;
-        int count =0;
-        ListNode temp = head;
-        while(temp!=null){
-            count++;
-            temp = temp.next;
-        }
-        int partition;
-        if(count%2==0) partition = count/2-1;
-        else partition = count/2;
-        ListNode cursor = head;
-        for(int i=0;i<partition;i++){
-            cursor = cursor.next;
-        }
-        ListNode sec = cursor.next;
-        cursor.next=null;
-        sec = reverse(sec);
-        //merge
-        cursor = head;
-        while(sec!=null){
-            ListNode tmp1 = cursor.next;
-            ListNode tmp2 = sec.next;
-            cursor.next= sec;
-            sec.next = tmp1;
-            sec = tmp2;
-            cursor = cursor.next.next;
-        }
-    }
-    public ListNode reverse(ListNode node){
-        if(node==null ||node.next==null )return node;
-        ListNode pre = new ListNode(1);
-        pre.next = node;
-        while(node.next!=null){
-            ListNode temp = node.next;
-            node.next = node.next.next;
-            temp.next = pre.next;
-            pre.next = temp;
-        }
-        return pre.next;
+        if (head == null || head.next == null)
+			return;
+
+		// partition the list into 2 sublists of equal length
+		ListNode slowNode = head, fastNode = head;
+		while (fastNode.next != null) {
+			fastNode = fastNode.next;
+			if (fastNode.next != null) {
+				fastNode = fastNode.next;
+			} else {
+				break;
+			}
+			slowNode = slowNode.next;
+		}
+		// 2 sublist heads
+		ListNode head1 = head, head2 = slowNode.next;
+		// detach the two sublists
+		slowNode.next = null;
+
+		// reverse the second sublist
+		ListNode cur = head2, post = cur.next;
+		cur.next = null;
+		while (post != null) {
+			ListNode temp = post.next;
+			post.next = cur;
+			cur = post;
+			post = temp;
+		}
+		head2 = cur; // the new head of the reversed sublist
+
+		// merge the 2 sublists as required
+		ListNode p = head1, q = head2;
+		while (q != null) {
+		    if(p.next== null) {
+		        p.next = q;
+		        if(q.next!=null) q = q.next;
+		        q.next = null;
+		        break;
+		    }
+			ListNode temp1 = p.next;
+			ListNode temp2 = q.next;
+			p.next = q;
+			q.next = temp1;
+			p = temp1;
+			q = temp2;
+		}
     }
 }

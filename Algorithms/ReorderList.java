@@ -11,51 +11,40 @@
  */
 public class Solution {
     public void reorderList(ListNode head) {
-        if (head == null || head.next == null)
-			return;
-
-		// partition the list into 2 sublists of equal length
-		ListNode slowNode = head, fastNode = head;
-		while (fastNode.next != null) {
-			fastNode = fastNode.next;
-			if (fastNode.next != null) {
-				fastNode = fastNode.next;
-			} else {
-				break;
-			}
-			slowNode = slowNode.next;
-		}
-		// 2 sublist heads
-		ListNode head1 = head, head2 = slowNode.next;
-		// detach the two sublists
-		slowNode.next = null;
-
-		// reverse the second sublist
-		ListNode cur = head2, post = cur.next;
-		cur.next = null;
-		while (post != null) {
-			ListNode temp = post.next;
-			post.next = cur;
-			cur = post;
-			post = temp;
-		}
-		head2 = cur; // the new head of the reversed sublist
-
-		// merge the 2 sublists as required
-		ListNode p = head1, q = head2;
-		while (q != null) {
-		    if(p.next== null) {
-		        p.next = q;
-		        if(q.next!=null) q = q.next;
-		        q.next = null;
-		        break;
-		    }
-			ListNode temp1 = p.next;
-			ListNode temp2 = q.next;
-			p.next = q;
-			q.next = temp1;
-			p = temp1;
-			q = temp2;
-		}
+        if(head==null || head.next==null) return;
+        ListNode slow = head, fast = head;
+        while(fast.next!=null) {
+            fast = fast.next;
+            if(fast.next!=null) {
+                fast = fast.next;
+            }else {
+                break;
+            }
+            slow = slow.next;
+        }
+        ListNode head1 = head;
+        ListNode head2 = slow.next;
+        slow.next = null;
+        ListNode pin = head2.next;
+        head2.next = null;
+        ListNode temp;
+        while(pin!=null) {
+            temp = pin.next;
+            pin.next = head2;
+            head2 = pin;
+            pin = temp;
+        }
+        
+        //combime the 2. q has equal or longer list
+        ListNode p = head1;
+        ListNode q = head2;
+        while(q!=null) {
+            ListNode pnext = p.next;
+            ListNode qnext = q.next;
+            p.next = q;
+            q.next = pnext;
+            p = pnext;
+            q = qnext;
+        }
     }
 }

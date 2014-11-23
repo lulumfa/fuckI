@@ -1,22 +1,20 @@
 public class Solution {
     public boolean wordBreak(String s, Set<String> dict) {
-	    ArrayList<Integer> dP = new ArrayList<Integer>();
-	    for(int i=s.length()-1;i>=0;i--){
-	        if(dict.contains(s.substring(i))){
-	            dP.add(i);
-	        }else{
-	            for(Integer k: dP){
-	                if(dict.contains(s.substring(i,k))) {
-	                    dP.add(i);
-	                    break;
-	                }
-	            }
-	        }
-	    }
-	    if(dP.size()==0) return false;
-	    if(dP.get(dP.size()-1)==0) return true;
-	    
-        return false;
+        if(s==null || dict==null) return false;
+        ArrayList<Integer> index = new ArrayList<Integer>();
+        for(int i= s.length()-1; i>=0; i--) {
+            if(dict.contains(s.substring(i))) {
+                index.add(i);
+            } else {
+                for(Integer j: index) {
+                    if(dict.contains(s.substring(i,j))) {
+                        index.add(i);
+                        break;
+                    }
+                }
+            }
+        }
+        return index.size()>0 && index.get(index.size()-1) ==0;
 	}
 }
 

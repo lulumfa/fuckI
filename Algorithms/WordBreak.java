@@ -20,6 +20,33 @@ public class Solution {
 
 //output all the possible solutions
 
+// THis is my solution, during the process I had concurrentmodificationexception since adding new element in a list while iterate a list
+// solution refers to http://www.journaldev.com/378/how-to-avoid-concurrentmodificationexception-when-using-an-iterator
+// using concurrent hashmap and sth, need learning
+public class Solution {
+    public List<String> wordBreak(String s, Set<String> dict) {
+        List<String> result = new ArrayList<String>();
+        if(s==null || dict==null) return result;
+        HashMap<Integer, ArrayList<String>> dp = new HashMap<Integer, ArrayList<String>>();
+        for(int i= s.length()-1; i>=0; i--) {
+            dp.put(i, new ArrayList<String>());
+            if(dict.contains(s.substring(i))) {
+                dp.get(i).add(s.substring(i));
+            }
+            for(Integer j: dp.keySet()) {
+                if(dp.get(j).size()>0 && dict.contains(s.substring(i, j))) {
+                    for(String str: dp.get(j)){
+                        dp.get(i).add(s.substring(i, j) + " " + str);
+                    }
+                }
+            }
+
+        }
+        if(dp.get(0)==null) return result;
+        return dp.get(0);
+    }
+}
+
 //http://luyuleetcode.blogspot.com/2014/01/word-break-ii.html
 
 //http://www.cnblogs.com/lautsie/p/3373108.html

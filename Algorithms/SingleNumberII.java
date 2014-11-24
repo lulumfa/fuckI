@@ -16,7 +16,22 @@ public class Solution {
 	}
 }
 
+// my solution
 
+public class Solution {
+    public int singleNumber(int[] A) {
+       int result = 0;
+       if(A==null) return result;
+       int[] bit = new int[32];
+       for(int i=0; i<32; i++) {
+           for(Integer a: A) {
+               bit[i]+=(a>>i) & 1;
+           }
+           result|=(bit[i]%3)<<i;
+       }
+       return result;
+    }
+}
 // Time: O(n), space: O(1)
 	// 基本思想是每个数都可以表示成二进制形式，进而统计每个数在每一位出现的次数
 	public static int singleNumber2(int[] A) {

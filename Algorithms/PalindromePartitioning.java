@@ -1,3 +1,50 @@
+//my solution, using dp to store the int[][] list of the ifPalindrome so that saving the compute for the check isPalindrome in the looping
+
+// reference: http://blog.csdn.net/worldwindjp/article/details/22042133
+
+public class Solution {
+    public ArrayList<ArrayList<String>> partition(String s) {
+        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
+        if(s==null || s.length()==0) return result;
+        int[][] palindrome = new int[s.length()][s.length()];
+        ArrayList<String> array = new ArrayList<String>();
+        dpCheckPalindrome(s, palindrome);
+        dpSegamentation(s, 0, palindrome, array, result);
+        
+        return result;
+    }
+    
+    private void dpCheckPalindrome(String s, int[][] palindrome) {
+        if(s==null || s.length()==0 || palindrome ==null) return ;
+        for(int i = s.length()-1; i >=0; i--) {
+            for(int j = i; j<s.length(); j++) {
+                if(s.charAt(i) == s.charAt(j)) {
+                    if(j-i <=2 || palindrome[i+1][j-1]==1) palindrome[i][j] =1;
+                }
+            }
+        }
+        
+    }
+    
+    private void dpSegamentation(String s, int start, int[][] palindrome, ArrayList<String> array, ArrayList<ArrayList<String>> result) {
+            if(start == s.length()) {
+                ArrayList<String> copy = new ArrayList<String>(array);
+                result.add(copy);
+                return;
+            }
+            for(int i = start; i< s.length(); i++) {
+                if(palindrome[start][i]==1) {
+                    array.add(s.substring(start, i+1));
+                    dpSegamentation(s, i+1, palindrome, array, result);
+                    array.remove(array.size()-1);
+                }
+            }
+        
+        }
+    
+}
+
+
 // http://www.programcreek.com/2013/03/leetcode-palindrome-partitioning-java/
 
 public class Solution {

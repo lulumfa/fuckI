@@ -1,3 +1,28 @@
+// dp 
+
+// reference: http://blog.csdn.net/worldwindjp/article/details/22066307
+
+public class Solution {
+    public int minCut(String s) {
+        if(s==null || s.length()<=1) return 0;
+        int[] dpMinCut = new int[s.length()+1];
+        int[][] dpPalindrome = new int[s.length()][s.length()];
+        for(int i = s.length()-1; i>=0; i--) {
+            dpMinCut[i] = s.length()-i;
+            for(int j = i; j< s.length(); j++) {
+                if(s.charAt(i) == s.charAt(j)) {
+                    if(j-i<=2 || dpPalindrome[i+1][j-1] ==1 ){
+                        dpPalindrome[i][j] = 1;
+                        dpMinCut[i] = Math.min(dpMinCut[i], dpMinCut[j+1] + 1);
+                    }
+                }
+            }
+        }
+        return dpMinCut[0]-1;
+    }
+}
+
+
 // http://www.cnblogs.com/feiling/p/3245919.html
 
 public class Solution {

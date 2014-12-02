@@ -1,4 +1,31 @@
-public class Solution 
+public class Solution {
+    public boolean isPalindrome(String s) {
+        if(s==null) return false;
+        if(s.length()<=1) return true;
+        int start  = 0;
+        int end = s.length()-1;
+        s = s.toLowerCase();
+        while(start<end) {
+            while(!isAlphanumeric(s.charAt(start))) {
+                start++;
+                if(start>=end) return true;
+            }
+            while(!isAlphanumeric(s.charAt(end))) {
+                end--;
+                if(start>=end) return true;
+            }
+            if(s.charAt(start) != s.charAt(end)) return false;
+            start++;
+            end--;
+        }
+        return true;
+    }
+    private boolean isAlphanumeric(char c) {
+        return (c>='a' && c<= 'z') || (c>='0' && c<= '9');
+    }
+}
+
+class Solution 
 {
 
 //alphanumeric characters  means numerical and alphabetical

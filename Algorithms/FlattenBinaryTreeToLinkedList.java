@@ -1,3 +1,30 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void flatten(TreeNode root) {
+        if(root==null) return;
+        TreeNode header = new TreeNode(0);
+        TreeNode temp;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.push(root);
+        while(!stack.isEmpty()) {
+            temp = stack.pop();
+            header.right = temp;
+            if(temp.right!=null) stack.push(temp.right);
+            if(temp.left!=null) stack.push(temp.left);
+            temp.left = null;
+            header = header.right;
+        }
+    }
+}
+
 package leetcode;
 
 import java.util.ArrayList;

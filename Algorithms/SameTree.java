@@ -7,21 +7,11 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
- 
- //简单题，树的递归。
 public class Solution {
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        if (p == null && q == null) return true;
-        if (p != null && q != null) {
-            if (p.val == q.val &&
-                isSameTree(p.left, q.left) &&
-                isSameTree(p.right, q.right))
-                return true;                
-        }
-         
-        return false;
+       if(p==null && q==null) return true;
+       if(p==null || q==null || p.val!=q.val) return false;
+       return isSameTree(p.left, q.left) && isSameTree(p.right, q.right); 
     }
 }
 

@@ -38,28 +38,33 @@ Iterative Solution
  */
 public class Solution {
     public boolean isSymmetric(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
         if(root==null) return true;
-        LinkedList<TreeNode> l = new LinkedList<TreeNode>(),
-                            r = new LinkedList<TreeNode>();
-        l.add(root.left);
-        r.add(root.right);
-        while(!l.isEmpty() && !r.isEmpty()){
-            TreeNode temp1=l.poll(),
-                     temp2=r.poll();
-            if(temp1==null && temp2!=null || temp1!=null && temp2==null)
-                return false;
-            if(temp1!=null){
-                if(temp1.val!=temp2.val) return false;
-                l.add(temp1.left);
-                l.add(temp1.right);
-                r.add(temp2.right);
-                r.add(temp2.left);
+        if(root.left==null && root.right==null) return true;
+        if(root.left==null || root.right==null) return false;
+        Queue<TreeNode> q1 = new LinkedList<TreeNode>();
+        Queue<TreeNode> q2 = new LinkedList<TreeNode>();
+        q1.offer(root.left);
+        q2.offer(root.right);
+        TreeNode n1;
+        TreeNode n2;
+        while(!q1.isEmpty()) {
+            n1 = q1.poll();
+            n2 = q2.poll();
+            if(n1.val!=n2.val) return false;
+            if(n1.left!=null && n2.right==null || n1.left==null && n2.right!=null || n1.right!=null && n2.left==null || n1.right==null && n2.left!=null) return false;
+            
+            if(n1.left!=null && n2.right!=null) {
+                q1.offer(n1.left);
+                q2.offer(n2.right);
+            }
+            if(n1.right!=null && n2.left!=null) {
+                q1.offer(n1.right);
+                q2.offer(n2.left);
             }
         }
         return true;
     }
+
 }
 
 

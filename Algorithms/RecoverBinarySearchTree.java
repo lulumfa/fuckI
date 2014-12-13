@@ -1,3 +1,5 @@
+//reference: http://blog.csdn.net/linhuanmars/article/details/24566995
+
 /**
  * Definition for binary tree
  * public class TreeNode {
@@ -7,36 +9,32 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
- 
- ////http://yucoding.blogspot.com/2013/03/leetcode-question-75-recover-binary.html
 public class Solution {
-    TreeNode prev;
-     
     public void recoverTree(TreeNode root) {
-        if(root == null)    return;
-         
-        ArrayList<TreeNode> wrongList = new ArrayList<TreeNode>();
-        prev = null;
-        inOrder(root, wrongList);
-         
-        int tmp = wrongList.get(0).val;
-        wrongList.get(0).val = wrongList.get(wrongList.size() - 1).val;
-        wrongList.get(wrongList.size() - 1).val = tmp;
- 
-    }
-     
-    public void inOrder(TreeNode node, ArrayList<TreeNode> wrongList) {
-        if(node == null)    return;
-         
-        inOrder(node.left, wrongList);
-         
-        // if found
-        if(prev != null && prev.val > node.val) {
-            if(!(wrongList.contains(prev))) wrongList.add(prev);
-            if(!(wrongList.contains(node))) wrongList.add(node);
+        if(root==null) return;
+        ArrayList<TreeNode> result = new ArrayList<TreeNode>();
+        ArrayList<TreeNode> pre = new ArrayList<TreeNode>();
+        pre.add(null);
+        helper(root, result, pre);
+        if(result.size()!=0) {
+            int swap =result.get(0).val;
+            result.get(0).val = result.get(1).val;
+            result.get(1).val = swap;
         }
-        prev = node;
-         
-        inOrder(node.right, wrongList);
+    }
+    
+    private void helper(TreeNode root, ArrayList<TreeNode> result, ArrayList<TreeNode> pre) {
+        if(root==null) return;
+        if(root.left!=null) helper(root.left, result, pre);
+        if(pre.get(0)!=null && pre.get(0).val>root.val) {
+            if(result.size()==0) {
+                result.add(pre.get(0));
+                result.add(root);
+            } else {
+                result.set(1, root);
+            }
+        }
+        pre.set(0, root);
+        if(root.right!=null) helper(root.right, result, pre);
     }
 }

@@ -1,3 +1,31 @@
+//reference: http://blog.csdn.net/linhuanmars/article/details/23810735
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        ArrayList<TreeNode> pre = new ArrayList<TreeNode>();
+        pre.add(null);
+        return helper(root, pre);
+    }
+    
+    private boolean helper(TreeNode node, ArrayList<TreeNode> pre) {
+        if(node==null) return true;
+        boolean left = helper(node.left, pre);
+        if(pre.get(0)!=null && node.val<=pre.get(0).val) return false;
+        pre.set(0, node);
+        return left && helper(node.right, pre);
+        
+    }
+}
+
 /**
  * Definition for binary tree
  * public class TreeNode {

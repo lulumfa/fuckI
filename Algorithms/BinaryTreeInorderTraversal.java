@@ -1,3 +1,35 @@
+// reference: http://blog.csdn.net/linhuanmars/article/details/22009351
+// Morris 
+
+public class Solution {
+    public List<Integer> inorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        TreeNode pre = null;
+        TreeNode cur = root;
+        
+        while(cur!=null) {
+            if(cur.left==null) {
+                res.add(cur.val);
+                cur = cur.right;
+            } else {
+                pre = cur.left;
+                while(pre.right!=null && pre.right!=cur) {
+                    pre = pre.right;
+                }
+                if(pre.right==null) {
+                    pre.right = cur;
+                    cur = cur.left;
+                } else {
+                    pre.right=null;
+                    res.add(cur.val);
+                    cur = cur.right;
+                }
+            }
+        }
+        return res;
+    }
+}
+
 package leetcode;
 
 import java.util.ArrayList;

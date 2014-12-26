@@ -1,3 +1,50 @@
+//reference: http://blog.csdn.net/linhuanmars/article/details/24286377
+public class Solution {
+    public List<List<Integer>> subsets(int[] num) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(num==null) return res;
+        res.add(new ArrayList<Integer>());
+        Arrays.sort(num);
+        for(int i = 0; i<num.length; i++) {
+            int size = res.size();
+            for(int j = 0; j<size; j++) {
+                List<Integer> set = new ArrayList<Integer>(res.get(j));
+                set.add(num[i]);
+                res.add(set);
+            }
+        }
+        return res;
+    }
+}
+
+// subsetsII
+// reference: http://blog.csdn.net/linhuanmars/article/details/24613193
+public class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] num) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(num==null) return res;
+        res.add(new ArrayList<Integer>());
+        Arrays.sort(num);
+        int start = 0;
+        for(int i = 0; i<num.length; i++) {
+            int size = res.size();
+            for(int j = start; j<size; j++) {
+                List<Integer> set = new ArrayList<Integer>(res.get(j));
+                set.add(num[i]);
+                res.add(set);
+            }
+            if(i+1< num.length && num[i+1]==num[i]) {
+                start = size;
+            } else {
+                start = 0;
+            }
+        }
+        return res;
+    }
+}
+
+
+
 // http://www.programcreek.com/2013/01/leetcode-subsets-java/
 // Given a set S of n distinct integers, there is a relation between Sn and Sn-1. The subset of Sn-1 is the union of {subset of Sn-1} and {each element in Sn-1 + one more element}. Therefore, a Java solution can be quickly formalized.
 

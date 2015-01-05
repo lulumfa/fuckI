@@ -1,4 +1,4 @@
-// reference: 
+// reference: http://blog.csdn.net/linhuanmars/article/details/24389429
 
 /**
  * Definition for singly-linked list.

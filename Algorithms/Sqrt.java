@@ -1,14 +1,16 @@
+//reference: http://blog.csdn.net/linhuanmars/article/details/20089131
+
 public class Solution {
     public int sqrt(int x) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
         if(x<0) return -1;
-        if(x==0) return 0;
-        
-        double y = ((double)x)/2.;
-        while(Math.abs(y*y-x)>0.00001){
-            y=(y+x/y)/2.;
+        int l = 1;
+        int r = x;
+        while(l<=r) {
+            int mid = (l+r)/2;
+            if(x/mid>=mid && x/(mid+1)<(mid+1)) return mid;
+            if(x/mid<mid) r = mid-1;
+            else l = mid +1;
         }
-        return (int) y;
+        return 0;
     }
 }

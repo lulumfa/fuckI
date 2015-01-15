@@ -1,5 +1,8 @@
 //reference: http://blog.csdn.net/linhuanmars/article/details/22126357
+// permutation
 
+
+// NP
 public class Solution {
     public int uniquePaths(int m, int n) {
         if(m<=0 || n<=0) return 0;

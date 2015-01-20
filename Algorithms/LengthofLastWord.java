@@ -1,4 +1,6 @@
-// 
+// reference: http://blog.csdn.net/linhuanmars/article/details/21858067
+
+// 时间复杂度是O(n)，n是字符串的长度，空间复杂度是O(1)
 
 public class Solution {
     public int lengthOfLastWord(String s) {

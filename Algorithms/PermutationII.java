@@ -1,3 +1,34 @@
+//reference: http://blog.csdn.net/linhuanmars/article/details/21570835
+
+//
+
+public class Solution {
+    public List<List<Integer>> permuteUnique(int[] num) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(num==null) return res;
+        Arrays.sort(num);
+        helper(res, num, new boolean[num.length], new ArrayList<Integer>());
+        return res;
+    }
+    
+    private void helper(List<List<Integer>> res, int[] num, boolean[] visited, List<Integer> list) {
+        if(list.size()==num.length) {
+            res.add(new ArrayList<Integer>(list));
+        } else {
+            for(int i = 0; i<num.length; i++) {
+                if(i>0 && !visited[i-1] && num[i-1]==num[i]) continue;
+                if(!visited[i]) {
+                    visited[i] = true;
+                    list.add(num[i]);
+                    helper(res, num, visited, list);
+                    list.remove(list.size()-1);
+                    visited[i] = false;
+                }
+            }
+        }
+    }
+}
+
 
 // http://blog.csdn.net/lbyxiafei/article/details/9338491
 public class Solution {  

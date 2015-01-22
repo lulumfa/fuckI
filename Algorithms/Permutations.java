@@ -1,33 +1,27 @@
-// http://blog.csdn.net/lbyxiafei/article/details/9338449
+// http://blog.csdn.net/linhuanmars/article/details/21569031
 
-//第二，第三，第四题，都运用到了布尔类型的数组来记录已访问的数，这算是Permutation这一大类题目面对多个对象处理时候的必要数据结构。
-
+// 这道题跟N-Queens，Sudoku Solver，Combination Sum，Combinations等一样，也是一个NP问题。
 
 public class Solution {
-    public ArrayList<ArrayList<Integer>> permute(int[] num) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
-        ArrayList<Integer> tmp = new ArrayList<Integer>();
-        int n = num.length;
-        boolean[] visited = new boolean[n];
-        
-        permuteImp(res, tmp, num, visited);
-        
+    public List<List<Integer>> permute(int[] num) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(num==null) return res;
+        helper(res, num, new boolean[num.length], new ArrayList<Integer>());
         return res;
     }
-    private void permuteImp(ArrayList<ArrayList<Integer>> res, ArrayList<Integer> tmp, int[] num, boolean[] visited){
-        if(tmp.size() == num.length){
-            res.add(new ArrayList<Integer>(tmp));
-            return;
-        }
-        for(int i=0; i<num.length; i++){
-            if(!visited[i]){
-                tmp.add(num[i]);
-                visited[i] = true;
-                permuteImp(res, tmp, num, visited);
-                visited[i] = false;
-                tmp.remove(tmp.size()-1);
+    
+    private void helper(List<List<Integer>> res, int[] num, boolean[] visited, List<Integer> list) {
+        if(list.size()==num.length) {
+            res.add(new ArrayList<Integer>(list));
+        } else {
+            for(int i = 0; i<num.length; i++) {
+                if(!visited[i]) {
+                    visited[i] = true;
+                    list.add(num[i]);
+                    helper(res, num, visited, list);
+                    list.remove(list.size()-1);
+                    visited[i] = false;
+                }
             }
         }
     }

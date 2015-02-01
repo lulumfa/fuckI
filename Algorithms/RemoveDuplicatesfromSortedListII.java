@@ -11,6 +11,33 @@
  *     }
  * }
  */
+// my own simpler one 
+
+public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head==null|| head.next==null) return head;
+        
+        ListNode header = new ListNode(0);
+        ListNode pre = header;
+        header.next = head;
+        ListNode cur = pre.next;
+        
+        while(cur!=null) {
+            while(cur!=null && pre.next.val==cur.val) {
+                cur = cur.next;
+            }
+            if(pre.next.next == cur) {
+                pre = pre.next;
+            } else {
+                pre.next = cur;
+            }
+        }
+        return header.next;
+    }
+}
+ 
+ 
+ 
 public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         if(head==null || head.next ==null) return head;

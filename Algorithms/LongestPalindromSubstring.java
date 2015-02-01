@@ -1,3 +1,8 @@
+http://blog.csdn.net/linhuanmars/article/details/20888595 O(n2)
+https://zhuhongcheng.wordpress.com/2009/08/02/a-simple-linear-time-algorithm-for-finding-longest-palindrome-sub-string/ O(n)
+http://stackoverflow.com/questions/10468208/manachers-algorithm-algorithm-to-find-longest-palindrome-substring-in-linear-t
+
+
 public class Solution {
     public String longestPalindrome(String s) {
         // IMPORTANT: Please reset any member data you declared, as

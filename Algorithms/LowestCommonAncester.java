@@ -4,10 +4,15 @@
 
 // basically, it could be O(n), but can be optimized to O(logn) and space O(logn) if it is BST. Because for general binary tree, you cannnot traverse to find the node in O(logn)
 
+//http://www.geeksforgeeks.org/lowest-common-ancestor-binary-tree-set-1/
+
+//(iterative way)
 //Find the given node Node1 in the tree using binary search and save all nodes visited in this process in an array say A1. Time - O(logn), Space - O(logn)
 //Find the given Node2 in the tree using binary search and save all nodes visited in this process in an array say A2. Time - O(logn), Space - O(logn)
 //If A1 list or A2 list is empty then one the node does not exist so there is no common ancestor.
 //If A1 list and A2 list are non-empty then look into the list until you find non-matching node. As soon as you find such a node then node prior to that is common ancestor.
+
+//recursion way
 public static Node LCA(Node root, Node a, Node b){
    Node left=null,right=null;
 

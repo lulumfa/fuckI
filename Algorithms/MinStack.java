@@ -21,43 +21,41 @@ class MinStack {
     }
 }
 
-// not using Java built-in Stack and with 2 ListNodes
 class MinStack {
-    ListNode stackHead;
-    ListNode minStackHead; 
+    private ArrayList<Integer> stack;
+    private ArrayList<Integer> minStack;
+    
+    public MinStack(){
+        stack = new ArrayList<Integer>();
+        minStack = new ArrayList<Integer>();
+    }
     public void push(int x) {
-        if(minStackHead==null || x<=minStackHead.val) {
-            ListNode temp1 = new ListNode(x);
-            temp1.next = minStackHead;
-            minStackHead = temp1;
+        stack.add(x);
+        if(minStack.isEmpty()) {
+            minStack.add(x);
+        } else {
+            if(minStack.get(minStack.size()-1)>=x) {
+                minStack.add(x);
+            }
         }
-        ListNode temp2 = new ListNode(x);
-        temp2.next = stackHead;
-        stackHead = temp2;
     }
 
     public void pop() {
-        if(stackHead!=null) {
-            if(stackHead.val== minStackHead.val) minStackHead = minStackHead.next;
-            stackHead  = stackHead.next;
-        } 
+        if(stack.isEmpty()|| minStack.isEmpty()) return;
+        int temp = stack.remove(stack.size()-1);
+        if(minStack.get(minStack.size()-1)==temp) {
+            minStack.remove(minStack.size()-1);
+        }
     }
 
     public int top() {
-        return stackHead ==null ? 0 : stackHead.val;
+        if(stack.isEmpty()) return Integer.MAX_VALUE;
+        return stack.get(stack.size()-1);
     }
 
     public int getMin() {
-        return minStackHead==null ? 0 : minStackHead.val;
-    }
-}
-
-class ListNode {
-    int val;
-    ListNode next;
-    
-    ListNode(int x) {
-        val = x;
+        if(minStack.isEmpty()) return Integer.MAX_VALUE;
+        return minStack.get(minStack.size()-1);
     }
 }
 

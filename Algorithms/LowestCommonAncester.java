@@ -2,7 +2,7 @@
 
 //But keep in mind that if your nodes have parent pointers, a slight variation on his algorithm is possible. For both nodes in question construct a list containing the path from root to the node by starting at the node, and front inserting the parent.
 
-// basically, it could be O(n), but can be optimized to O(logn) and space O(logn)
+// basically, it could be O(n), but can be optimized to O(logn) and space O(logn) if it is BST. Because for general binary tree, you cannnot traverse to find the node in O(logn)
 
 //Find the given node Node1 in the tree using binary search and save all nodes visited in this process in an array say A1. Time - O(logn), Space - O(logn)
 //Find the given Node2 in the tree using binary search and save all nodes visited in this process in an array say A2. Time - O(logn), Space - O(logn)

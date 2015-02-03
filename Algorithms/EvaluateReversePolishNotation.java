@@ -69,3 +69,51 @@ public class Solution {
         } 
     }
 }
+
+// new my own version
+
+public class Solution {
+    public int evalRPN(String[] tokens) {
+        if(tokens==null) return -1;
+        Stack<String> stack = new Stack<String>();
+        String res;
+        String num1;
+        String num2;
+        for(int i = 0; i<tokens.length; i++) {
+            if(tokens[i].equals("+") || tokens[i].equals("-") || tokens[i].equals("*") ||tokens[i].equals("/")) {
+                if(stack.size()<2) {
+                    return -1;
+                } else {
+                    num2 = stack.pop();
+                    num1 = stack.pop();
+                    res = calculate(num1, num2, tokens[i]);
+                    if(res.equals("Error")) {
+                        return -1;
+                    } else {
+                        stack.push(res);
+                    }
+                }
+            } else {
+                stack.push(tokens[i]);
+            }
+        }
+        return stack.size()==1 ? Integer.parseInt(stack.pop()) : -1;
+    }
+    
+    private String calculate(String num1, String num2, String operator) {
+        if(operator.equals("+")) {
+            return  Integer.toString(Integer.parseInt(num1) + Integer.parseInt(num2));
+        }
+        else if(operator.equals("-")) {
+            return  Integer.toString(Integer.parseInt(num1) - Integer.parseInt(num2));
+        }
+        else if(operator.equals("*")) {
+            return  Integer.toString(Integer.parseInt(num1) * Integer.parseInt(num2));
+        }
+        else if(operator.equals("/")) {
+            if(Integer.parseInt(num2) == 0) throw new IllegalArgumentException("Divided by 0");
+            return  Integer.toString(Integer.parseInt(num1) / Integer.parseInt(num2));
+        }
+        else return "Error";
+    }
+}

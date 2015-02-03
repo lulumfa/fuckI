@@ -9,45 +9,30 @@
  */
 public class Solution {
     public int maxPoints(Point[] points) {
-        if(points==null || points.length==0) return 0;
-        if(points.length==1) return 1;
-        
-        HashMap<Double, Integer> map = new HashMap<Double, Integer>();
-        Point a, b;
-        int max = 1;
-        int temp = 1;
-        double k;
-        for(int i=0; i< points.length; i++) {
-            map.clear();
-            temp = 1;
-            a = points[i];
-            for(int j = 0; j< points.length; j++) {
-                b = points[j];
-                if(i==j) {
-                    continue;
-                }
-                if(a.x==b.x && a.y==b.y) {
-                    temp++;
-                } else {
-                    
-                    if(a.x==b.x) {
-                        k = Double.MAX_VALUE;
+        if(points==null) return 0;
+        int max = 0;
+        for(int i = 0; i<points.length; i++) {
+            Point a = points[i];
+            HashMap<Double, Integer> map = new HashMap<Double, Integer>();
+            int dup = 1;
+            int maxMap = 0;
+            for(int j = i+1; j<points.length; j++) {
+                Point b = points[j];
+                if(a.x==b.x && a.y==b.y) dup++;
+                else {
+                    double slope;
+                    if(a.x==b.x) slope = Double.MAX_VALUE;
+                    else if(a.y==b.y) slope = 0.0;
+                    else slope = (double)(b.y-a.y)/(double)(b.x-a.x);
+                    if(map.containsKey(slope)) {
+                        map.put(slope, map.get(slope)+1);
                     } else {
-                        k = ((double)b.y-(double)a.y)/((double)a.x-(double)b.x);
+                        map.put(slope, 1);
                     }
-                    if(map.containsKey(k)) {
-                        map.put(k, map.get(k)+1);
-                    }else {
-                        map.put(k, 1);
-                    }
+                    maxMap = Math.max(maxMap, map.get(slope));
                 }
             }
-            int count = 0;
-            for(Integer num : map.values()) {
-                if(num>count) count = num;
-            }
-            count += temp;
-            max = Math.max(count, max);
+            max = Math.max(max, dup+maxMap);
         }
         return max;
     }

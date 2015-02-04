@@ -1,4 +1,5 @@
 package leetcode;
+// == move the node from the old list to the new list cap, and every adding is following the sort rule
 
 /**
  * Definition for singly-linked list.

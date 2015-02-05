@@ -16,6 +16,107 @@
 
 //http://stackoverflow.com/questions/2058403/why-is-lru-better-than-fifo
 // 
+
+my lastest one
+
+public class LRUCache {
+    
+    private final int CAPACITY;
+    private int size;
+    private DoubleLinkedList head;
+    private DoubleLinkedList tail;
+    HashMap<Integer, DoubleLinkedList> map;
+    
+    public LRUCache(int capacity) {
+        this.CAPACITY = capacity;
+        this.size = 0;
+        map = new HashMap<Integer, DoubleLinkedList>();
+    }
+    
+    public LRUCache() {
+        this.CAPACITY = 10;
+    }
+    
+    private void addToTail(DoubleLinkedList node) {
+        if(isFull()) {
+            map.remove(head.key);
+            head = head.next;
+            head.pre = null;
+            size--;
+        }
+        if(size==0) {
+            head = node;
+            tail = node;
+            head.next = tail;
+            tail.pre = node;
+            size++;
+        } else {
+            tail.next = node;
+            node.pre = tail;
+            tail = node;
+            size++;
+        }
+        map.put(node.key, node);
+    }
+    
+    private boolean isFull() {
+        return size == CAPACITY;
+    }
+    
+    private void delete(DoubleLinkedList node)  {
+        map.remove(node);
+        if(node==head && node==tail) {
+            head = null;
+            tail = null;
+        } else if(node==head) {
+            head = head.next;
+        } else if(node ==tail) {
+            tail = tail.pre;
+            tail.next = null;
+        } else {
+            node.pre.next= node.next;
+            node.next.pre = node.pre;
+        }
+        size--;
+    } 
+    
+    public int get(int key) {
+        if(!map.containsKey(key)) {
+            return -1;
+        } else {
+            DoubleLinkedList node = map.get(key);
+            delete(node);
+            addToTail(node);
+            return node.value;
+        }
+    }
+    
+    public void set(int key, int value) {
+        DoubleLinkedList node;
+        if(!map.containsKey(key)) {
+            node = new DoubleLinkedList(key, value);
+            addToTail(node);
+        } else {
+            node = map.get(key);
+            node.value = value;
+            delete(node);
+            addToTail(node);
+        }
+    }
+}
+
+class DoubleLinkedList {
+    int key;
+    int value;
+    DoubleLinkedList pre;
+    DoubleLinkedList next;
+    
+    public DoubleLinkedList(int key, int value) {
+        this.key = key;
+        this.value = value;
+    }
+}
+
 import java.util.HashMap;
  
 public class LRUCache {

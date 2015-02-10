@@ -1,3 +1,8 @@
+//reference: http://blog.csdn.net/linhuanmars/article/details/21503215
+
+//总的时间复杂度还是O(n)，由于过程中没有用到额外空间，所以空间复杂度O(1)
+
+
 /**
  * Definition for singly-linked list.
  * class ListNode {
@@ -12,39 +17,35 @@
 public class Solution {
     public void reorderList(ListNode head) {
         if(head==null || head.next==null) return;
-        ListNode slow = head, fast = head;
+        ListNode slow = head;
+        ListNode fast = head;
+        
         while(fast.next!=null) {
             fast = fast.next;
-            if(fast.next!=null) {
-                fast = fast.next;
-            }else {
-                break;
-            }
+            if(fast.next!=null) fast = fast.next;
             slow = slow.next;
         }
-        ListNode head1 = head;
         ListNode head2 = slow.next;
         slow.next = null;
-        ListNode pin = head2.next;
-        head2.next = null;
-        ListNode temp;
-        while(pin!=null) {
-            temp = pin.next;
-            pin.next = head2;
-            head2 = pin;
-            pin = temp;
-        }
+        ListNode head1 = head;
         
-        //combime the 2. q has equal or longer list
-        ListNode p = head1;
-        ListNode q = head2;
-        while(q!=null) {
-            ListNode pnext = p.next;
-            ListNode qnext = q.next;
-            p.next = q;
-            q.next = pnext;
-            p = pnext;
-            q = qnext;
+        ListNode header = new ListNode(0);
+        ListNode node = head2;
+        while(node!=null) {
+            ListNode temp = node.next;
+            node.next = header.next;
+            header.next = node;
+            node = temp;
+        }
+        head2 = header.next;
+        ListNode node1 = head1;
+        ListNode node2 = head2;
+        while( node2!=null) {
+            ListNode temp = node2.next;
+            node2.next = node1.next;
+            node1.next = node2;
+            node1 = node2.next;
+            node2 = temp;
         }
     }
 }

@@ -1,3 +1,30 @@
+// word break i
+
+// reference: http://blog.csdn.net/linhuanmars/article/details/22358863
+
+// 所以总的时间复杂度是O(n^2)（i的累加仍然是n^2量级），而空间复杂度则是字符串的数量，即O(n)。
+
+// using StringBuilder so that the substring method wont cause O(n) in the inner loop
+public class Solution {
+    public boolean wordBreak(String s, Set<String> dict) {
+        if(dict==null || s==null || dict.size()==0 || s.length()==0) return false;
+        boolean[] visited = new boolean[s.length()+1];
+        visited[0] = true;
+        for(int i=0;i<s.length(); i++){
+            StringBuilder sb = new StringBuilder(s.substring(0,i+1));
+            for(int j = 0; j<=i; j++) {
+                if(visited[j] && dict.contains(sb.toString())) {
+                    visited[i+1]  =true;
+                    break;
+                }
+                sb.deleteCharAt(0);
+            }
+        }
+        return visited[s.length()];
+        
+    }
+}
+
 public class Solution {
     public boolean wordBreak(String s, Set<String> dict) {
         if(s==null || dict==null) return false;

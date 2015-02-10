@@ -49,3 +49,16 @@ public class Solution {
         }
     }
 }
+
+    private ListNode recursion(ListNode head) {
+        if(head==null || head.next==null) return head;
+        return helper(head, head.next);
+    }
+    
+    private ListNode helper(ListNode cur, ListNode next) {
+        if(next==null) return cur;
+        ListNode newHead = helper(next, next.next);
+        next.next = cur;
+        cur.next = null;
+        return newHead;
+    }

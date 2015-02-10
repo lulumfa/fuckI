@@ -1,3 +1,47 @@
+// Morris
+
+// reference: http://blog.csdn.net/linhuanmars/article/details/21428647
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        TreeNode node = root;
+        TreeNode pre = null;
+        
+        while(node!=null) {
+            if(node.left==null) {
+                res.add(node.val);
+                node = node.right;
+            } else {
+                pre = node.left;
+                while(pre.right!=null && pre.right!= node) {
+                    pre = pre.right;
+                }
+                if(pre.right==null) {
+                    pre.right = node;
+                    res.add(node.val);
+                    node = node.left;
+                } else {
+                    pre.right = null;
+                    node = node.right;
+                }
+            }
+        }
+        return res;
+    }
+}
+
+
+
 package leetcode;
 
 import java.util.ArrayList;

@@ -1,3 +1,5 @@
+// dont fotget the random pointer could point to null, so check null
+
 /**
  * Definition for singly-linked list with a random pointer.
  * class RandomListNode {

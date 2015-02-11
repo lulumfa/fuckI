@@ -1,5 +1,5 @@
 // dont fotget the random pointer could point to null, so check null
-
+//这个方法总共进行三次线性扫描，所以时间复杂度是O(n)。而这里并不需要额外空间，所以空间复杂度是O(1)
 /**
  * Definition for singly-linked list with a random pointer.
  * class RandomListNode {

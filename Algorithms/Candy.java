@@ -1,5 +1,7 @@
 // my solution
 
+// the first loop cannot use for each loop because that Integer cannot be passed back the array
+
 public class Solution {
     public int candy(int[] ratings) {
         int result = 0;

@@ -30,3 +30,25 @@ public class Solution {
         return s.substring(left+1, right);
     }
 }
+
+// DP way, runtime O(n2), space O(n2)
+
+
+public class Solution {
+    public String longestPalindrome(String s) {
+        if(s==null || s.length()==0) return s;
+        
+        boolean[][] validP = new boolean[s.length()][s.length()];
+        String maxLen = "";
+        
+        for(int i = s.length()-1; i>=0; i--) {
+            for(int j = i; j<s.length(); j++) {
+                if(s.charAt(i)==s.charAt(j) && (j-i<=2 || validP[i+1][j-1])) {
+                    validP[i][j] = true;
+                    maxLen = (j-i+1)>maxLen.length() ? s.substring(i, j+1) : maxLen;
+                }
+            }
+        }
+        return maxLen;
+    }
+}

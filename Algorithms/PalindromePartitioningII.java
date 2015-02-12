@@ -1,5 +1,7 @@
 // dp
+// 因为保存历史信息只需要常量时间就能完成，进行两层循环，时间复杂度是O(n^2)。空间上需要一个线性数组来保存信息，所以是O(n)。
 
+// reference: http://blog.csdn.net/linhuanmars/article/details/22837047
 public class Solution {
     public int minCut(String s) {
         if(s==null || s.length()==0) return -1;

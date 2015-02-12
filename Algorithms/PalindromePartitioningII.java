@@ -1,3 +1,32 @@
+// dp
+
+public class Solution {
+    public int minCut(String s) {
+        if(s==null || s.length()==0) return -1;
+        boolean[][] validP = checkValidP(s);
+        int[] res = new int[s.length()+1];
+        res[0] = 0;
+        for(int i = 0; i<s.length(); i++) {
+            res[i+1] = i+1;
+            for(int j = 0; j<=i; j++) {
+                if(validP[j][i]) res[i+1] = Math.min(res[i+1], res[j]+1);
+            }
+        }
+        return res[s.length()]-1;
+    }
+    
+    private boolean[][] checkValidP(String s) {
+        boolean[][] validP = new boolean[s.length()][s.length()];
+        
+        for(int i = s.length()-1; i>=0; i--) {
+            for(int j = i; j<s.length();j++) {
+                if(s.charAt(i)==s.charAt(j) && (j-i<=2 || validP[i+1][j-1])) validP[i][j] = true;
+            }
+        }
+        return validP;
+    }
+}
+
 // dp 
 
 // reference: http://blog.csdn.net/worldwindjp/article/details/22066307

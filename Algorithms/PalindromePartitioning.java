@@ -3,47 +3,40 @@
 // reference: http://blog.csdn.net/worldwindjp/article/details/22042133
 
 public class Solution {
-    public ArrayList<ArrayList<String>> partition(String s) {
-        ArrayList<ArrayList<String>> result = new ArrayList<ArrayList<String>>();
-        if(s==null || s.length()==0) return result;
-        int[][] palindrome = new int[s.length()][s.length()];
-        ArrayList<String> array = new ArrayList<String>();
-        dpCheckPalindrome(s, palindrome);
-        dpSegamentation(s, 0, palindrome, array, result);
-        
-        return result;
+    public List<List<String>> partition(String s) {
+        List<List<String>> res = new ArrayList<List<String>>();
+        if(s==null || s.length()==0) return res; 
+        boolean[][] validP = calValidP(s);
+        helper(res, s, validP, new ArrayList<String>(), 0);
+        return res;
     }
     
-    private void dpCheckPalindrome(String s, int[][] palindrome) {
-        if(s==null || s.length()==0 || palindrome ==null) return ;
-        for(int i = s.length()-1; i >=0; i--) {
+    private void helper(List<List<String>> res, String s, boolean[][] validP, List<String> list, int index) {
+        if(index>=s.length()) {
+            ArrayList<String> copy = new ArrayList<String>(list);
+            res.add(copy);
+            return;
+        }
+        for(int i = index; i<s.length(); i++) {
+            if(validP[index][i]) {
+                list.add(s.substring(index, i+1));
+                helper(res, s, validP, list, i+1);
+                list.remove(list.size()-1);
+            }
+        }
+    }
+    
+    private boolean[][] calValidP(String s) {
+        boolean[][] validP = new boolean[s.length()][s.length()];
+        
+        for(int i = s.length()-1; i>=0; i--) {
             for(int j = i; j<s.length(); j++) {
-                if(s.charAt(i) == s.charAt(j)) {
-                    if(j-i <=2 || palindrome[i+1][j-1]==1) palindrome[i][j] =1;
-                }
+                if(s.charAt(i)==s.charAt(j) && (j-i<=2 || validP[i+1][j-1])) validP[i][j] = true;
             }
         }
-        
+        return validP;
     }
-    
-    private void dpSegamentation(String s, int start, int[][] palindrome, ArrayList<String> array, ArrayList<ArrayList<String>> result) {
-            if(start == s.length()) {
-                ArrayList<String> copy = new ArrayList<String>(array);
-                result.add(copy);
-                return;
-            }
-            for(int i = start; i< s.length(); i++) {
-                if(palindrome[start][i]==1) {
-                    array.add(s.substring(start, i+1));
-                    dpSegamentation(s, i+1, palindrome, array, result);
-                    array.remove(array.size()-1);
-                }
-            }
-        
-        }
-    
 }
-
 
 // http://www.programcreek.com/2013/03/leetcode-palindrome-partitioning-java/
 

@@ -1,3 +1,28 @@
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public int sumNumbers(TreeNode root) {
+        if(root==null) return 0;
+        int[] res = new int[1];    
+        helper(root, res, 0);
+        return res[0];
+    }
+    
+    private void helper(TreeNode root, int[] res, int sum) {
+        sum = sum*10+root.val;
+        if(root.left==null && root.right==null) res[0]+=sum;
+        if(root.left!=null) helper(root.left, res, sum);
+        if(root.right!=null) helper(root.right, res, sum);
+    }
+}
+
 // reference: http://blog.csdn.net/linhuanmars/article/details/22913699
 
 /**

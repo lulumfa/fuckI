@@ -1,3 +1,44 @@
+//算法的复杂度仍然是对每个结点访问一次，所以是O(n)，而空间上因为不需要额外空间来存储队列了，所以是O(1)。
+
+/**
+ * Definition for binary tree with next pointer.
+ * public class TreeLinkNode {
+ *     int val;
+ *     TreeLinkNode left, right, next;
+ *     TreeLinkNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public void connect(TreeLinkNode root) {
+        if(root==null) return;
+        
+        TreeLinkNode pre = new TreeLinkNode(0);
+        TreeLinkNode cur = new TreeLinkNode(0);
+        pre.next = root;
+        
+        TreeLinkNode preNode = pre;
+        TreeLinkNode curNode = cur;
+        while(preNode.next!=null) {
+            preNode  = preNode.next;
+            if(preNode.left!=null) {
+                curNode.next = preNode.left; 
+                curNode  = curNode.next;
+            } 
+            if(preNode.right!=null){
+                curNode.next = preNode.right;
+                curNode = curNode.next;
+            }
+            if(cur.next ==null) return;
+            if(preNode.next==null) {
+                pre.next=  cur.next;
+                cur.next = null;
+                preNode = pre;
+                curNode = cur;
+            }
+        }
+    }
+}
+
 /**
  * Definition for binary tree with next pointer.
  * public class TreeLinkNode {

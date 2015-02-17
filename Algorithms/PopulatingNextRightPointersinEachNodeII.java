@@ -28,7 +28,7 @@ public class Solution {
                 curNode.next = preNode.right;
                 curNode = curNode.next;
             }
-            if(cur.next ==null) return;
+            if(preNode.next==null && cur.next ==null) return;
             if(preNode.next==null) {
                 pre.next=  cur.next;
                 cur.next = null;

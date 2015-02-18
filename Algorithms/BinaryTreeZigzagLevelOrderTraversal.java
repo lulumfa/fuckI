@@ -8,34 +8,48 @@
  * }
  */
 public class Solution {
-    public ArrayList<ArrayList<Integer>> zigzagLevelOrder(TreeNode root) {
-        // Start typing your Java solution below
-        // DO NOT write main() function
-        ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
         if(root==null) return res;
-        boolean order = true;
-        ArrayList<TreeNode> toVisit = new ArrayList<TreeNode>();
-        toVisit.add(root);
-        while(!toVisit.isEmpty()){
-            ArrayList<TreeNode> next = new ArrayList<TreeNode>();
-            ArrayList<Integer> temp = new ArrayList<Integer>();
-            for(TreeNode node:toVisit){
-                temp.add(node.val);
-            }
-            res.add(temp);
-            for(int i=toVisit.size()-1;i>=0;i--){
-                TreeNode node = toVisit.get(i);
-                if(order){
-                    if(node.right!=null) next.add(node.right);
-                    if(node.left!=null) next.add(node.left);
-                }else{
-                    if(node.left!=null) next.add(node.left);
-                    if(node.right!=null) next.add(node.right);
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        stack.push(root);
+        List<Integer> list = new ArrayList<Integer>();
+        int curNum = 0;
+        int preNum = 1;
+        int level = 0;
+        Stack<TreeNode> newStack = new Stack<TreeNode>();
+        while(!stack.isEmpty()) {
+            TreeNode temp = stack.pop();
+            preNum--;
+            list.add(temp.val);
+            if(level%2==0) {
+                if(temp.left!=null) {
+                    newStack.push(temp.left);
+                    curNum++;
+                }
+                if(temp.right!=null) {
+                    newStack.push(temp.right);
+                    curNum++;
+                }
+            } else {
+                if(temp.right!=null) {
+                    newStack.push(temp.right);
+                    curNum++;
+                }                                
+                if(temp.left!=null) {
+                    newStack.push(temp.left);
+                    curNum++;
                 }
             }
-            order = order?false:true;
-            toVisit = next;
-            //toVisit = new ArrayList<TreeNode>(next); replace this complex one
+            if(preNum==0) {
+                res.add(new ArrayList<Integer>(list));
+                list.clear();
+                stack = newStack;
+                newStack = new Stack<TreeNode>();
+                preNum = curNum;
+                curNum=0;
+                level++;
+            }
         }
         return res;
     }

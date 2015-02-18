@@ -1,3 +1,4 @@
+//http://blog.csdn.net/linhuanmars/article/details/19659525
 /**
  * Definition for binary tree
  * public class TreeNode {
@@ -47,6 +48,6 @@ public class Solution {
             oldNum = curNum;
             curNum = 0;
         }
-        return count++;
+        return count;
     }
 }

@@ -56,29 +56,27 @@ public class Solution {
  */
 public class Solution {
     public List<List<Integer>> pathSum(TreeNode root, int sum) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        if(root==null) return result;
-        List<Integer> array = new ArrayList<Integer>();
-        array.add(root.val);
-        helper(result, array, sum, root);
-        return result;
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(root ==null) return res;
+        helper(res, new ArrayList<Integer>(), sum, root);
+        return res;
     }
-    private void helper(List<List<Integer>> result, List<Integer> array, int sum, TreeNode root) {
-        if(root==null) return;
-        if(root.left==null && root.right==null && root.val==sum) {
-            List<Integer> temp = new ArrayList<Integer>(array);
-            result.add(temp);
-            return;
-        }
-        if(root.left!=null) {
-            array.add(root.left.val);
-            helper(result, array, sum-root.val, root.left);
-            array.remove(array.size()-1);
-        }
-        if(root.right!=null) {
-            array.add(root.right.val);
-            helper(result, array, sum-root.val, root.right);
-            array.remove(array.size()-1);
+    
+    private void helper(List<List<Integer>> res, List<Integer> list, int sum, TreeNode root) {
+        if(root.left==null && root.right==null && (sum-root.val)==0) {
+            list.add(root.val);
+            res.add(new ArrayList<Integer>(list));
+            list.remove(list.size()-1);
+        } 
+        if(root.left!=null){
+            list.add(root.val);
+            helper(res, list, sum-root.val, root.left);
+            list.remove(list.size()-1);
+        } 
+        if(root.right!=null){
+            list.add(root.val);
+            helper(res, list, sum-root.val, root.right);
+            list.remove(list.size()-1);
         }
     }
 }

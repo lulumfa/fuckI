@@ -36,6 +36,27 @@ public class Solution {
  * }
  */
 public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return helper(root, Long.MIN_VALUE, Long.MAX_VALUE); 
+    }
+    
+    private boolean helper(TreeNode root, Long min, Long max) {
+        if(root==null) return true;
+        if((long)(root.val)>=max || (long)(root.val) <=min) return false;
+        return helper(root.left, min, (long)(root.val)) && helper(root.right, (long)(root.val), max);
+    }
+}
+
+/**
+ * Definition for binary tree
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
  
 	public static boolean isValidBST(TreeNode root) {
 		return validate(root, Integer.MIN_VALUE, Integer.MAX_VALUE);

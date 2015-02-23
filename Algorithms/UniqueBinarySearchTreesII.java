@@ -18,21 +18,20 @@ public class Solution {
         List<TreeNode> res = new ArrayList<TreeNode>();
         if(left>right) {
             res.add(null);
-        } else {
-            for(int i = left; i<=right; i++) {
-                List<TreeNode> l = helper(left, i-1);
-                List<TreeNode> r = helper(i+1, right);
-                for(int j = 0; j< l.size(); j++) {
-                    for(int k = 0; k < r.size(); k++) {
-                        TreeNode node = new TreeNode(i);
-                        node.left = l.get(j);
-                        node.right = r.get(k);
-                        res.add(node);
-                    }
+            return res;
+        }
+        for(int i = left; i<=right; i++) {
+            List<TreeNode> leftTree = helper(left,i-1);
+            List<TreeNode> rightTree = helper(i+1, right);
+            for(TreeNode leftNode: leftTree) {
+                for(TreeNode rightNode : rightTree) {
+                    TreeNode node = new TreeNode(i);
+                    node.left = leftNode;
+                    node.right = rightNode;
+                    res.add(node);
                 }
             }
         }
         return res;
-
     }
 }

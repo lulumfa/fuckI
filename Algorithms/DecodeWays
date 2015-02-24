@@ -1,5 +1,5 @@
 // reference: http://blog.csdn.net/linhuanmars/article/details/24570759
-
+//算法的时间复杂度是O(n)。空间上可以看出我们每次只需要前两位的历史信息，所以只需要维护三个变量然后迭代赋值就可以了，所以空间复杂度是O(1)。代
 public class Solution {
     public int numDecodings(String s) {
         if(s == null || s.length() == 0 || s.charAt(0) == '0') return 0; 

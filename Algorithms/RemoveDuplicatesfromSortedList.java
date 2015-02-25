@@ -9,6 +9,22 @@
  *     }
  * }
  */
+ 
+ public class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        if(head==null || head.next==null) return head;
+        ListNode node = head;
+        
+        while(node.next!=null) {
+            while(node.next!=null && node.next.val==node.val) {
+                node.next = node.next.next;
+            }
+            node = node.next;
+            if(node==null) break;
+        }
+        return head;
+    }
+}
 public class Solution {
     public ListNode deleteDuplicates(ListNode head) {
         if(head==null || head.next==null) return head;

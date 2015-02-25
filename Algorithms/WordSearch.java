@@ -1,5 +1,5 @@
 //reference: http://blog.csdn.net/linhuanmars/article/details/24336987
-
+//加上我们对每个顶点都要做一次搜索，所以总的时间复杂度最坏是O(m^2*n^2)，空间上就是要用一个数组来记录访问情况，所以是O(m*n)。
 public class Solution {
     public boolean exist(char[][] board, String word) {
         if(board==null|| board.length==0 || board[0].length ==0) return false;

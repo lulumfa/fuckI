@@ -1,5 +1,38 @@
 //reference: http://blog.csdn.net/linhuanmars/article/details/20192227
 
+
+// my way
+
+public class Solution {
+    public String addBinary(String a, String b) {
+        if(a==null && b==null) return "";
+        if(a==null) return b;
+        if(b==null) return a;
+        
+        int indexA = a.length()-1;
+        int indexB = b.length()-1;
+        StringBuilder sb = new StringBuilder();
+        int carry = 0;
+        while(indexA>=0 && indexB>=0) {
+            int digitA = a.charAt(indexA--)-'0';
+            int digitB = b.charAt(indexB--)-'0';
+            sb.append(String.valueOf((digitA+digitB+carry)%2));
+            carry = (digitA+digitB+carry)/2;
+        }
+        while(indexA>=0) {
+            int digitA = a.charAt(indexA--)-'0';
+            sb.append(String.valueOf((digitA+carry)%2));
+            carry = (digitA+carry)/2;
+        } 
+        while(indexB>=0) {
+            int digitB = b.charAt(indexB--)-'0';
+            sb.append(String.valueOf((digitB+carry)%2));
+            carry = (digitB+carry)/2;
+        }
+        if(carry==1) sb.append("1");
+        return sb.reverse().toString();
+    }
+}
 public class Solution {
     public String addBinary(String a, String b) {
         if(a==null || b==null) return null;

@@ -1,3 +1,10 @@
+// public class Solution {
+    public boolean isNumber(String s) {
+        if(s==null) return false;
+        return (s.trim().matches("[-+]?(\\d+\\.?|\\.\\d+)\\d*(e[-+]?\\d+)?")); 
+    }
+}
+
 public class Solution {
 // . any character except newline    
 //  [-+]? : zero or one sign character of + or -

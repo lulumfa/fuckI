@@ -1,4 +1,7 @@
 http://blog.csdn.net/linhuanmars/article/details/22028697
+
+//每次得到一个元素加入结果数组，然后从剩余数组中移除，因此空间复杂度是O(n)。
+//时间上总共需要n个回合，而每次删除元素如果是用数组需要O(n),所以总共是O(n^2)。
 public class Solution {
     public String getPermutation(int n, int k) {
         if(n<=0) return null;

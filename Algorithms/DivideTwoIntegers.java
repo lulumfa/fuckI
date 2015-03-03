@@ -1,3 +1,7 @@
+//http://blog.csdn.net/linhuanmars/article/details/20024907
+
+//所以时间复杂度为O(logn)。
+
 package leetcode;
 
 public class DivideTwoIntegers {

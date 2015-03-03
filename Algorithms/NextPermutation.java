@@ -1,3 +1,42 @@
+//http://blog.csdn.net/linhuanmars/article/details/20434115
+//时间复杂度是O(3*n)=O(n)，空间复杂度是O(1)
+public void nextPermutation(int[] num) {
+    if(num==null || num.length==0)
+        return;
+    int i = num.length-2;
+    while(i>=0 && num[i]>=num[i+1])
+    {
+        i--;
+    }
+    if(i>=0)
+    {
+        int j=i+1;
+        while(j<num.length && num[j]>num[i])
+        {
+            j++;
+        }
+        j--;
+        int temp = num[i];
+        num[i] = num[j];
+        num[j] = temp;
+    }
+    reverse(num, i+1);
+}
+private void reverse(int[] num, int index)
+{
+    int l = index;
+    int r = num.length-1;
+    while(l<r)
+    {
+        int temp = num[l];
+        num[l] = num[r];
+        num[r] = temp;
+        l++;
+        r--;
+    }
+}
+
+
 public class Solution {
     public void nextPermutation(int[] num) {
         // Start typing your Java solution below

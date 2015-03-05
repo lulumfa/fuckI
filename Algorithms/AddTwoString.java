@@ -1,5 +1,7 @@
 // http://codereview.stackexchange.com/questions/32954/adding-two-big-integers-represented-as-strings
 
+// handle different lengths and also the last carry issue
+
 /**
  * Adds two non-negative integers represented as string of digits.
  *

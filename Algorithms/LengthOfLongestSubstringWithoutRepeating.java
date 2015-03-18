@@ -1,5 +1,30 @@
 //http://blog.csdn.net/linhuanmars/article/details/19949159
 //因此时间复杂度为O(2*n)=O(n),是线性算法。空间复杂度为HashSet的size,也是O(n). 
+
+// my own
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s==null || s.length()==0) return 0;
+        int start = 0, end = 0, len= 0;
+        StringBuilder sb = new StringBuilder(s);
+        HashSet<Character> set = new HashSet<Character>();
+        while(end < sb.length()) {
+            if(set.contains(sb.charAt(end))) {
+                while(start<sb.length() && sb.charAt(start) != sb.charAt(end)) {
+                    set.remove(sb.charAt(start));
+                    start++;
+                }
+                start++;
+            } else {
+                set.add(sb.charAt(end));
+                len = Math.max(len, end-start+1);
+            }
+            end++;
+        }
+        return len;
+    }
+}
+
 public int lengthOfLongestSubstring(String s) {
     if(s==null || s.length()==0)
         return 0;

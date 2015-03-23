@@ -1,0 +1,33 @@
+
+http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=124039&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26sortid%3D311
+
+public static void getverticalorder(TreeNode root,int hd,HashMap<Integer,ArrayList<TreeNode>> hm)
+    {
+            if(root==null) return;
+            if(!hm.containsKey(hd))
+            {. 1point3acres.com/bbs
+            ArrayList<TreeNode> l=new ArrayList<TreeNode>();
+            hm.put(hd,l);
+            }
+            ArrayList<TreeNode> n=hm.get(hd);
+            n.add(root);
+            hm.put(hd,n);. 鐣欏鐢宠璁哄潧-涓€浜╀笁鍒嗗湴
+            
+            getverticalorder(root.left,hd-1,hm);
+            getverticalorder(root.right,hd+1,hm);
+            
+    }. 1point 3acres 璁哄潧
+    
+    public static void printverticalorder(TreeNode root)
+    {
+            HashMap<Integer,ArrayList<TreeNode>> hm=new HashMap<Integer,ArrayList<TreeNode>>();
+            int hd=0;
+            getverticalorder(root,hd,hm);
+            Object[] key_arr = hm.keySet().toArray();  
+            Arrays.sort(key_arr);  
+            for  (Object key : key_arr) {  
+                ArrayList<TreeNode> value = hm.get(key);. 涓€浜�-涓夊垎-鍦帮紝鐙鍙戝竷
+                printlist(value);
+                
+                } 
+            }

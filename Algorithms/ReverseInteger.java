@@ -1,3 +1,23 @@
+public class Solution 
+{
+    public int reverse(int x) 
+    {
+        long flag = x>=0? 1 : -1;
+        long long_x = flag * x;
+        long res = 0;
+        while(long_x!=0)
+        {
+            res =res*10 + long_x%10;
+            long_x/=10;
+        }
+        if(res > (Integer.MAX_VALUE))
+        {
+            return 0;
+        }
+        return (int)(res*flag);
+    }
+}
+
 public class Solution {
     public int reverse(int x) {
         if(x==0) return 0;

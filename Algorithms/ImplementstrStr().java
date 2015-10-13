@@ -22,6 +22,42 @@ public String strStr(String haystack, String needle) {
     return null;
 }
 
+// my implementation
+
+public class Solution {
+    public int strStr(String haystack, String needle) {
+        if(haystack ==null || needle ==null || needle.length() > haystack.length()) return -1;
+        if(haystack.length() == 0 && needle.length() == 0 ) return 0;
+        int base = 29;
+        long hashNeedle = 0;
+        long baseMult = 1;
+        
+        for(int i = 0; i< needle.length(); i++){
+            hashNeedle += (needle.charAt(i) - 'a' +1)* baseMult;
+            baseMult *=base;
+        }
+        
+        baseMult = 1;
+        
+        long hashHaystack = 0;
+        for(int i =0; i< needle.length(); i++){
+            hashHaystack += (haystack.charAt(i) - 'a' +1)* baseMult;
+            baseMult *= base;
+        }
+        
+        if(hashNeedle == hashHaystack) return 0;
+        
+        baseMult /= base;
+        
+        for(int i = needle.length(); i< haystack.length();i++){
+            hashHaystack = hashHaystack/base + (haystack.charAt(i) - 'a' +1)* baseMult;
+
+            if(hashHaystack == hashNeedle) return i-needle.length() +1; 
+        }
+        return -1;
+    }
+}
+
 // 所以检测所有子串的时间复杂度只需要O(m+n-m)=O(n)，也是一个线性算法。代码如
 
 //比较细心的朋友可能看出来了，这个方法的hashcode比较容易越界，因为以素数为底的幂会很大，解决的办法可以用BigInteger,或者如同Rabin–Karp algorithm - Wikipedia

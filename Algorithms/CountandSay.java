@@ -25,3 +25,31 @@ public String countAndSay(int n) {
     }
     return curRes;
 }
+
+// my implementation
+
+public class Solution {
+    public String countAndSay(int n) {
+        if(n <= 0) return null;
+        String res = "1";
+        int count = 1;
+        for(int i = 1; i< n; i++){
+            StringBuilder sb = new StringBuilder();
+            char digit = res.charAt(0);
+            for(int j = 1; j< res.length(); j++){
+                if(res.charAt(j) == res.charAt(j-1)){
+                    count++;
+                } else {
+                    sb.append(count).append(digit);
+                    digit = res.charAt(j);
+                    count = 1;
+                }
+            }
+            sb.append(count).append(digit);
+            res = sb.toString();
+            count = 1; 
+        }
+        return res;
+        
+    }
+}

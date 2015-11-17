@@ -2,6 +2,11 @@
 //这样一来我们只需要扫描数组两遍，时间复杂度是O(2*n)=O(n)，而且利用数组本身空间，
 //只需要一个额外变量，所以空间复杂度是O(1)。
 
+//反过来就不行应为A[A[i] -1] 里面的A[i] changed
+//             int temp = A[A[i]-1];
+//            A[A[i]-1] = A[i];
+//            A[i] = temp;
+//            i--;
 public int firstMissingPositive(int[] A) {
     if(A==null || A.length==0)
     {

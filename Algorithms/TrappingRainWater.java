@@ -55,3 +55,28 @@ public int trap(int[] A) {
     }
     return res;
 }
+
+// my implementation
+
+public class Solution {
+    public int trap(int[] height) {
+        if(height.length <=2) return 0;
+        int res = 0;
+        int l = 0;
+        int r = height.length -1;
+        int mid;
+        while(l <r){
+            mid = Math.min(height[l], height[r]);
+            if(height[l] <= height[r]){
+                while(l< r && height[l] <=mid){
+                    res+= mid - height[l++];
+                }    
+            } else {
+                while(l< r && height[r] <= mid){
+                    res += mid - height[r--];
+                }
+            }
+        }
+        return res;
+    }
+}

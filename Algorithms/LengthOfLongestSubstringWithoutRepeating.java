@@ -1,3 +1,33 @@
+// my latest one but not fast enough
+
+// my latest one but not fast enough, though fastest here
+
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s==null || s.length() == 0) return 0;
+        int left = 0;
+        int right = 0;
+        int res = 0;
+        HashSet<Character> set = new HashSet<Character>();
+        while(right < s.length()){
+            char c = s.charAt(right);
+            if(set.contains(c)){
+                if((right-left) > res) res = right-left;
+                while(s.charAt(left) != c){
+                    char temp = s.charAt(left);
+                    set.remove(temp);
+                    left++;
+                }
+                left++;
+            } else {
+                set.add(c);
+            }
+            right++;
+        }
+        return (right -left) > res ? right -left: res;
+    }
+}
+
 //http://blog.csdn.net/linhuanmars/article/details/19949159
 //因此时间复杂度为O(2*n)=O(n),是线性算法。空间复杂度为HashSet的size,也是O(n). 
 

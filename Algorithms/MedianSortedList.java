@@ -10,7 +10,7 @@
             findMedian(nums1, 0, nums1.length-1, nums2, 0, nums2.length-1, k+1);
     }
     
-    private double findMedian(int[] nums1, int i1, int i2, int[] nums2, int j1, int j2, int k){
+    private int findMedian(int[] nums1, int i1, int i2, int[] nums2, int j1, int j2, int k){
 
         int len1 = i2 - i1 + 1;
         int len2 = j2 - j1 + 1;

@@ -1,3 +1,44 @@
+// my own one, not very clean
+
+public class Solution {
+    public int myAtoi(String str) {
+        long res =0;
+        if(str ==null) return 0;
+        
+        str = str.trim();
+        if(str.length() ==0 ) return 0;
+        int flag = 1;
+        char c = str.charAt(0);
+        if(c == '+'){
+            flag = 1;
+        } else if(c == '-'){
+            flag = -1;
+        } else if(!isNumeric(c)){
+            return 0;
+        } else {
+            res += c-'0';
+        }
+        for(int i = 1; i< str.length(); i++){
+            char digit = str.charAt(i);
+            if(!isNumeric(digit)){
+                return (int) (res* flag);
+            } else {
+                res = res* 10 + (digit - '0');
+            }
+            if(flag == 1 && (res > Integer.MAX_VALUE)){
+                return Integer.MAX_VALUE;
+            } else if(flag == -1 && (res*flag < Integer.MIN_VALUE)){
+                return Integer.MIN_VALUE;
+            }
+        }
+        return (int) (res* flag);
+    }
+    
+    private boolean isNumeric(char c){
+        return c>= '0' && c<= '9';
+    }
+}
+
 // http://blog.csdn.net/linhuanmars/article/details/21145129
 public int atoi(String str) {
     if(str==null)

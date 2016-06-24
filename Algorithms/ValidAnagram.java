@@ -1,3 +1,25 @@
+// assuming 26 characters only
+public class Solution {
+    public boolean isAnagram(String s, String t) {
+  if (null == s && null == t) {
+        return true;
+    }
+    if (null == s || null == t || s.length() != t.length()) {
+        return false;
+    }
+    int[] letters = new int[26];
+    for (int i = 0; i < s.length(); i++) {
+        letters[s.charAt(i) - 'a']++;
+    }
+    for (int i = 0; i < t.length(); i++) {
+        if (--letters[t.charAt(i) - 'a'] < 0) {
+            return false;
+        }
+    }
+    return true;
+    }
+}
+
 // my own O(n) = 3*n
 
 public class Solution {

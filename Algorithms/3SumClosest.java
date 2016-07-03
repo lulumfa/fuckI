@@ -1,3 +1,49 @@
+// my own
+
+public class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+        int res = 0;
+        if(nums == null || nums.length <= 2) return 0;
+        Arrays.sort(nums);
+        res = nums[0] + nums[1] + nums[2];
+        for(int i = 0; i < nums.length -2; i++) {
+            if(i ==0 || nums[i] != nums[i-1]) {
+                int temp = nums[i] + twoSumClosest(nums, i+1, target - nums[i]);
+                if(target - temp == 0) return target;
+                if(Math.abs(target - temp) < Math.abs(target- res)) res = temp;
+            }
+        }
+        return res;
+    }
+    
+    private int twoSumClosest(int[] nums, int start, int target) {
+        int left = start;
+        int right = nums.length -1;
+        int res = nums[left] + nums[right];
+        while(left < right){
+            int sum = nums[left] + nums[right];
+            if(sum == target) return sum;
+            else {
+                if(Math.abs(target - sum) < Math.abs(target- res)) res = sum;
+            
+                if(sum < target) {
+                    left++;
+                    while(left < right && nums[left] == nums[left-1]){
+                        left++;
+                    }
+                } else {
+                    right--;
+                    while(right > left && nums[right] == nums[right +1]){
+                        right--;
+                    }
+                }
+            }
+        }
+        
+        return res;
+    }
+}
+
 //http://www.programcreek.com/2013/02/leetcode-3sum-closest-java/
 
 public class Solution {

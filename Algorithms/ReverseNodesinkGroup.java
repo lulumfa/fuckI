@@ -1,3 +1,49 @@
+// my own
+// O(n), constant space
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode reverseKGroup(ListNode head, int k) {
+        if(head == null || k <=1) return head;
+        
+        ListNode header = new ListNode(0);
+        header.next = head;
+        ListNode node = header;
+        
+        int count = 0;
+        ListNode pre = header;
+        while(node!=null) {
+            node = node.next;
+            
+            if(count == k){
+                pre = reverse(pre, node);
+                count = 0;
+            }
+            count++;
+        }
+        return header.next;
+    }
+    
+    private ListNode reverse(ListNode start, ListNode end){
+        ListNode head = start.next;
+        ListNode cur = start.next.next;
+        while(cur != end){
+            ListNode next = cur.next;
+            cur.next = start.next;
+            start.next = cur;
+            cur = next;
+        }
+        head.next = end;
+        return head;
+    }
+}
+
 // http://blog.csdn.net/linhuanmars/article/details/19957455
 
 public ListNode reverseKGroup(ListNode head, int k) {

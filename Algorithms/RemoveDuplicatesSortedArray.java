@@ -1,3 +1,18 @@
+// my own
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        if(nums == null || nums.length == 0) return 0;
+        
+        int pre = 0;
+        for(int i= 1; i < nums.length; i++){
+            if(nums[i] != nums[pre]){
+                nums[++pre] = nums[i];
+            }
+        }
+        return pre +1;
+    }
+}
+
 //reference: http://blog.csdn.net/linhuanmars/article/details/20023993
 
 public class Solution {

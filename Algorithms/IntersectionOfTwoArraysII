@@ -1,0 +1,33 @@
+public class Solution {
+    public int[] intersect(int[] nums1, int[] nums2) {
+        List<Integer> resArrayList = new ArrayList<Integer>();
+        if(nums1 == null || nums2 ==null) return null; 
+        if(nums1.length > nums2.length ) {
+            int[] temp = nums1;
+            nums1 = nums2;
+            nums2 = temp;
+        }
+        
+        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
+        for(Integer n : nums1) {
+            if(map.containsKey(n)){
+                map.put(n, map.get(n) +1);
+            } else {
+                map.put(n, 1);
+            }
+        }
+        
+        for(Integer n: nums2) {
+            if(map.containsKey(n) && map.get(n) > 0){
+                resArrayList.add(n);
+                map.put(n, map.get(n) -1);
+            }
+        }
+        int[] res = new int[resArrayList.size()];
+        for(int i = 0; i< resArrayList.size(); i++){
+            res[i] = resArrayList.get(i);
+        }
+        
+        return res;
+    }
+}

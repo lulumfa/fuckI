@@ -23,7 +23,7 @@ private boolean helper(char[][] board, int i, int j)
                 if(helper(board,i,j+1))
                     return true;
             }
-            board[i][j] = '.';
+            board[i][j] = '.'; // essential since that point will be traversaed many times
         }
     }
     else

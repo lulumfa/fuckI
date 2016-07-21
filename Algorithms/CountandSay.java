@@ -1,3 +1,33 @@
+// my own
+
+public class Solution {
+    public String countAndSay(int n) {
+        if(n<=0) return "";
+        String preSay = "1";
+        
+        for(int k = 2; k<=n; k++){
+            StringBuilder curSay = new StringBuilder();
+            char pre = '\u0000';
+            int count = 0;
+            for(int i = 0; i < preSay.length(); i++){
+                if(preSay.charAt(i) != pre){
+                    if(pre != '\u0000' ){
+                        curSay.append(count).append(pre);
+                    }
+                    pre = preSay.charAt(i);
+                    count = 1;
+                } else {
+                    count++;
+                }
+            }
+            curSay.append(count).append(pre);
+            preSay = curSay.toString();
+        }
+        
+        return preSay;
+    }
+}
+
 // http://blog.csdn.net/linhuanmars/article/details/20679963
 
 public String countAndSay(int n) {

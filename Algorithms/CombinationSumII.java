@@ -26,3 +26,30 @@ ArrayList<ArrayList<Integer>> res)
         item.remove(item.size()-1);
     }
 }
+
+///my own, np 
+
+public class Solution {
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(target <=0 || candidates ==null) return res;
+        
+        Arrays.sort(candidates);
+        helper(res, new ArrayList<Integer>(), candidates, target, 0);
+        return res;
+    }
+    
+    private void helper(List<List<Integer>> res, List<Integer> list, int[] candidates, int target, int curIdx){
+        if(target ==0){
+            res.add(new ArrayList<Integer>(list));
+            return;
+        } 
+        for(int i = curIdx; i < candidates.length; i++){
+            if((i == curIdx || candidates[i] != candidates[i-1])&& target  >= candidates[i]){
+                list.add(candidates[i]);
+                helper(res, list, candidates, target - candidates[i], i +1);
+                list.remove(list.size()-1);
+            } 
+        }
+    }
+}

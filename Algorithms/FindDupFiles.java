@@ -11,20 +11,6 @@ import java.math.*;
  */
 
 class Solution {
-  public static void main(String[] args) {
-    ArrayList<String> strings = new ArrayList<String>();
-    strings.add("Hello, World!");
-    strings.add("Welcome to CoderPad.");
-    strings.add("This pad is running Java 8.");
-
-    for (String string : strings) {
-      System.out.println(string);
-    }
-    
-    Stack<Integer> stack = new Stack<Integer>();
-    stack.push(1);
-    System.out.println(stack.pop());
-  }
   
   public List<List<String>> findDup(String rootPath){
     List<List<String>> res = new ArrayList<List<String>>();

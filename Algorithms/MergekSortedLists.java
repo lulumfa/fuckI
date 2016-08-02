@@ -1,3 +1,44 @@
+// heap | PriorityQueue
+// O(knlogk) space O(k)
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public ListNode mergeKLists(ListNode[] lists) {
+        ListNode header = new ListNode(0);
+        if(lists == null || lists.length ==0 ) return header.next;
+        
+        PriorityQueue<ListNode> pq = new PriorityQueue<ListNode>(lists.length, new Comparator<ListNode>(){
+            @Override
+            public int compare(ListNode a, ListNode b){
+                return a.val - b.val;
+            }
+        });
+        
+        for(ListNode node: lists){
+            if(node != null){
+                pq.offer(node);
+            }
+        }
+        
+        ListNode cur = header;
+        while(!pq.isEmpty()){
+            ListNode top = pq.poll();
+            cur.next = top;
+            cur = cur.next;
+            if(top.next!=null){
+                pq.offer(top.next);
+            }
+        }
+        return header.next;
+    }
+}
+
 // my own
 
 //public class Solution {

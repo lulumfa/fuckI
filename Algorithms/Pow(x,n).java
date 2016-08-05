@@ -1,6 +1,7 @@
 // more robust
-
+//这道题是一道数值计算的题目，因为指数是可以使结果变大的运算，所以要注意越界的问题。如同我在Sqrt(x)这道题中提到的，一般来说数值计算的题目可以用两种方法来解，一种是以2为基进行位处理的方法，另一种是用二分法。这道题这两种方法都可以解，下面我们分别介绍。
 //http://blog.csdn.net/linhuanmars/article/details/20092829
+//因为迭代次数等于n的位数，所以算法的时间复杂度是O(logn)
 // bit way
 public double pow(double x, int n) {  
     if(n==0)  
@@ -39,7 +40,7 @@ public double pow(double x, int n) {
     return isNeg?-res:res;  
 }  
 
-
+//不过这里有个问题是没有做越界的判断，因为这里没有统一符号，所以越界判断分的情况比较多，不过具体也就是在做乘除法之前判断这些值会不会越界
 public class Solution {
     public double pow(double x, int n) {
         // Start typing your Java solution below

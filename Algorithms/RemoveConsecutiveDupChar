@@ -1,5 +1,5 @@
 package Leetcode;
-
+// abccb -> a, accbb -> a, abccbc->ac
 public class RemoveConDupChar {
 	public static void main(String[] args){
 		System.out.println(removeDup("abccbch"));

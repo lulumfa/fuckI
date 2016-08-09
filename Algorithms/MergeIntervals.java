@@ -1,4 +1,4 @@
-// reference: https://oj.leetcode.com/problems/merge-intervals/
+// reference: http://blog.csdn.net/linhuanmars/article/details/21857617
 
 // 整个算法是先排序，然后再做一次线性遍历，时间复杂度是O(nlogn+n)=O(nlogn)，空间复杂度是O(1)，因为不需要额外空间，只有结果集的空间
 

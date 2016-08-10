@@ -2,6 +2,21 @@
 
 // 时间复杂度是O(n)，n是字符串的长度，空间复杂度是O(1)
 
+// my cleaner one
+
+public class Solution {
+    public int lengthOfLastWord(String s) {
+        if(s == null) return 0;
+        int len = 0;
+        int i = s.length() -1;
+        while(i>=0 && s.charAt(i) == ' ') i--;
+        while(i>=0 && s.charAt(i) != ' '){
+            len++;
+            i--;
+        }
+        return len;
+    }
+}
 
 public class Solution {
     public int lengthOfLastWord(String s) {

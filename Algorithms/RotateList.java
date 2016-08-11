@@ -1,5 +1,43 @@
 //reference: http://blog.csdn.net/linhuanmars/article/details/21903027
 
+// my updated
+
+public class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+        if(head== null || k<=0) return head;
+        
+        int len = 0;
+        ListNode header = new ListNode(0);
+        header.next = head;
+        ListNode node = header;
+        
+        while(node.next !=null){
+            len++;
+            node = node.next;
+        }
+        
+        k %=len;
+        if(k ==0) return head;
+        
+        ListNode first = header;
+        ListNode second = header;
+        for(int i = 0; i< k; i++){
+            first = first.next;
+        }
+        
+        while(first.next!=null){
+            first = first.next;
+            second = second.next;
+        }
+        
+        first.next = header.next;
+        header.next = second.next;
+        second.next = null;
+        
+        return header.next;
+    }
+}
+
 /**
  * Definition for singly-linked list.
  * public class ListNode {

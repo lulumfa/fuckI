@@ -1,3 +1,26 @@
+// my latest one
+public class Solution {
+    public int minPathSum(int[][] grid) {
+        if(grid == null || grid.length <1 || grid[0].length <1) return 0;
+        
+        int[] dp = new int[grid[0].length];
+        
+        for(int i=0; i< grid.length; i++){
+            for(int j =0; j< grid[0].length; j++){
+                if(j == 0){
+                   dp[0] += grid[i][j]; 
+                } else if(i ==0){
+                    dp[j] = dp[j-1] + grid[i][j];
+                } else {
+                    dp[j] = (Math.min(dp[j], dp[j-1])  + grid[i][j]);
+                }
+            }
+        }
+        
+        return dp[grid[0].length -1];
+    }
+}
+
 //reference: http://blog.csdn.net/linhuanmars/article/details/22257673
 
 public class Solution {

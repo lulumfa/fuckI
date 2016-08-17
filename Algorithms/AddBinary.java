@@ -1,3 +1,33 @@
+// my cleaner way
+
+public class Solution {
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+        if(a == null && b == null) return sb.toString();
+        if(a == null) return b;
+        if(b == null) return a;
+        int lenA = a.length();
+        int lenB = b.length();
+        int max = Math.max(lenA, lenB);
+        int carry = 0;
+        for(int i = 1; i <= max; i++){
+            int sum = carry;
+            if((lenA -i) >=0){
+                sum+= (int)(a.charAt((lenA-i)) - '0');
+            }
+            
+            if((lenB -i) >=0){
+                sum+= (int)(b.charAt((lenB-i)) - '0');
+            }
+            
+            sb.append(String.valueOf(sum%2));
+            carry = sum/2;
+        }
+        if(carry ==1) sb.append(String.valueOf(carry));
+        return sb.reverse().toString();
+    }
+}
+
 //reference: http://blog.csdn.net/linhuanmars/article/details/20192227
 
 

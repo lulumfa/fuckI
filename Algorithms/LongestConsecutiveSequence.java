@@ -29,3 +29,28 @@ public class Solution {
         return result;
     }
 }
+
+// my slow way
+
+O(nlogn), space constant
+
+public class Solution {
+    public int longestConsecutive(int[] nums) {
+        if(nums == null || nums.length ==0) return 0;
+        
+        Arrays.sort(nums);
+        
+        int res = 1;
+        int start = 0;
+        for(int i = 1; i < nums.length; i++){
+            if(nums[i-1] == (nums[i] -1) ) {
+                res = Math.max(res, (i-start +1));
+            } else if(nums[i-1] == nums[i]) {
+                start++;
+            } else {
+                start = i;
+            }
+        }
+        return res;
+    }
+}

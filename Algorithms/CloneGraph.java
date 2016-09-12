@@ -1,3 +1,28 @@
+// my latest
+
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        if(node == null) return node;
+        HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+        Stack<UndirectedGraphNode> stack = new Stack<UndirectedGraphNode>();
+        stack.push(node);
+        UndirectedGraphNode res = new UndirectedGraphNode(node.label);
+        map.put(node, res);
+        while(!stack.isEmpty()){
+            UndirectedGraphNode cur = stack.pop();
+            for(UndirectedGraphNode neighbor: cur.neighbors){
+                if(!map.containsKey(neighbor)) {
+                    stack.push(neighbor);
+                    map.put(neighbor, new UndirectedGraphNode(neighbor.label));
+                } 
+                map.get(cur).neighbors.add(map.get(neighbor));
+            }
+        }
+        
+        return res;
+    }
+}
+
 /**
  * Definition for undirected graph.
  * class UndirectedGraphNode {

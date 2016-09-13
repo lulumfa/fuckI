@@ -1,3 +1,8 @@
+//https://segmentfault.com/a/1190000003753307
+//时间 O(NM) 空间 O(max(N,M)) 递归栈空间
+
+
+
 public class Solution {
     public int numIslands(char[][] grid) {
         if(grid == null || grid.length ==0 || grid[0].length ==0) return 0;

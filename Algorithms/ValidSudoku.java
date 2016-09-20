@@ -1,3 +1,39 @@
+// most straightforward way, my own way
+
+public class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        if(board == null || board.length != 9 || board[0].length !=9) return false;
+        boolean[] check;
+        for(int i = 0; i< 9; i++) {
+            check = new boolean[9];
+            for(int j = 0; j< 9; j++) {
+                if(board[i][j] != '.' && check[board[i][j] -'1']) return false;  
+                else if(board[i][j] != '.') check[board[i][j] -'1'] = true;
+            }
+        }
+        
+        for(int i = 0; i< 9; i++) {
+            check = new boolean[9];
+            for(int j = 0; j< 9; j++) {
+                if(board[j][i] != '.' && check[board[j][i] -'1']) return false;  
+                else if(board[j][i] != '.') check[board[j][i] -'1'] = true;
+            }
+        }
+        
+        // first locate the lefttop point
+        for(int i = 0; i< 9; i+=3) {
+            for(int j = 0; j < 9; j+=3) {
+                check = new boolean[9];
+                for(int k = 0; k< 9; k++) {
+                    if(board[i + k/3][j + k%3] != '.' && check[board[i + k/3][j + k%3] -'1']) return false;  
+                    else if(board[i + k/3][j + k%3] != '.') check[board[i + k/3][j + k%3] -'1'] = true;
+                }
+            }
+        }
+        return true;
+    }
+}
+
 // my own 
 
 public class Solution {

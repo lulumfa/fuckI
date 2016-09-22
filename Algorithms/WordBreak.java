@@ -2,7 +2,7 @@
 
 // reference: http://blog.csdn.net/linhuanmars/article/details/22358863
 
-// 所以总的时间复杂度是O(n^2)（i的累加仍然是n^2量级），而空间复杂度则是字符串的数量，即O(n)。
+// O(n3 actually) 所以总的时间复杂度是O(n^2)（i的累加仍然是n^2量级），而空间复杂度则是字符串的数量，即O(n)。
 
 // using StringBuilder so that the substring method wont cause O(n) in the inner loop
 public class Solution {
@@ -17,7 +17,7 @@ public class Solution {
                     visited[i+1]  =true;
                     break;
                 }
-                sb.deleteCharAt(0);
+                sb.deleteCharAt(0); // actually O(n)
             }
         }
         return visited[s.length()];

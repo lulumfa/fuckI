@@ -1,5 +1,23 @@
 // word break i
 
+// my own latest,
+public class Solution {
+    public boolean wordBreak(String s, Set<String> wordDict) {
+        if(s == null || wordDict == null || s.length() == 0 || wordDict.isEmpty()) return false;
+        
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for(int i = 1; i<= s.length(); i++) {
+            for(int j = 0; j < i; j++) {
+                if(dp[j] && wordDict.contains(s.substring(j ,i))) {
+                    dp[i] = true;
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+}
+
 // reference: http://blog.csdn.net/linhuanmars/article/details/22358863
 
 // O(n3 actually) 所以总的时间复杂度是O(n^2)（i的累加仍然是n^2量级），而空间复杂度则是字符串的数量，即O(n)。

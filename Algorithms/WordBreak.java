@@ -1,3 +1,29 @@
+// work break ii
+// dp
+public class Solution {
+    public List<String> wordBreak(String s, Set<String> wordDict) {
+        List<String> res = new ArrayList<String>();
+        if(s == null || wordDict == null || s.length() ==0 || wordDict.isEmpty()) return res;
+        HashMap<Integer, List<String>> map = new HashMap<Integer, List<String>>();
+        for(int i=0; i<s.length(); i++) {
+            map.put(i, new ArrayList<String>());
+            String sub = s.substring(0, i+1);
+            if(wordDict.contains(sub)) {
+                map.get(i).add(sub);
+            } 
+            for(int j = i; j>0; j--) {
+                String temp = s.substring(j, i+1);
+                if(map.get(j-1).size() != 0 && wordDict.contains(temp)) {
+                    for(String str: map.get(j-1)) {
+                        map.get(i).add(str + " " + temp);
+                    }
+                }
+            }
+        }
+        return map.get(s.length()-1);
+    }
+}
+
 // word break i
 
 // my own latest,

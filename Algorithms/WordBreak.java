@@ -1,4 +1,31 @@
 // work break ii
+public class Solution {
+    public List<String> wordBreak(String s, Set<String> wordDict) {
+        List<String> res = new ArrayList<String>();
+        if(s == null || wordDict == null || s.length() ==0 || wordDict.isEmpty()) return res;
+        helper(res, wordDict, new StringBuilder(), s, 0);
+        return res;
+    }
+    
+    private void helper(List<String> res, Set<String> wordDict, StringBuilder temp, String s, int cur) {
+        if(s.length() == cur) {
+            res.add(temp.toString());
+        } else {
+            for(int i = cur; i < s.length(); i++) {
+                if(wordDict.contains(s.substring(cur, i +1))) {
+                    StringBuilder copy = new StringBuilder(temp);
+                    if(cur == 0) {
+                        copy.append(s.substring(cur, i+1));
+                    } else {
+                        copy.append(" " + s.substring(cur, i +1));   
+                    }
+                    helper(res, wordDict, copy, s, i +1);
+                }
+            }
+        }
+    }
+}
+
 // dp
 public class Solution {
     public List<String> wordBreak(String s, Set<String> wordDict) {

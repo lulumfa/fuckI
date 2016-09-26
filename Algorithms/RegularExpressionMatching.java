@@ -1,3 +1,38 @@
+// O(n2)
+
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        if(s == null || p == null) return false;
+        
+        boolean[][] res = new boolean[s.length()+1][p.length()+1];
+        res[0][0] = true;
+        
+        for(int j = 0; j< p.length(); j++) {
+            if(p.charAt(j) == '*') {
+                if(j == 0) continue;
+                res[0][j+1] = res[0][j-1];
+                if(p.charAt(j-1) == '.') {
+                    int i = 0;
+                    while(i< s.length() && !res[i+1][j] && !res[i+1][j-1]) i++;
+                    for(; i< s.length(); i++) res[i+1][j+1] = true;
+                } else {
+                    for(int i= 0; i< s.length(); i++) {
+                        if(res[i+1][j-1] || res[i+1][j] || (i > 0 && res[i][j+1] && s.charAt(i-1) == s.charAt(i) && s.charAt(i) == p.charAt(j-1))) {
+                            res[i+1][j+1] = true;
+                        }
+                    }
+                }
+            } else {
+                for(int i = 0; i< s.length(); i++) {
+                    res[i+1][j+1] = res[i][j] && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
+                }
+            }
+        }
+        
+        return res[s.length()][p.length()];
+    }
+}
+
 //http://blog.csdn.net/linhuanmars/article/details/21145563
 
 public boolean isMatch(String s, String p) {

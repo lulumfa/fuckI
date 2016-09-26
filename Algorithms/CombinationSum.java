@@ -1,3 +1,32 @@
+// my cleaner own
+// np
+
+public class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(candidates == null || target <=0) return res;
+        Arrays.sort(candidates);
+        helper(res, candidates, new ArrayList<Integer>(), target, candidates.length-1);
+        return res;
+    }
+    
+    private void helper(List<List<Integer>> res, int[] candidates, List<Integer> list, int target, int end) {
+        if(target == 0) {
+            res.add(new ArrayList<Integer>(list));
+            return;
+        } else {
+            for(int i = end; i>=0; i--) {
+                while(i>0 && candidates[i] == candidates[i-1]) i--;
+                if(candidates[i] <= target) {
+                    list.add(candidates[i]);
+                    helper(res, candidates, list, target - candidates[i], i);
+                    list.remove(list.size()-1);
+                }
+            }
+        }
+    }
+}
+
 // http://blog.csdn.net/linhuanmars/article/details/20828631
 
 public ArrayList<ArrayList<Integer>> combinationSum(int[] candidates, int target) {

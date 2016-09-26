@@ -5,7 +5,6 @@
 public class Solution {
     public int numTrees(int n) {
         if(n<1) return 0;
-        if(n==1) return 1;
         int[] res = new int[n+1];
         res[0] = 1;
         res[1] = 1;

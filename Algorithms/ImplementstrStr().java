@@ -1,3 +1,36 @@
+// my latest
+
+//O(n), space(1)
+public class Solution {
+    public int strStr(String haystack, String needle) {
+        if(haystack == null || needle == null || haystack.length() < needle.length()) return -1;
+        
+        int base = 29; // should be 128 and use big integer
+        long maxBase = 1;
+        for(int i = 0; i< needle.length()-1; i++) {
+            maxBase *= base;
+        }
+        
+        long needleHash = calHash(needle, base, 0, needle.length());
+        long hash = calHash(haystack, base, 0, needle.length());
+        if(hash == needleHash) return 0;
+        for(int i = 1; i<= haystack.length() - needle.length(); i++) {
+            hash = (hash - maxBase * haystack.charAt(i-1)) * base + haystack.charAt(i + needle.length() -1);
+            if(hash == needleHash) return i;
+        }
+        
+        return -1;
+    }
+    
+    private long calHash(String s, int base, int start, int end) {
+        long hash = 0;
+        for(int i = start; i < end; i++) {
+            hash = hash * base + s.charAt(i);
+        }
+        return hash;
+    }
+}
+
 // http://blog.csdn.net/linhuanmars/article/details/20276833
 //brute force: 所以算法时间复杂度为O((n-m+1)*m)=O(n*m)，空间复杂度是O(1)。代码如下：
 public String strStr(String haystack, String needle) {

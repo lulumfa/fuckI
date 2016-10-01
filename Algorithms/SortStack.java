@@ -1,3 +1,7 @@
+//O(n2) space O(n)
+
+// we can simply copy it to an array and sort with lgn and in place O(n) space
+
 package Leetcode;
 
 import java.util.Stack;

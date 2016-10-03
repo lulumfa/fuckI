@@ -1,4 +1,4 @@
-
+// O(n) traversal, space O(lgn)
 /**
  * Definition for binary tree
  * public class TreeNode {

@@ -1,3 +1,6 @@
+// in order to check the equal scenario, left can be equal, right cannot and assuming there can be dup. This one has to confirm with the interviewers
+//O(n), space(lgn)
+
 //reference: http://blog.csdn.net/linhuanmars/article/details/23810735
 
 /**

@@ -1,3 +1,33 @@
+// my latest
+// O(n), space O(lgn)
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public boolean isBalanced(TreeNode root) {
+        return getHeight(root) == Integer.MIN_VALUE ? false : true;
+    }
+    
+    private int getHeight(TreeNode root) {
+        if(root == null) return -1;
+        int left = getHeight(root.left);
+        if(left == Integer.MIN_VALUE) return Integer.MIN_VALUE;
+        int right = getHeight(root.right);
+        if(right == Integer.MIN_VALUE) return Integer.MIN_VALUE;
+        
+        int diff = right - left;
+        if(Math.abs(diff) > 1) return Integer.MIN_VALUE;
+        return Math.max(left, right) + 1;
+    }
+}
+
 // my solution, reference: http://blog.csdn.net/linhuanmars/article/details/23731355
 /**
  * Definition for binary tree

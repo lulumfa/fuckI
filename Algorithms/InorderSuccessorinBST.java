@@ -1,4 +1,4 @@
-// O(lgn) space O(lgn)
+// O(lgn) space O(lgn), https://discuss.leetcode.com/topic/25076/share-my-java-recursive-solution/2
 /**
  * Definition for a binary tree node.
  * public class TreeNode {

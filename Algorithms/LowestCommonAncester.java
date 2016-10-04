@@ -1,3 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ 
+ 
+ // O(n), space O(lgn average) though this way the constant is pretty big
+ 
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == null || p == null || q == null || root == q || root == p) return root;
+        if(!isCover(root, p) || !isCover(root, q)) return null;
+        return findLCA(root, p, q);
+    }
+    
+    private TreeNode findLCA(TreeNode root, TreeNode p, TreeNode q) {
+        if(root == p || root == q) return root;
+        boolean isPLeft = isCover(root.left, p);
+        boolean isQLeft = isCover(root.left, q);
+        
+        if(isPLeft  == !isQLeft) return root;
+        if(isPLeft) return findLCA(root.left, p, q);
+        else return findLCA(root.right, p, q);
+    }
+    
+    private boolean isCover(TreeNode root, TreeNode target) {
+        if(root == null) return false;
+        if(root == target) return true;
+        return isCover(root.left, target) || isCover(root.right, target);
+    }
+}
+
 // reference: http://stackoverflow.com/questions/1484473/how-to-find-the-lowest-common-ancestor-of-two-nodes-in-any-binary-tree
 
 //But keep in mind that if your nodes have parent pointers, a slight variation on his algorithm is possible. For both nodes in question construct a list containing the path from root to the node by starting at the node, and front inserting the parent.

@@ -1,3 +1,73 @@
+package Leetcode;
+
+import java.util.Scanner;
+
+/* Class HeapSort */
+public class HeapSort 
+{    
+    private static int N;
+    
+    public static void sort(int[] input){
+    	if(input == null) return;
+    	heapify(input);
+    	for(int i = N; i >0; i--){
+    		swap(input, 0, i);
+    		N--;
+    		maxHeapify(input, 0);
+    	}
+    }
+    
+    public static void heapify(int[] input){
+    	N = input.length -1;
+    	for(int i = (N-1)/2; i>=0; i--){
+    		maxHeapify(input, i);
+    	}
+    }
+    
+    public static void maxHeapify(int[] input, int i){
+    	int left = i *2 +1;
+    	int right = i*2 +2;
+    	int max = i;
+    	if(left <= N && input[left] > input[max]) max = left;
+    	if(right <= N && input[right] > input[max]) max = right;
+    	if(max != i){
+    		swap(input, i, max);
+    		maxHeapify(input, max);
+    	}
+    }
+	
+    public static void swap(int[] input, int i, int j){
+    	int temp = input[i];
+    	input[i] = input[j];
+    	input[j] = temp;
+    }
+	
+    /* Main method */
+    public static void main(String[] args) 
+    {
+        Scanner scan = new Scanner( System.in );        
+        System.out.println("Heap Sort Test\n");
+        int n, i;    
+        /* Accept number of elements */
+        System.out.println("Enter number of integer elements");
+        n = scan.nextInt();    
+        /* Make array of n elements */
+        int arr[] = new int[ n ];
+        /* Accept elements */
+        System.out.println("\nEnter "+ n +" integer elements");
+        for (i = 0; i < n; i++)
+            arr[i] = scan.nextInt();
+        /* Call method sort */
+        sort(arr);
+        /* Print sorted Array */
+        System.out.println("\nElements after sorting ");        
+        for (i = 0; i < n; i++)
+            System.out.print(arr[i]+" ");            
+        System.out.println();            
+    }    
+}
+
+
 /*
  * Java Program to Implement Heap Sort
  */

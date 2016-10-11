@@ -1,3 +1,98 @@
+// O(n + Mlgn) two heaps, this is gonna be the normal best solution. but sometimes it will ask O(m+ nlgn) and then find the solution below
+
+package Leetcode;
+
+import java.util.Arrays;
+
+public class FindNFromM {
+	
+	public static void main(String[] args) {
+		int[] input = {13, 1, 3, 2, 5, 12, 3, 9, 0};
+		int n = 3;
+		FindNFromM f = new FindNFromM();
+		
+		System.out.println(Arrays.toString(f.findNFromM(input, n)));
+	}
+	
+	public int[] findNFromM(int[] input, int n) {
+		HeapSort hs = new HeapSort(input, n -1);
+		hs.constructMinHeap();
+		for(int i = n; i < input.length; i++) {
+			if(input[i] > input[0]) {
+				int temp = input[i];
+				input[i] = input[0];
+				input[0] = temp;
+				hs.minHeapify(0);
+			}
+		}
+		return hs.outputSortedArray();
+	} 
+}
+
+// parent: (i-1)/2
+// left: (i+1) * 2- 1
+// right (i+1) * 2
+
+class HeapSort {
+	private int heapSize;
+	int[] array;
+	
+	public HeapSort(int[] array, int heapSize) {
+		this.array = array;
+		this.heapSize = heapSize;
+	}
+	
+	public void constructMinHeap() {
+		for(int i = getParent(heapSize); i>=0; i--) {
+			minHeapify(i);
+		}
+	}
+	
+	public void minHeapify(int i) {
+		int left = getLeftChild(i);
+		int right = getRightChild(i);
+		int min = i;
+		if(left <= heapSize && array[left] < array[min]) min = left;
+		if(right <= heapSize && array[right] < array[min]) min = right;
+		if(min != i) {
+			swap(i, min);
+			minHeapify(min);
+		}
+	}
+	
+	public int[] outputSortedArray() {
+		int resSize = heapSize + 1;
+		int[] res = new int[resSize];
+		for(int i = resSize -1; i>=0; i--) {
+			res[i] = array[0];
+			swap(0, heapSize);
+			heapSize--;
+			minHeapify(0);
+		}
+		return res;
+	}
+	
+	private void swap(int a, int b) {
+		int temp = array[a];
+		array[a] = array[b];
+		array[b] = temp;
+	}
+	
+	private int getParent(int i) {
+		return (i-1)/2;
+	}
+	
+	private int getLeftChild(int i) {
+		return (i+1) * 2 -1;
+	}
+	
+	private int getRightChild(int i) {
+		return (i+1) *2;
+	}
+}
+
+
+
 // O(N + klgk) with a second heap and push 2 children every time
 
 // or just one N size heap and keep pop out

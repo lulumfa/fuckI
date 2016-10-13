@@ -1,0 +1,5 @@
+DFS: searching, dectect connectivity, detect cycle; mark visited, unvisited, visiting statuses
+
+BFS: find shortest path; output path-> store predecessor
+
+Dijkstra: weighted, undirected, lowest cost path

@@ -31,4 +31,44 @@ public class BigIntAdd {
 		if(carry > 0) sb.append(1);
 		return sb.reverse().toString();
 	}
+	
+	public static String substract(String n1, String n2) {
+		if(n1 == null && n2 == null) return null;
+		if(n1 == null) return "-1" + n2;
+		if(n2 == null) return n1;
+		
+		boolean isPos = true;
+		if(Integer.valueOf(n1) < Integer.valueOf(n2)) {
+			String temp = n1;
+			n1 = n2;
+			n2 = temp;
+			isPos = false;
+		}
+		if(Integer.valueOf(n1) < Integer.valueOf(n2)) return "0";
+		
+		StringBuilder sb1 = new StringBuilder(n1);
+		StringBuilder sb2 = new StringBuilder(n2);
+		sb1.reverse();
+		sb2.reverse();
+		StringBuilder sb = new StringBuilder();
+		boolean isTailingZero = true;
+		for(int i = 0; i< sb1.length(); i++) {
+			int digit1 = sb1.charAt(i) - '0';
+			int digit2 = i< sb2.length() ? sb2.charAt(i) - '0': 0;;
+			
+			if(digit1 < digit2) {
+				int j = i+1;
+				while(j < sb1.length() && (sb1.charAt(j) -'0') == 0) {
+					j++;
+				}
+				sb1.setCharAt(j, (char)(sb1.charAt(j) -1));
+				digit1 += 10;
+			}
+
+			sb.append(digit1 - digit2);
+
+		}
+		sb.reverse();
+		return isPos ? sb.toString() : "-" + sb.toString();
+	}
 }

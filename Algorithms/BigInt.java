@@ -37,6 +37,7 @@ public class BigIntAdd {
 		if(n1 == null) return "-1" + n2;
 		if(n2 == null) return n1;
 		
+		// check neg
 		boolean isPos = true;
 		if(Integer.valueOf(n1) < Integer.valueOf(n2)) {
 			String temp = n1;
@@ -51,15 +52,15 @@ public class BigIntAdd {
 		sb1.reverse();
 		sb2.reverse();
 		StringBuilder sb = new StringBuilder();
-		boolean isTailingZero = true;
 		for(int i = 0; i< sb1.length(); i++) {
 			int digit1 = sb1.charAt(i) - '0';
-			int digit2 = i< sb2.length() ? sb2.charAt(i) - '0': 0;;
+			int digit2 = i< sb2.length() ? sb2.charAt(i) - '0': 0;
 			
+			// borrow 1 and set 9 along the road
 			if(digit1 < digit2) {
 				int j = i+1;
 				while(j < sb1.length() && (sb1.charAt(j) -'0') == 0) {
-					j++;
+					sb1.setCharAt(j++, '9');
 				}
 				sb1.setCharAt(j, (char)(sb1.charAt(j) -1));
 				digit1 += 10;
@@ -68,7 +69,13 @@ public class BigIntAdd {
 			sb.append(digit1 - digit2);
 
 		}
+		
+		// 100 -1
+		while(sb.charAt(sb.length() -1) == '0') {
+			sb.deleteCharAt(sb.length() -1);
+		}
+		
 		sb.reverse();
-		return isPos ? sb.toString() : "-" + sb.toString();
+		return isPos ? sb.toString() : "-" + sb.toString(); // handle negtive
 	}
 }

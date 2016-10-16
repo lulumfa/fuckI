@@ -50,6 +50,10 @@ public class MeetingRooms {
 		
 		Interval[] meetings = {new Interval(1, 2, 50), new Interval(3, 5, 20), new Interval(6, 19, 100), new Interval(2, 100, 200)};
 		System.out.println(findMaxWeightScheduleRecursion(meetings, meetings.length));
+		
+		//dp
+		Interval[] meetings = {new Interval(1, 2, 50), new Interval(3, 5, 20), new Interval(6, 19, 100), new Interval(2, 100, 200)};
+		System.out.println(findMaxWeightScheduleDp(meetings));
 	} 
 	
 	public static List<List<Interval>> scheduleMeetings(Interval[] intervals) {
@@ -107,6 +111,45 @@ public class MeetingRooms {
 			}
 		}
 		return closest;
+	}
+	
+	// dp
+	public static int findMaxWeightScheduleDp(Interval[] meetings) {
+		int[] maxWeights = new int[meetings.length +1];
+		Arrays.sort(meetings, new Comparator<Interval>() {
+			@Override
+			public int compare(Interval a, Interval b) {
+				return a.end - b.end;
+			}
+		});
+		
+		for(int i = 1; i <= meetings.length; i++) {
+			int latestEndMeetingIndex = binarySearch(meetings, i-1);
+			int includeCurrent = meetings[i-1].weight;
+			if(latestEndMeetingIndex != -1) {
+				includeCurrent += maxWeights[latestEndMeetingIndex];
+			}
+			int excludeCurrent = maxWeights[i-1];
+			maxWeights[i] = Math.max(includeCurrent, excludeCurrent);
+		}
+		
+		return maxWeights[meetings.length];
+	}
+	
+	public static int binarySearch(Interval[] meetings, int k) {
+		int left = 0;
+		int right = k-1;
+		int latest = -1;
+		while(left <= right) {
+			int mid = (left + right)/2;
+			if(meetings[mid].end <= meetings[k].start) {
+				latest = mid;
+				left = mid +1;
+			} else {
+				right = mid -1;
+			}
+		}
+		return latest;
 	}
 }
 

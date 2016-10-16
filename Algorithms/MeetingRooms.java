@@ -33,7 +33,7 @@ public class Solution {
 }
 
 
-// print rooms with meetings
+// print rooms with meetings, weighted meeting added and targeting at one room, recursively or DP
 package Leetcode;
 
 import java.util.ArrayList;
@@ -47,6 +47,9 @@ public class MeetingRooms {
 	public static void main(String[] args) {
 		Interval[] meetings = {new Interval(0, 30), new Interval(5, 10), new Interval(15, 20)};
 		System.out.println(scheduleMeetings(meetings));
+		
+		Interval[] meetings = {new Interval(1, 2, 50), new Interval(3, 5, 20), new Interval(6, 19, 100), new Interval(2, 100, 200)};
+		System.out.println(findMaxWeightScheduleRecursion(meetings, meetings.length));
 	} 
 	
 	public static List<List<Interval>> scheduleMeetings(Interval[] intervals) {
@@ -84,6 +87,27 @@ public class MeetingRooms {
 		}
 		return res;
 	}
+	
+		// weighted meetings with only 1 room
+	public static int findMaxWeightScheduleRecursion(Interval[] intervals, int n) {
+		if(n == 1) return intervals[0].weight;
+		int closesEndTimeIndex = findClosestEndTimeIndex(intervals, n-1);
+		int includeCurrent = intervals[n-1].weight;
+		if(closesEndTimeIndex != Integer.MAX_VALUE) includeCurrent += findMaxWeightScheduleRecursion(intervals, closesEndTimeIndex +1);
+		
+		int excludedCurrent = findMaxWeightScheduleRecursion(intervals, n-1);
+		return Math.max(includeCurrent, excludedCurrent);
+	}
+	
+	public static int findClosestEndTimeIndex(Interval[] intervals, int i) {
+		int closest = Integer.MAX_VALUE;
+		for(int k = 0; k < intervals.length; k++) {
+			if((intervals[i].start - intervals[k].end) > 0 && (closest == Integer.MAX_VALUE || (intervals[i].start - intervals[k].end) < (intervals[i].start- intervals[closest].end))) {
+				closest = k;
+			}
+		}
+		return closest;
+	}
 }
 
 class Room {
@@ -104,10 +128,17 @@ class Room {
 class Interval{
 	int start;
 	int end;
-	
+	public int weight;
+
 	public Interval(int start, int end) {
 		this.start = start;
 		this.end = end;
+	}
+	
+	public Interval(int start, int end, int weight) {
+		this.start = start;
+		this.end = end;
+		this.weight = weight;
 	}
 	
 	public String toString() {

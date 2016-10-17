@@ -1,6 +1,30 @@
 // my cleaner own
 // np
 
+// update: for this problem, we should say that the set contains only unique numbers since they can be reused anyway, if allowing dup, then we
+// should redup from the list first, or there is no way guarantee the unique combinations later.
+public class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(candidates == null || candidates.length ==0 || target <= 0) return res;
+        Arrays.sort(candidates);
+        dfsFindCombination(candidates, res, new ArrayList<Integer>(), target, 0);
+        return res;
+    }
+    
+    private void dfsFindCombination(int[] candidates, List<List<Integer>> res, List<Integer> list, int target, int start) {
+        if(target == 0) {
+            res.add(new ArrayList<Integer>(list));
+            return;
+        } 
+        for(int i = start; i< candidates.length && candidates[i] <= target; i++ ) {
+            list.add(candidates[i]);
+            dfsFindCombination(candidates, res, list, target - candidates[i], i);
+            list.remove(list.size()-1);
+        }
+    }
+}
+
 public class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();

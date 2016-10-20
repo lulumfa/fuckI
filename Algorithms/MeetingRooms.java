@@ -32,6 +32,27 @@ public class Solution {
     }
 }
 
+public class Solution {
+    public boolean canAttendMeetings(Interval[] intervals) {
+        if(intervals == null || intervals.length == 0) return true;
+        
+        try{
+            Arrays.sort(intervals, new Comparator<Interval>(){
+                @Override
+                public int compare(Interval a, Interval b) {
+                    if((a.start <= b.start && a.end> b.start) || (b.start <= a.start && b.end> a.start)) throw new RuntimeException();
+                    if(a.start == b.start) return a.end - b.end;
+                    return a.start - b.start;
+                }
+            });
+          
+        } catch(Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+}
 
 // print rooms with meetings, weighted meeting added and targeting at one room, recursively or DP
 package Leetcode;

@@ -17,6 +17,100 @@
 //http://stackoverflow.com/questions/2058403/why-is-lru-better-than-fifo
 // 
 
+// my cleanest way
+
+public class LRUCache {
+    
+    HashMap<Integer, DoubleLinkedListNode> map;
+    int capacity;
+    int size;
+    DoubleLinkedListNode head;
+    DoubleLinkedListNode tail;
+    
+    public LRUCache(int capacity) {
+        map = new HashMap<Integer, DoubleLinkedListNode>();
+        this.capacity = capacity;
+        size = 0;
+    }
+    
+    public LRUCache() {
+        map = new HashMap<Integer, DoubleLinkedListNode>();
+        this.capacity = 10;
+        size = 0;
+    }
+    
+    public int get(int key) {
+        if(!map.containsKey(key)) {
+            return -1;
+        } else {
+            DoubleLinkedListNode node = map.get(key);
+            remove(node);
+            addToTail(node);
+            return node.value;
+        }
+    }
+    
+    public void set(int key, int value) {
+        DoubleLinkedListNode node = null;
+        if(map.containsKey(key)) {
+            node = map.get(key);
+            node.value = value;
+            remove(node);
+        } else {
+            if(size == capacity) {
+                remove(head);
+            }
+            node = new DoubleLinkedListNode(key, value);
+        }
+        addToTail(node);
+    }
+    
+    public void remove(DoubleLinkedListNode node) {
+        if(size == 0) return;
+        if(size == 1) {
+            head = null;
+            tail = null;
+        } else if(head == node) {
+            head = head.next;
+            head.pre = null;
+        } else if(tail == node) {
+            tail = tail.pre;
+            tail.next = null;
+        } else {
+            node.pre.next = node.next;
+            node.next.pre = node.pre;
+        }
+        size--;
+        map.remove(node.key);
+    }
+    
+    public void addToTail(DoubleLinkedListNode node) {
+        map.put(node.key, node);
+        if(size == 0) {
+            head = node;
+            tail = node;
+        } else {
+            tail.next = node;
+            node.pre = tail;
+            tail = node;
+        }
+        size++;
+    }
+}
+
+class DoubleLinkedListNode {
+    int key;
+    int value;
+    DoubleLinkedListNode pre;
+    DoubleLinkedListNode next;
+    
+    public DoubleLinkedListNode(int key, int value) {
+        this.key = key;
+        this.value = value;
+    }
+}
+
+
 my lastest one
 
 public class LRUCache {

@@ -1,3 +1,36 @@
+// ii more efficient with arraylist than hashmap, np expenetial
+//though space will cost more than the brute force recursive way. so practically just recursion may be better
+public class Solution {
+    public List<String> wordBreak(String s, Set<String> wordDict) {
+        List<String> res = new ArrayList<String>();
+        if(s == null || s.length() ==0 || wordDict == null || wordDict.size() == 0) return res;
+        
+        List<List<String>> dp = new ArrayList<List<String>>(s.length() +1);
+        List<String> list = new ArrayList<String>();
+        list.add("");
+        dp.add(list);
+        for(int i = 1; i<= s.length(); i++) {
+            dp.add(new ArrayList<String>());
+            for(int j = 0; j< i; j++){
+                if(wordDict.contains(s.substring(j, i)) && dp.get(j).size()>0) {
+                    for(String cur : dp.get(j)) {
+                        StringBuilder sb = new StringBuilder(cur);
+                        if(cur.length() == 0) {
+                            sb.append(s.substring(j, i));
+                        } else {
+                            sb.append(" ");
+                            sb.append(s.substring(j, i));
+                        }
+                        dp.get(i).add(sb.toString());
+                    }
+                }
+            }
+        }
+        return dp.get(s.length()) != null ? dp.get(s.length())  : res;
+    }
+}
+
+
 // work break ii
 public class Solution {
     public List<String> wordBreak(String s, Set<String> wordDict) {

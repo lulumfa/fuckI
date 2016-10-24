@@ -1,5 +1,27 @@
 //fastest
 
+public class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        if(s == null || s.length() == 0) return 0;
+        
+        boolean[] visited = new boolean[128];
+        int max = 0;
+        int start=  0;
+        for(int i = 0; i < s.length(); i++) {
+            char cur = s.charAt(i);
+            while(visited[cur]) {
+                visited[s.charAt(start)] = false;
+                start++;
+            }
+            
+            visited[cur] = true;
+            max = Math.max(max, i - start +1);
+        }
+        
+        return max;
+    }
+}
+
 public int lengthOfLongestSubstring(String s) {
         if(s==null)
             return 0;

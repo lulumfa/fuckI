@@ -1,3 +1,28 @@
+// O(n) space max len O(n)
+public class Solution {
+    public int depthSumInverse(List<NestedInteger> nestedList) {
+        if(nestedList == null) return 0;
+        
+        List<NestedInteger> curList = new ArrayList<NestedInteger>(nestedList);
+        int unweighted = 0, weighted = 0;
+        
+        while(!curList.isEmpty()) {
+            List<NestedInteger> nextList = new ArrayList<NestedInteger>();
+            
+            for(NestedInteger element : curList) {
+                if(element.isInteger()) {
+                    unweighted += element.getInteger();
+                } else {
+                    nextList.addAll(element.getList());
+                }
+            }
+            weighted += unweighted;
+            curList = nextList;
+        }
+        return weighted;
+    }
+}
+
 // O(n) * 2 space O(n), depth and max level size
 
 /**

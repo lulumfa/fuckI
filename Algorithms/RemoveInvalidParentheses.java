@@ -1,5 +1,5 @@
 // space O(n!) runtime O(n!)
-
+//https://discuss.leetcode.com/topic/28827/share-my-java-bfs-solution
 public class Solution {
     public List<String> removeInvalidParentheses(String s) {
         List<String> res = new ArrayList<String>();

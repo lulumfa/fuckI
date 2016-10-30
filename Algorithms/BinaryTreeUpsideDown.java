@@ -1,3 +1,25 @@
+//iteratively
+public class Solution {
+    public TreeNode upsideDownBinaryTree(TreeNode root) {
+        if(root == null || root.left == null) return root;
+        
+        TreeNode cur = root, next = null, pre = null, temp = null;
+        
+        while(cur != null) {
+            next = cur.left;
+            
+            cur.left = temp;
+            temp = cur.right;
+            cur.right = pre;
+            
+            pre = cur;
+            cur = next;
+        }
+        
+        return pre;
+    }
+}
+
 //recursively O(n), space height of the tree, worst case O(n)
 
 /**

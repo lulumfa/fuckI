@@ -1,3 +1,45 @@
+// O(n), space(n/2) = O(n)
+
+public class Solution {
+    public int evalRPN(String[] tokens) {
+        if(tokens == null) return 0;
+        Stack<Integer> stack = new Stack<Integer>();
+        for(String token : tokens) {
+            if(token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
+                if(stack.size() < 2) return 0;
+                int b = stack.pop();
+                int a = stack.pop();
+                Integer res = calculate(a, b, token.charAt(0));
+                if(res == null) return 0;
+                stack.push(res);
+            } else {
+                try{
+                    stack.push(Integer.parseInt(token));
+                } catch(NumberFormatException e) {
+                    return 0;
+                } 
+            }
+        }
+        return stack.size() == 1 ? stack.pop() : 0;
+    }
+    
+    private Integer calculate(int a, int b, char operator) {
+        switch(operator) {
+            case '+': 
+                return a + b;
+            case '-':
+                return a - b;
+            case '*':
+                return a * b;
+            case '/':
+                if(b == 0) return null;
+                return a / b;
+            default:
+                return null;
+        }
+    }
+}
+
 import java.util.Stack;
 import java.util.EmptyStackException;
 

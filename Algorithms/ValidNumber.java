@@ -1,3 +1,6 @@
+//        return s.trim().matches("[-+]?(\\d+(\\.\\d*)?|\\.\\d+)(e[-+]?\\d+)?");
+
+
 //O(n)
 
 //We start with trimming.

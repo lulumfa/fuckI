@@ -30,7 +30,7 @@ public void gameOfLife(int[][] board) {
 
 public int liveNeighbors(int[][] board, int m, int n, int i, int j) {
     int lives = 0;
-    for(int x = Math.max(i - 1, 0); x <= Math.min(i + 1, m - 1); x++) {
+    for(int x = Math.max(i - 1, 0); x <= Math.min(i + 1, m - 1); x++) { // **** i +1 combine with  m -1 and <=
         for(int y = Math.max(j - 1, 0); y <= Math.min(j + 1, n - 1); y++) {
             lives += board[x][y] & 1;
         }

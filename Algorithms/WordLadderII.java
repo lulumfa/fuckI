@@ -1,3 +1,7 @@
+// bidirectional way
+// https://discuss.leetcode.com/topic/28774/my-30ms-bidirectional-bfs-and-dfs-based-java-solution
+
+
 // efficient way in http://blog.csdn.net/linhuanmars/article/details/23071455
 
 

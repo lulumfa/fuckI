@@ -1,3 +1,7 @@
+// better dealing with overflow
+//http://blog.csdn.net/ljiabin/article/details/42025037
+
+
 //https://discuss.leetcode.com/topic/7876/my-clean-java-solution/17
 
 public class Solution {

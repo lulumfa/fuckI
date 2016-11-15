@@ -1,37 +1,31 @@
-// http://shanjiaxin.blogspot.com/2015/01/read-n-characters-given-read4-ii-call.html
+// O(n), space O(4) constant
+//https://discuss.leetcode.com/topic/32780/simple-short-java-c/12
 
-public class Read4KII {
-	// reused variable. 
-	private char[] buffer = new char[4];
-	private int bufsize = 0;
-	private int offset = 0;
-	
-	public int read(char[] buf, int n) {
-		int total = 0;
-		boolean eof = true;
-		
-		while (eof && total < n) {
-			if (bufsize == 0) {
-				bufsize = read4(buffer);
-				
-				if (bufsize < 4) {
-					eof = false;
-				}
-			}
-			
-			int bytes = Math.min(n - total, bufsize);
-			System.arraycopy(buffer, offset, buf, total, bytes);
-			
-			offset = (offset + bytes) % 4;
-			bufsize -= bytes;
-			total += bytes;
-		}
-		
-		return total;
-	}
-	
-	
-	// API funciton
-	public int read4(char[] buf) {
-		return 0;
-	}
+/* The read4 API is defined in the parent class Reader4.
+      int read4(char[] buf); */
+
+public class Solution extends Reader4 {
+    /**
+     * @param buf Destination buffer
+     * @param n   Maximum number of characters to read
+     * @return    The number of characters read
+     */
+     
+    int unusedSize = 0,  unusedIndex = 0;
+    char[] unused = new char[4];
+    
+    public int read(char[] buf, int n) {
+        if(buf == null || n <= 0) return 0;
+        
+        int i = 0;
+        while(i < n) {
+            if(unusedIndex >= unusedSize) {
+                unusedSize = read4(unused);
+                if(unusedSize == 0) return i;
+                unusedIndex = 0;
+            }
+            buf[i++] = unused[unusedIndex++]; 
+        }
+        return i;
+    }
+}

@@ -1,6 +1,6 @@
 //  m = desiredTotal, n = maxInt ;using memo reduced it from expenential to expenential still O(2^n), but no redundent calls
 
-// save space by using bits if maxInt < 32
+// save space and also faster by using bits if maxInt < 32, hashing string is slower and toString of interger[] is slower than bit manipulatin too
 
 public class Solution {
     public boolean canIWin(int maxChoosableInteger, int desiredTotal) {

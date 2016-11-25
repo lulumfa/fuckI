@@ -4,16 +4,17 @@ package Snapchat;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class UniqueContact {
 	public static void main(String[] args) {
 		Contact[] contacts = {
 				new Contact("ABC", 123, 0),
+				new Contact("DEF", 456, 3),
 				new Contact("ABC", 456, 1),
 				new Contact("XYZ", 890, 2),
-				new Contact("DEF", 456, 3),
-				new Contact("DEF", 456, 3),
+				new Contact("ABC", 123, 0),
 				new Contact("M", 890, 4)
 		};
 		
@@ -22,8 +23,8 @@ public class UniqueContact {
 	}
 	
 	public List<List<Contact>> groupUniqueContacts(Contact[] contacts) {
-		List<List<Contact>> res = new ArrayList<List<Contact>>();
-		if(contacts == null || contacts.length == 0) return res;
+		HashSet<List<Contact>> res = new HashSet<List<Contact>>();
+		if(contacts == null || contacts.length == 0) return null;
 		
 		HashMap<String, List<Contact>> nameMap = new HashMap<String, List<Contact>>();
 		HashMap<Integer, List<Contact>> numberMap = new HashMap<Integer, List<Contact>>();
@@ -57,7 +58,9 @@ public class UniqueContact {
 				else {
 					for(Contact contactFromNumber : listFromNumber) {
 						listFromName.add(contactFromNumber);
-					}					
+					}			
+					numberMap.put(contact.number, listFromName);
+					res.remove(listFromNumber);
 				}
 
 			}
@@ -71,7 +74,7 @@ public class UniqueContact {
 //			res.add(list);
 //		}
 		
-		return res;
+		return new ArrayList(res);
 	}
 }
 

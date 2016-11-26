@@ -1,4 +1,87 @@
 // O(NlgN), N= # of positions
+// using hashMap seems faster, though hash the key turned out to be slower, 
+public class Solution {
+    private static int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    
+    public List<Integer> numIslands2(int m, int n, int[][] positions) {
+        List<Integer> res = new ArrayList<Integer>();
+        if(positions == null || positions.length == 0 || positions[0].length != 2 || m < 1 || n < 1) return res;
+        UnionFind uf = new UnionFind(m, n, positions);
+        
+        for(int[] position : positions) {
+            uf.insert(position);
+            for(int[] dir : dirs) {
+                int[] neighbor = {position[0] + dir[0], position[1] + dir[1]};
+                if(uf.isIsland(neighbor)) {
+                    uf.union(position, neighbor);
+                }
+            }
+            res.add(uf.getCount());
+        }
+        return res;
+    }
+}
+
+class UnionFind {
+    int count, m, n;
+    Integer[] ids, sizes; 
+    
+    public UnionFind(int m, int n, int[][] positions) {
+        this.m = m;
+        this.n = n;
+        count = 0;
+        ids = new Integer[m*n];
+        sizes = new Integer[m*n];
+    }
+    
+    public void insert(int[] position) {
+        int id = getId(position);
+        ids[id] = id;
+        sizes[id] = 1;
+        count++;        
+    }
+    
+    public int getCount() {
+        return count;
+    }
+    
+    public boolean isIsland(int[] position) {
+        return position[0] >=0 && position[0] < m && position[1] >=0 && position[1] < n && ids[getId(position)] != null;
+    }
+    
+    public boolean connected(int[] a, int[] b) {
+        return find(getId(a)) == find(getId(b));
+    }
+    
+    private int getId(int[] position) {
+        return position[0] * n + position[1];
+    }
+    
+    public int find(int id) {
+        while(ids[id] != id) {
+            ids[id] = ids[ids[id]];
+            id = ids[id];
+        }
+        return id;
+    }
+    
+    public void union (int[] a, int[] b) {
+        if(connected(a, b)) return;
+        int idA = find(getId(a));
+        int idB = find(getId(b));
+        
+        if(sizes[idA] < sizes[idB]) {
+            sizes[idB] += sizes[idA];
+            ids[idA] = idB;
+        } else {
+            sizes[idA] += sizes[idB];
+            ids[idB] = idA;            
+        }
+        count--;
+    }
+    
+}
+
 
 public class Solution {
     private static int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};

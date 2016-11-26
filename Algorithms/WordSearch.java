@@ -1,3 +1,35 @@
+// my latest one, O(mn* 4^k)
+
+public class Solution {
+    private static int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+    
+    public boolean exist(char[][] board, String word) {
+        if(board == null || board.length ==0 || board[0].length == 0 || word == null || word.length() == 0) return false;
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                if(board[i][j] == word.charAt(0) && dfsSearchWord(board, word, 0, i, j)) return true;
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean dfsSearchWord(char[][] board, String word, int k, int x, int y) {
+        if(k == word.length() -1) return true;
+        board[x][y] ^= 512;
+        for(int[] dir : dirs) {
+            int i = x + dir[0];
+            int j = y + dir[1];
+            if(i >= 0 && i < board.length && j >=0 && j < board[0].length && board[i][j] == word.charAt(k + 1)) {
+                if(dfsSearchWord(board, word, k + 1, i, j)) return true;
+            }
+        }
+        
+        board[x][y] ^= 512;
+        return false;
+    }
+}
+
 // my own
 public class Solution {
     public boolean exist(char[][] board, String word) {

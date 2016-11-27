@@ -1,3 +1,38 @@
+// if not allowed to do it in place, O(n), then only store position that will be updated
+
+public class Solution {
+    public void gameOfLife(int[][] board) {
+        if(board == null || board.length == 0 || board[0].length == 0) return;
+        int m = board.length, n = board[0].length;
+        HashSet<Integer> update = new HashSet<Integer>();
+        
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                int count = getNeighborsLives(board, i, j);
+                if(board[i][j] == 1 && (count <2 || count >3) || board[i][j] == 0 && count == 3) update.add(i * n + j);
+            }
+        }
+        
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                if(update.contains(i * n + j)) board[i][j] ^= 1;
+            }
+        }
+    }
+    
+    private int getNeighborsLives(int[][] board, int x, int y) {
+        int count = 0;
+        int m = board.length, n = board[0].length;
+        for(int i = Math.max(0, x -1); i <= Math.min(m -1, x +1); i++) {
+            for(int j = Math.max(0, y -1); j <= Math.min(n-1, y +1); j++) {
+                count += board[i][j];
+            }
+        }
+
+        return count - board[x][y];
+    }
+}
+
 //https://discuss.leetcode.com/topic/29054/easiest-java-solution-with-explanation
 // constant space
 

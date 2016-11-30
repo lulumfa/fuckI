@@ -1,3 +1,50 @@
+// my latest own way
+public class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        List<String> res = new ArrayList<String>();
+        
+        if(words == null || words.length == 0) return res;
+        
+        for(int i = 0; i < words.length; i++) {
+            StringBuilder sb = new StringBuilder();
+            int wordCount = 1;
+            int start = i;
+            int width = words[i].length();
+            while((i+1) < words.length && (width + words[i+1].length() + wordCount) <= maxWidth) {
+                width += words[i+1].length();
+                wordCount++;
+                i++;
+            }
+            
+            if(i < words.length -1 && wordCount > 1) {
+                int extra = maxWidth - width;
+                int extraPerSpace = extra/(wordCount-1);
+                int extraExtra = extra % (wordCount -1);
+                for(int j = start; j <= i; j++) {
+                    sb.append(words[j]);
+                    if(j != i) {
+                        for(int k = 0; k < extraPerSpace; k++) {
+                            sb.append(" ");
+                        }
+                        if(extraExtra-- > 0) sb.append(" ");
+                    }
+                }
+            } else {
+               for(int j = start; j <= i; j++) {
+                   sb.append(words[j]);
+                   if(j != i) sb.append(" ");
+               } 
+               for(int j = sb.length(); j < maxWidth; j++) {
+                   sb.append(" ");
+               }
+            }
+            
+            res.add(sb.toString());
+        }
+        return res;
+    }
+}
+
 // latest
 
 public class Solution {

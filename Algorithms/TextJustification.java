@@ -1,3 +1,51 @@
+// latest
+
+public class Solution {
+    public List<String> fullJustify(String[] words, int L) {
+        List<String> lines = new ArrayList<String>();
+        
+        int index = 0;
+        while (index < words.length) {
+            int count = words[index].length();
+            int last = index + 1;
+            while (last < words.length) {
+                if (words[last].length() + count + 1 > L) break;
+                count += words[last].length() + 1;
+                last++;
+            }
+            
+            StringBuilder builder = new StringBuilder();
+            int diff = last - index - 1;
+            // if last line or number of words in the line is 1, left-justified
+            if (last == words.length || diff == 0) {
+                for (int i = index; i < last; i++) {
+                    builder.append(words[i] + " ");
+                }
+                builder.setLength(builder.length() - 1);
+                for (int i = builder.length(); i < L; i++) {
+                    builder.append(" ");
+                }
+            } else {
+                // middle justified
+                int spaces = (L - count) / diff;
+                int r = (L - count) % diff;
+                for (int i = index; i < last; i++) {
+                    builder.append(words[i]);
+                    if (i < last - 1) {
+                        for (int j = 0; j <= (spaces + ((i - index) < r ? 1 : 0)); j++) {
+                            builder.append(" ");
+                        }
+                    }
+                }
+            }
+            lines.add(builder.toString());
+            index = last;
+        }
+        
+        return lines;
+    }
+}
+
 //reference: http://blog.csdn.net/linhuanmars/article/details/24063271
 // 。时间上我们需要扫描单词一遍，然后在找到行尾的时候在扫描一遍当前行的单词，不过总体每个单词不会被访问超过两遍，所以总体时间复杂度是O(n)。
 // 而空间复杂度则是结果的大小（跟单词数量和长度有关，不能准确定义，如果知道最后行数r，则是O(r*L)）。

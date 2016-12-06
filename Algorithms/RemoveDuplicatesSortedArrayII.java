@@ -1,3 +1,24 @@
+// my latest, closer to the sibling question, ....I
+
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        if(nums == null || nums.length == 0) return 0;
+        
+        int pre = 0;
+        int k = 1;
+        
+        for(int i = 1; i < nums.length; i++) {
+            if(nums[i] != nums[pre] || k < 2) {
+                if(nums[i] != nums[pre]) k = 0;
+                nums[++pre] = nums[i];
+                k++;
+            }
+        }
+        
+        return pre + 1;
+    }
+}
+
 // my latest
 public class Solution {
     public int removeDuplicates(int[] nums) {

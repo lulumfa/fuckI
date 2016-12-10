@@ -11,6 +11,38 @@
  */
 public class Solution {
     public List<String> binaryTreePaths(TreeNode root) {
+        List<String> res = new ArrayList<String>();
+        if(root == null) return res;
+        dfsFindPaths(res, root, new StringBuilder());
+        return res;
+    }
+    
+    private void dfsFindPaths(List<String> res, TreeNode root, StringBuilder sb) {
+        int length = sb.length();
+        sb.append(root.val);
+        if(root.left == null && root.right == null) {
+            res.add(sb.toString());
+        } else {
+            sb.append("->");
+            if(root.left != null) dfsFindPaths(res, root.left, sb);
+            if(root.right != null) dfsFindPaths(res, root.right, sb);
+        }
+        sb.setLength(length);
+    }
+}
+
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public List<String> binaryTreePaths(TreeNode root) {
         if(root == null) return new ArrayList<String>();
         
         List<List<Integer>> paths = new ArrayList<List<Integer>>();

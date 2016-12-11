@@ -1,4 +1,4 @@
-// amotized O(1), space O(height)
+// most likely O(height)  or maybe amotized O(1), space O(height)
 
 
 // taking use of the internal ListIterator
@@ -56,3 +56,40 @@ public class NestedIterator implements Iterator<Integer> {
  * NestedIterator i = new NestedIterator(nestedList);
  * while (i.hasNext()) v[f()] = i.next();
  */
+
+
+// not using internal iterator and purely taking use of stack as dfs
+
+public class NestedIterator implements Iterator<Integer> {
+    
+    private Stack<NestedInteger> stack;
+    
+    public NestedIterator(List<NestedInteger> nestedList) {
+        stack = new Stack<NestedInteger>();
+        if(nestedList != null) {
+            for(int i = nestedList.size() -1; i >=0; i--) {
+                stack.push(nestedList.get(i));
+            }   
+        }
+    }
+
+    @Override
+    public Integer next() {
+        if(!hasNext()) return null;
+        return stack.pop().getInteger();
+    }
+
+    @Override
+    public boolean hasNext() {
+        while(!stack.isEmpty()) {
+            NestedInteger top = stack.peek();
+            if(top.isInteger()) return true;
+            stack.pop();
+            List<NestedInteger> list = top.getList();
+            for(int i = list.size() -1; i >=0; i--) {
+                stack.push(list.get(i));
+            }
+        }
+        return false;
+    }
+}

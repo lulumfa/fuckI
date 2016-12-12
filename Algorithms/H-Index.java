@@ -1,5 +1,5 @@
 // O(n), space O(n)
-
+//https://discuss.leetcode.com/topic/23307/my-o-n-time-solution-use-java
 public class Solution {
     public int hIndex(int[] citations) {
         if(citations == null || citations.length == 0) return 0;

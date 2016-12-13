@@ -2,6 +2,15 @@
 
 // so eventually it is gonna be O(V + E*1) = O(E + V)
 
+//Weighted quick-union with path compression
+//https://www.cs.princeton.edu/~rs/AlgsDS07/01UnionFind.pdf
+
+// Theorem. Starting from an empty data structure, any sequence
+// of M union and find operations on N objects takes O(N + M lg* N) time.
+// In theory, WQUPC is not quite linear.
+// • In practice, WQUPC is linear.
+
+
 public class Solution {
     public boolean validTree(int n, int[][] edges) {
         if(edges == null || n < 1) return false;

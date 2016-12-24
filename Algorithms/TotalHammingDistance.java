@@ -1,5 +1,6 @@
 // O(n), space O(1)
 // count every bits since these are things actually matter to hamming distance
+//It's O(N*logV) where V is the upper bound of numbers in the given input.
 
 public class Solution {
     public int totalHammingDistance(int[] nums) {

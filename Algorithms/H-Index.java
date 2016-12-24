@@ -1,5 +1,28 @@
 // O(n), space O(n)
 //https://discuss.leetcode.com/topic/23307/my-o-n-time-solution-use-java
+//shorter one
+public class Solution {
+    public int hIndex(int[] citations) {
+        if(citations == null) return 0;
+        
+        int n = citations.length;
+        int[] count = new int[n+1];
+        
+        for(Integer citation : citations) {
+            if(citation >= n) count[n]++;
+            else count[citation]++;
+        }
+        
+        int sum = 0;
+        for(int i = n; i >=0; i--) {
+            sum += count[i];
+            if(sum >= i) return i;
+        }
+        
+        return 0;
+    }
+}
+
 public class Solution {
     public int hIndex(int[] citations) {
         if(citations == null || citations.length == 0) return 0;

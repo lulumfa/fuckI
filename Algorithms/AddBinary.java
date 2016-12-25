@@ -2,6 +2,31 @@
 
 public class Solution {
     public String addBinary(String a, String b) {
+        if(a == null) return b;
+        if(b == null) return a;
+        
+        if(a.length() < b.length()) return addBinary(b, a);
+        
+        int lenA = a.length(), lenB = b.length();
+        int carry = 0;
+        
+        StringBuilder sb = new StringBuilder();
+        
+        for(int i = 0; i < lenA; i++) {
+            int sum = carry;
+            sum += (int)(a.charAt(lenA - i - 1) - '0');
+            if(lenB - i - 1 >=0) sum += (int)(b.charAt(lenB - i - 1) - '0');
+            sb.append(sum%2);
+            carry = sum/2;
+        }
+        if(carry == 1) sb.append("1");
+        
+        return sb.reverse().toString();
+    }
+}
+
+public class Solution {
+    public String addBinary(String a, String b) {
         StringBuilder sb = new StringBuilder();
         if(a == null && b == null) return sb.toString();
         if(a == null) return b;

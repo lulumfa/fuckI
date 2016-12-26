@@ -1,4 +1,32 @@
+// latest latest, I feel like easier to understand
+// O(n), space constant
+public class Solution {
+    public int numDecodings(String s) {
+        if(s == null || s.length() == 0) return 0;
+        
+        // 00, 1-26
+        int pre = 1, prePre = 1;
+        
+        for(int i = 0; i < s.length(); i++) {
+            int cur = 0;
+            int digit = (int)(s.charAt(i) - '0');
+            if(digit != 0) {
+                cur += pre;
+            }
+            if(i != 0) {
+                int lastDigit = (int)(s.charAt(i -1) - '0');
+                if(lastDigit == 1 || (lastDigit == 2) && (digit <= 6)) cur += prePre;
+            }
+            
+            prePre = pre;
+            pre = cur;
+        }
+        return pre;
+    }
+}
+
 // my latest way, not as clean as beloe
+
 public class Solution {
     public int numDecodings(String s) {
         if(s == null || s.length() == 0) return 0;

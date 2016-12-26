@@ -11,23 +11,21 @@
 public class Solution {
     public boolean canAttendMeetings(Interval[] intervals) {
         if(intervals == null || intervals.length == 0) return true;
-    
-        Arrays.sort(intervals, new Comparator<Interval>() {
+        
+        Comparator<Interval> comparator = new Comparator<Interval>() {
             @Override
             public int compare(Interval a, Interval b) {
-                if(a.start == b.start) return a.end -b.end;
-                return a.start - b.start;
+                if(a.start == b.start) return a.end - b.end;
+                return a. start - b.start;
             }
-        });
-        Interval pre = null;
-        for(Interval interval : intervals) {
-            if(pre == null) {
-                pre = interval;
-            } else {
-                if(interval.start < pre.end) return false;
-                pre = interval;
-            }
+        };
+        
+        Arrays.sort(intervals, comparator);
+        
+        for(int i = 1; i < intervals.length; i++) {
+            if(intervals[i].start < intervals[i-1].end) return false;
         }
+        
         return true;
     }
 }

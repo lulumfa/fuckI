@@ -1,3 +1,30 @@
+// latest O(L of digits * 4) = O(n), space O(n)
+public class Solution {
+    public static String[] keys = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    
+    public List<String> letterCombinations(String digits) {
+        List<String> res = new ArrayList<String>();
+        if(digits == null || digits.length() == 0) return res;
+        dfsConstructCombinations(res, digits, 0, new StringBuilder());
+        
+        return res;
+    }
+    
+    private void dfsConstructCombinations(List<String> res, String digits, int index, StringBuilder sb) {
+        if(index == digits.length()) {
+            res.add(sb.toString());
+            return;
+        }
+        
+        String letters = keys[(int)(digits.charAt(index) - '0')];
+        for(int i = 0; i < letters.length(); i++) {
+            sb.append(letters.charAt(i));
+            dfsConstructCombinations(res, digits, index + 1, sb);
+            sb.setLength(index);
+        }
+    } 
+}
+
 public class Solution {
     public List<String> letterCombinations(String digits) {
         List<String> res = new ArrayList<String>();

@@ -1,4 +1,6 @@
 // latest O(L of digits * 4) = O(n), space O(n)
+
+//recursively
 public class Solution {
     public static String[] keys = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
     
@@ -23,6 +25,32 @@ public class Solution {
             sb.setLength(index);
         }
     } 
+}
+
+// iteratively
+
+public class Solution {
+    public static String[] keys = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    
+    public List<String> letterCombinations(String digits) {
+        LinkedList<String> res = new LinkedList<String>();
+        if(digits == null || digits.length() == 0) return res;
+
+        res.offer("");
+        for(int i = 0; i < digits.length(); i++) {
+            int count = res.size();
+            while(count >0) {
+                String s = res.poll();
+                count--;
+                String letters = keys[(int)(digits.charAt(i) - '0')];
+                for(int j = 0; j < letters.length(); j++) {
+                    res.offer(s + letters.charAt(j));
+                }
+            }
+        }
+        
+        return res;
+    }
 }
 
 public class Solution {

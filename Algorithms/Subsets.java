@@ -1,4 +1,5 @@
 //reference: http://blog.csdn.net/linhuanmars/article/details/24286377
+//时间和空间都是取决于结果的数量，也就是O(2^n)
 public class Solution {
     public List<List<Integer>> subsets(int[] num) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();

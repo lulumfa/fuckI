@@ -1,11 +1,36 @@
 //reference: http://blog.csdn.net/linhuanmars/article/details/24286377
 //时间和空间都是取决于结果的数量，也就是O(2^n)
+
+// recursively
+public class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        
+        if(nums == null) return res;
+        dfsFindSubset(res, nums, 0, new ArrayList<Integer>());
+        
+        return res;
+    }
+    
+    private void dfsFindSubset(List<List<Integer>> res, int[] nums, int start, List<Integer> list) {
+        res.add(new ArrayList<Integer>(list));
+        if(start == nums.length) {
+            return;
+        }
+        for(int i = start; i < nums.length; i++) {
+            list.add(nums[i]);
+            dfsFindSubset(res, nums, i + 1, list);
+            list.remove(list.size() -1);
+        }
+    }
+}
+
+// iteratively
 public class Solution {
     public List<List<Integer>> subsets(int[] num) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();
         if(num==null) return res;
         res.add(new ArrayList<Integer>());
-        Arrays.sort(num);
         for(int i = 0; i<num.length; i++) {
             int size = res.size();
             for(int j = 0; j<size; j++) {

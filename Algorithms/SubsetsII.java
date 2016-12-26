@@ -29,3 +29,35 @@ public class Solution {
         }
     }
 }
+
+//iteratively
+
+public class Solution {
+
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        
+        if(nums == null) return res;
+        Arrays.sort(nums);
+        res.add(new ArrayList<Integer>());
+        
+        int start = 0;
+        for(int i = 0; i < nums.length; i++) {
+            int len = res.size();
+            for(int j = start; j < len; j++) {
+                List<Integer> list = new ArrayList<Integer>(res.get(j));
+                list.add(nums[i]);
+                res.add(list);
+                
+                if(i + 1 < nums.length && nums[i + 1] == nums[i]) {
+                    start = len;
+                } else {
+                    start = 0;
+                }
+            }
+        }
+        
+        return res;
+    }
+
+}

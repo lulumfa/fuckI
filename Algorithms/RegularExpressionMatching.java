@@ -1,5 +1,57 @@
 // O(n2)
 
+//latest with explanation and test cases
+// 动态规划的时间复杂度是O(n^2),空间复杂度也是O(n^2)。而brute force的递归算法最坏情况是指数量级的复杂度。 
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        // dp[i+1][j+1] corresponds to s[i] and p[j]
+        // if p[j] != "*"  dp[i][j] = true && (s[i] == p[j] || p[j] == '.')
+        // if p[j] == "*" 
+        //      if p[j-1] != "." : dp[i][j+1] && s[i] == s[i-1] && p[j-1] == s[i-1] || dp[i+1][j-1] || dp[i+1][j]
+        //      if p[j-1] == '.' : dp[i+1][j-1] || dp[i+1][j], dp[i+2][j+1],....
+        
+        // "" -> "" true
+        // ""-> "*" or "a" -> "*a" should be false
+        // abc -> abc true
+        // abcd -> abc false
+        // xx -> x* true
+        // xxsdsdsd -> .* true
+        // xxy -> a*x*y true
+        if(s == null || p == null) return false;
+        
+        boolean[][] dp = new boolean[s.length() + 1][p.length() + 1];
+        dp[0][0] = true;
+        
+        for(int j = 0; j < p.length(); j++) {
+            if(p.charAt(j) != '*') {
+                for(int i = 0; i < s.length(); i++) {
+                    dp[i+1][j+1] = dp[i][j] && (s.charAt(i) == p.charAt(j) || p.charAt(j) == '.');
+                }
+            } else {
+                if(j == 0) continue; // test ""-> "*" or "a" -> "*a" should be false
+                if(dp[0][j-1]) dp[0][j+1] = true;
+                
+                if(p.charAt(j-1) != '.') {
+                    for(int i = 0; i < s.length(); i++) {
+                        dp[i+1][j+1] = dp[i+1][j-1] || dp[i+1][j] || (i> 0 && dp[i][j+1] && s.charAt(i-1) == s.charAt(i) && p.charAt(j -1) == s.charAt(i));
+                    }
+                } else {
+                    int i = 0;
+                    while(i< s.length() && !dp[i+1][j-1] && !dp[i+1][j]) i++;
+                    while(i < s.length()) {
+                        dp[i+1][j+1] = true;
+                        i++;
+                    }
+                }
+            }
+        }
+        
+        
+        return dp[s.length()][p.length()];
+    }
+}
+
+
 public class Solution {
     public boolean isMatch(String s, String p) {
         if(s == null || p == null) return false;

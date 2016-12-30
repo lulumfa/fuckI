@@ -1,36 +1,27 @@
 // http://www.ninechapter.com/solutions/implement-iterator-of-binary-search-tree/
+//run in average O(1) time and uses O(h) memory, where h is the height of the tree.
+public class BSTIterator {
 
-/**
- * Copyright: NineChapter
- * - Algorithm Course, Mock Interview, Interview Questions
- * - More details on: http://www.ninechapter.com/
- */
-
-public class Solution {
-    private Stack<TreeNode> stack = new Stack<>();
-    private TreeNode curt;
-    
-    // @param root: The root of binary tree.
-    public Solution(TreeNode root) {
-        curt = root;
+    Stack<TreeNode> stack;
+    TreeNode node;
+    public BSTIterator(TreeNode root) {
+        stack = new Stack<TreeNode>();
+        node = root;
     }
 
-    //@return: True if there has next node, or false
+    /** @return whether we have a next smallest number */
     public boolean hasNext() {
-        return (curt != null || !stack.isEmpty());
+        return node != null || !stack.isEmpty();
     }
-    
-    //@return: return next node
-    public TreeNode next() {
-        while (curt != null) {
-            stack.push(curt);
-            curt = curt.left;
+
+    /** @return the next smallest number */
+    public int next() {
+        while(node != null) {
+            stack.push(node);
+            node = node.left;
         }
-        
-        curt = stack.pop();
-        TreeNode node = curt;
-        curt = curt.right;
-        
-        return node;
+        TreeNode smallest = stack.pop();
+        node = smallest.right;
+        return smallest.val;
     }
 }

@@ -55,6 +55,7 @@ public class Solution {
         return mergeTwoLists(merge(lists, left, mid), merge(lists, mid+1, right));
     }
     
+    // create new LinkNodes, check if allowed
     private ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if(l1 == null) return l2;
         if(l2 == null) return l1;
@@ -78,6 +79,32 @@ public class Solution {
         
         if(node1 == null) node.next = node2;
         else node.next = node1;
+        return header.next;
+    }
+
+    // using the old space, but modified the old two lists
+    public ListNode mergeTwoLists(ListNode a, ListNode b) {
+        if(a == null) return b;
+        if(b == null) return a;
+        
+        ListNode node1 = a, node2 = b;
+        ListNode header = new ListNode(0);
+        ListNode node = header;
+        
+        while(a != null && b!= null) {
+            if(a.val <= b.val) {
+                node.next = a;
+                a = a.next;
+            } else {
+                node.next = b;
+                b = b.next;
+            }
+            node = node.next;
+        }
+        
+        if(a == null) node.next = b;
+        else node.next = a;
+        
         return header.next;
     }
 }

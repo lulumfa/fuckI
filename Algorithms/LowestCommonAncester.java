@@ -17,8 +17,7 @@ public class Solution {
     }
     
     private TreeNode findLCA(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null) return null;
-        if(root == p || root == q) return root;
+        if(root == null || root == p || root == q) return root;
         TreeNode left = findLCA(root.left, p, q);
         TreeNode right = findLCA(root.right, p, q);
         

@@ -1,25 +1,28 @@
 // my latest
 
+// bfs using queue, O(E + V), space O(V), E worst case = V2
 public class Solution {
     public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
-        if(node == null) return node;
+        if(node == null) return null;
         HashMap<UndirectedGraphNode, UndirectedGraphNode> map = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
-        Stack<UndirectedGraphNode> stack = new Stack<UndirectedGraphNode>();
-        stack.push(node);
-        UndirectedGraphNode res = new UndirectedGraphNode(node.label);
-        map.put(node, res);
-        while(!stack.isEmpty()){
-            UndirectedGraphNode cur = stack.pop();
-            for(UndirectedGraphNode neighbor: cur.neighbors){
+        Queue<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
+        UndirectedGraphNode copy = new UndirectedGraphNode(node.label);
+        map.put(node, copy);
+        queue.offer(node);
+        
+        while(!queue.isEmpty()) {
+            UndirectedGraphNode cur = queue.poll();
+            UndirectedGraphNode curCopy = map.get(cur);
+            for(UndirectedGraphNode neighbor : cur.neighbors) {
                 if(!map.containsKey(neighbor)) {
-                    stack.push(neighbor);
                     map.put(neighbor, new UndirectedGraphNode(neighbor.label));
+                    queue.offer(neighbor);
                 } 
-                map.get(cur).neighbors.add(map.get(neighbor));
+                curCopy.neighbors.add(map.get(neighbor));
             }
         }
         
-        return res;
+        return copy;
     }
 }
 

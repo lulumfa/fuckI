@@ -1,4 +1,4 @@
-// O(n), space O(longest res)
+// O(n), space O(longest res) about 2^n because each digit will become 1 count and 1 say for the worst case
 
 public class Solution {
     public String countAndSay(int n) {

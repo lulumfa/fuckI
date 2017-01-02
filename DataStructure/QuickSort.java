@@ -1,3 +1,52 @@
+package Facebook;
+
+import java.util.Arrays;
+
+public class Quicksort  {
+	
+	public static void main(String[] args) {
+		Quicksort qs = new Quicksort();
+		System.out.println(Arrays.toString(qs.sort(new int[]{3, 5, 2, 3})));
+	}
+	
+	public int[] sort(int[] input) {
+		if(input == null || input.length == 0) return null;
+		quickSort(input, 0, input.length -1);
+		return input;
+	}
+	
+	public void quickSort(int[] input, int start, int end) {
+		int i = start, j = end;
+		int pivot = input[start + (end - start)/2];
+		while(i <= j) {
+			while(input[i] < pivot) i++;
+
+			while(input[j] > pivot) j--;
+			
+			if(i <= j) {
+				swap(input, i, j);
+				i++;
+				j--;
+			}
+		}
+		
+		if(start < j) {
+			quickSort(input, start, j);
+		}
+		
+		if(i < end) {
+			quickSort(input, i, end);
+		}
+	}
+	
+	private void swap(int[] input, int i, int j) {
+		int temp = input[i];
+		input[i] = input[j];
+		input[j] = temp;
+	}
+} 
+
+
 /*Fast, recursive, non-stable sort algorithm which works by the divide and conquer principle. Quicksort will in the best case divide the array into almost two identical parts. It the array contains n elements then the first run will need O(n). Sorting the remaining two sub-arrays takes 2* O(n/2). This ends up in a performance of O(n log n).
 
 In the worst case quicksort selects only one element in each iteration. So it is O(n) + O(n-1) + (On-2).. O(1) which is equal to O(n^2).

@@ -1,3 +1,31 @@
+// O(n), space O(n), using deque because stack is deprecated and also it provides pollLast() method from the deque interface
+
+public class Solution {
+    public String simplifyPath(String path) {
+        if(path == null) return null;
+        
+        String[] dirs = path.split("/");
+        Deque<String> stack = new LinkedList<String>();
+        
+        for(String dir : dirs) {
+            if(dir.equals(".") || dir.length() == 0) {
+                continue;
+            } else if(dir.equals("..")) {
+                if(!stack.isEmpty()) stack.pop();
+            } else {
+                stack.push(dir);
+            }
+        }
+        
+        StringBuilder sb = new StringBuilder();
+        while(!stack.isEmpty()) {
+            sb.append("/").append(stack.pollLast());
+        }
+        
+        return sb.length() == 0 ? "/" : sb.toString();
+    }
+}
+
 //reference: http://blog.csdn.net/linhuanmars/article/details/23972563
 
 public class Solution {

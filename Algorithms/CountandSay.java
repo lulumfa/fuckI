@@ -1,3 +1,31 @@
+// O(n), space O(longest res)
+
+public class Solution {
+    public String countAndSay(int n) {
+        if(n < 1) return null;
+        StringBuilder res = new StringBuilder("1");
+        
+        for(int i = 2; i <= n; i++) {
+            StringBuilder newRes = new StringBuilder();
+            Integer say = null;
+            int count = 0;
+            for(int j = 0; j < res.length(); j++) {
+                int digit = (int)(res.charAt(j) - '0');
+                if(say == null || digit != say) {
+                    if(say != null) newRes.append(count).append(say);
+                    say = digit;
+                    count = 0;
+                }
+                count++;
+            }
+            newRes.append(count).append(say);
+            res = newRes;
+        }
+        
+        return res.toString();
+    }
+}
+
 // my own
 
 public class Solution {

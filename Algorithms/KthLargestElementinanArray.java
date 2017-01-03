@@ -1,3 +1,15 @@
+//So how can we improve the above solution and make it O(N) guaranteed? 
+//The answer is quite simple, we can randomize the input, so that even when the 
+//worst case input would be provided the algorithm wouldn't be affected. 
+//So all what it is needed to be done is to shuffle the input.
+private void shuffle(int a[]) {
+
+        final Random random = new Random();
+        for(int ind = 1; ind < a.length; ind++) {
+            final int r = random.nextInt(ind + 1);
+            exch(a, ind, r);
+        }
+    }
 //O(N) best case / O(N^2) worst case running time + O(1) memory
 
 public class Solution {

@@ -9,6 +9,10 @@ public class Solution {
 //if(s.length()>300 && p.charAt(0)=='*' && p.charAt(p.length()-1)=='*')  
   //  return false; 
         
+        
+                // s[i], p[j], dp[i+1][j+1]
+        // p[j] != '*': dp[i+1][j+1] = dp[i][j] && (s[i] == p[j] || p[j] == '?')
+        // p[j] == '*': dp[i+1][j] == true -> dp[i+2][j+1], d[[i+3][j+1]
         boolean[] res = new boolean[s.length()+1];
         res[0] = true;
         

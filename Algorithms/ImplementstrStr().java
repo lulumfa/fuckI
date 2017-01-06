@@ -5,7 +5,7 @@ public class Solution {
     public int strStr(String haystack, String needle) {
         if(haystack == null || needle == null || haystack.length() < needle.length()) return -1;
         
-        int base = 29; // should be 128 and use big integer
+        int base = 29; // should be 257 and use big integer
         long maxBase = 1;
         for(int i = 0; i< needle.length()-1; i++) {
             maxBase *= base;

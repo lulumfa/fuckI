@@ -23,3 +23,17 @@ public class Solution {
         return res;
     }
 }
+
+// sorting + O(n)
+public class Solution {
+    public int hIndex(int[] citations) {
+        if(citations == null || citations.length == 0) return 0;
+        
+        Arrays.sort(citations);
+        int n = citations.length;
+        for(int i = 0; i < citations.length; i++) {
+            if(n - i <= citations[i]) return n - i;
+        }
+        return 0;
+    }
+}

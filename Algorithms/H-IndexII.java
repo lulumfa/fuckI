@@ -1,3 +1,24 @@
+// my latest lgn O(1) one
+
+public class Solution {
+    public int hIndex(int[] citations) {
+        if(citations == null || citations.length == 0) return 0;
+        int left = 0, right = citations.length -1;
+        int hIndex = 0;
+        int n = citations.length;
+        while(left <= right) {
+            int mid = left + (right -left)/2;
+            if(n - mid <= citations[mid]) {
+                hIndex = Math.max(n - mid, hIndex);
+                right = mid -1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        return hIndex;
+    }
+}
+
 // after sorting
 // O(lgn), space O(1)
 

@@ -47,18 +47,15 @@ public class Solution {
     }
 }
 
-// O(nlgn) space O(1), sort first and try some example you will see
 public class Solution {
     public int hIndex(int[] citations) {
         if(citations == null || citations.length == 0) return 0;
+        
         Arrays.sort(citations);
         int n = citations.length;
-        int res = 0;
-        for(int i = n -1; i >=0; i--) {
-            if(n - i > citations[i]) return res;
-            res = n-i;
+        for(int i = 0; i < citations.length; i++) {
+            if(n - i <= citations[i]) return n - i;
         }
-        
-        return res;
+        return 0;
     }
 }

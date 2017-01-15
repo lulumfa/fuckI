@@ -27,3 +27,30 @@ public class Solution {
         return preMinColor == -1 ? 0 : preMin;
     }
 } 
+
+// my latest
+public class Solution {
+    public int minCostII(int[][] costs) {
+        if(costs == null || costs.length == 0) return 0;
+        int min = Integer.MAX_VALUE, secMin = Integer.MAX_VALUE, minColor = -1;
+        
+        for(int i = 0; i < costs.length; i++) {
+            int curMin = Integer.MAX_VALUE, curSecMin = Integer.MAX_VALUE, curMinColor = -1;
+            for(int j = 0; j < costs[0].length; j++) {
+                int cost = costs[i][j] +  (minColor == -1 ? 0 : j == minColor ? secMin : min);
+                if(cost < curMin) {
+                    curSecMin = curMin;
+                    curMin = cost;
+                    curMinColor = j;
+                } else if(cost < curSecMin) {
+                    curSecMin = cost;
+                }
+            }
+            min = curMin;
+            secMin = curSecMin;
+            minColor = curMinColor;
+        }
+        
+        return minColor == -1 ? -1 : min;
+    }
+}

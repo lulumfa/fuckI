@@ -11,6 +11,66 @@
 // • In practice, WQUPC is linear.
 
 
+// my latest, cleaner
+
+public class Solution {
+    public boolean validTree(int n, int[][] edges) {
+        if(n < 1|| edges == null) return false;
+        
+        UnionFind uf = new UnionFind(n);
+        
+        for(int[] edge : edges) {
+            if(!uf.union(edge[0], edge[1])) return false;
+        }
+        
+        return uf.getCount() == 1;
+    }
+}
+
+class UnionFind {
+    
+    int[] ids, sizes;
+    int count;
+    
+    public UnionFind(int n) {
+        ids = new int[n];
+        sizes = new int[n];
+        count = n;
+        for(int i = 0; i < n; i++) ids[i] = i;
+    }
+    
+    public int getCount() {
+        return count;
+    }
+    
+    public int find(int p) {
+        while(ids[p] != p) {
+            ids[p] = ids[ids[p]];
+            p = ids[p];
+        }
+        return p;
+    }
+    
+    public boolean union(int p, int q) {
+        int idP = find(p), idQ = find(q);
+        if(idP == idQ) return false;
+        int szP = sizes[idP], szQ = sizes[idQ];
+        
+        if(szP <= szQ) {
+            sizes[idQ] += sizes[idP];
+            ids[idP] = ids[idQ];
+        } else {
+            sizes[idP] += sizes[idQ];
+            ids[idQ] = ids[idP];
+        }
+        count--;
+        return true;
+    }
+}
+
+---
+    
+    //first time
 public class Solution {
     public boolean validTree(int n, int[][] edges) {
         if(edges == null || n < 1) return false;

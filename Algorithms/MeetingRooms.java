@@ -1,5 +1,6 @@
 // meeting rooms II, not priroty queue solution, O(nlgn) space O(n)
-
+//https://discuss.leetcode.com/topic/35253/explanation-of-super-easy-java-solution-beats-98-8-from-pinkfloyda/7
+// comment in the middle
 public class Solution {
     public int minMeetingRooms(Interval[] l) {
         int n = l.length, i = 0, firstEnd = 0;

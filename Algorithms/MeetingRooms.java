@@ -1,3 +1,54 @@
+// meeting rooms II, not priroty queue solution, O(nlgn) space O(n)
+
+public class Solution {
+    public int minMeetingRooms(Interval[] l) {
+        int n = l.length, i = 0, firstEnd = 0;
+        int[] st = new int[n], ed = new int[n];
+        for (int j = 0; j < n; st[j] = l[j].start, ed[j] = l[j].end, j++);
+        Arrays.sort(st);
+        Arrays.sort(ed);
+        for (; i < n; i++)
+            if (st[i] >= ed[firstEnd]) firstEnd++;
+        return i - firstEnd;
+    }
+}
+
+/**
+ * Definition for an interval.
+ * public class Interval {
+ *     int start;
+ *     int end;
+ *     Interval() { start = 0; end = 0; }
+ *     Interval(int s, int e) { start = s; end = e; }
+ * }
+ */
+public class Solution {
+    public int minMeetingRooms(Interval[] intervals) {
+        if(intervals == null) return 0;
+        int n = intervals.length;
+        int[] starts = new int[n];
+        int[] ends = new int[n];
+        
+        for(int i = 0; i < n; i++) {
+            starts[i] = intervals[i].start;
+            ends[i] = intervals[i].end;
+        }
+        
+        Arrays.sort(starts);
+        Arrays.sort(ends);
+        int rooms = 0;
+        int nextEndIndex = 0;
+        for(int i = 0; i < n; i++) {
+            if(starts[i] < ends[nextEndIndex]) {
+                rooms++;
+            } else {
+                nextEndIndex++;
+            }
+        }
+        
+        return rooms;
+    }
+}
 // O(nlgn) space O(1)
 /**
  * Definition for an interval.

@@ -214,3 +214,39 @@ public class Solution {
         return result;
     }
 }
+
+
+// recursively do word break i
+//Use a set to record all position that cannot find a match in dict. That cuts down the run time of DFS to O(n^2)
+
+
+//Say length of the string s = N, when dfs() is called for first time, it takes O(N) to find a valid sub-string t.
+//Then, we call dfs(s, i, dict, set) and all invalid index will be kept in set when it returns.
+//The remaining loop iterations take O(N), since we simply look up hash tables.
+//So, the time complexity = O(N) + O(f(N-i)) + O(N) = O(2N + f(N-1)) = O(2N + 2(N-1) + ... + 1) = O(N^2).
+
+public class Solution {
+    public boolean wordBreak(String s, Set<String> dict) {
+        // DFS
+        Set<Integer> set = new HashSet<Integer>();
+        return dfs(s, 0, dict, set);
+    }
+    
+    private boolean dfs(String s, int index, Set<String> dict, Set<Integer> set){
+        // base case
+        if(index == s.length()) return true;
+        // check memory
+        if(set.contains(index)) return false;
+        // recursion
+        for(int i = index+1;i <= s.length();i++){
+            String t = s.substring(index, i);
+            if(dict.contains(t))
+                if(dfs(s, i, dict, set))
+                    return true;
+                else
+                    set.add(i);
+        }
+        set.add(index);
+        return false;
+    }
+}

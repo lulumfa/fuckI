@@ -26,7 +26,7 @@ public class Solution {
                 break;
             }
         }
- 
+        // can include index 0
         //mark zeros on first row and column
         for(int i=1; i<matrix.length; i++){
             for(int j=1; j<matrix[0].length; j++){
@@ -36,7 +36,8 @@ public class Solution {
                 }
             }
         }
- 
+        
+        // cannot include index 0, because index o has been messed up with other cells, cannot tell the orginal zeroRow,zeroCol
         //use mark to set elements
         for(int i=1; i<matrix.length; i++){
             for(int j=1; j<matrix[0].length; j++){

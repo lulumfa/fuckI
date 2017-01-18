@@ -12,7 +12,7 @@
 public class Solution {
     public List<String> removeInvalidParentheses(String s) {
         List<String> res = new ArrayList<String>();
-        
+        if(s == null) return res;
         dfsRemove(s, res, 0, 0, new char[]{'(', ')'});
         return res;
     }
@@ -25,7 +25,7 @@ public class Solution {
             if(count < 0) {
                 for(int j = lastRemove; j <= i; j++) {
                     if(s.charAt(j) == paren[1] && (j == lastRemove || s.charAt(j) != s.charAt(j-1))) {
-                        dfsRemove(s.substring(0, j) + s.substring(j+1), res, i, j, paren);
+                        dfsRemove(s.substring(0, j) + s.substring(j+1), res, i, j, paren);  // starting from 0, not start index !!!
                     }
                 }
                 return;

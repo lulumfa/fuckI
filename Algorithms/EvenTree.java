@@ -1,5 +1,5 @@
 // O(|E| + |V|), spaceO(n)
-
+//http://javatroops.blogspot.com/2012/11/interviewstreet-challenge-even-tree.html
 //dfs count and trim, ask if the edge is directed, both ways below
 
 package Facebook;

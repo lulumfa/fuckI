@@ -1,4 +1,7 @@
-// latest O(L of digits * 4) = O(n), space O(n)
+// correct one O(4^n of digits), space O(4^n) n = # od digits
+
+// latest O(L of digits * 4) = O(n), space O(n) // wrong !!!
+
 
 //recursively
 public class Solution {

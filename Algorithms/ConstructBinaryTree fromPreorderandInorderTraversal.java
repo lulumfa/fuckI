@@ -1,3 +1,43 @@
+//https://discuss.leetcode.com/topic/3695/my-accepted-java-solution/10
+//http://articles.leetcode.com/construct-binary-tree-from-inorder-and-preorder-postorder-traversal
+
+// O(n) space O(n)
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        if(preorder == null || inorder == null || preorder.length != inorder.length) return null;
+        HashMap<Integer, Integer> inorderMap = new HashMap<Integer, Integer>();
+        
+        int m = preorder.length, n = inorder.length;
+        for(int i = 0; i < n; i++) inorderMap.put(inorder[i], i);
+        
+        return buildTree(preorder, 0, m -1, inorder, 0, n -1, inorderMap);
+    }
+    
+    private TreeNode buildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd, HashMap<Integer, Integer> inorderMap) {
+        if(preStart > preEnd || inStart > inEnd) return null;
+        
+        TreeNode root = new TreeNode(preorder[preStart]);
+        int rootInorderIndex = inorderMap.get(root.val);
+        
+        int leftSize = rootInorderIndex - inStart;
+        int rightSize = inEnd - rootInorderIndex;
+        root.left = buildTree(preorder, preStart + 1, preStart + leftSize, inorder, inStart, rootInorderIndex -1, inorderMap);
+        root.right = buildTree(preorder, preStart + leftSize + 1, preEnd, inorder, rootInorderIndex+1, inEnd, inorderMap);
+         
+        return root;
+    }
+}
+
 //reference: http://blog.csdn.net/linhuanmars/article/details/24389549
 
 /**

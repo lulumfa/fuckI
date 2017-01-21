@@ -14,7 +14,8 @@ public class TaskScheduler {
 //		String task = "BB";
 		String task = "ABBABBC";
 		int coolDown = 3;
-		System.out.println(ts.getTotalTime(task, coolDown));
+//		System.out.println(ts.getTotalTime(task, coolDown));
+		System.out.println(ts.scheduleTasks("AAABBB", 2));
 	}
 	
 	private int getTotalTime(String task, int coolDown) {
@@ -36,5 +37,44 @@ public class TaskScheduler {
 		}
 		
 		return time;
+	}
+	
+	public String scheduleTasks(String tasks, int coolDown) {
+		if(tasks == null || coolDown < 0) return null;
+		
+		StringBuilder sb = new StringBuilder();
+		HashMap<Character, Integer> counts = new HashMap<Character, Integer>();
+		for(int i = 0; i < tasks.length(); i++) {
+			char c = tasks.charAt(i);
+			counts.put(c, counts.containsKey(c) ? counts.get(c) + 1 : 1);
+		}
+		
+		PriorityQueue<Entry<Character, Integer>> maxHeap = new PriorityQueue<Entry<Character, Integer>>(new Comparator<Entry<Character, Integer>>() {			
+			@Override
+			public int compare(Entry<Character, Integer> a, Entry<Character, Integer> b) {
+				return b.getValue() - a.getValue();
+			}
+		}); 
+		
+		maxHeap.addAll(counts.entrySet());
+		
+		while(maxHeap.size() > 0) {
+			List<Entry> temp = new ArrayList<Entry>();
+			int k = coolDown;
+			while(k > 0 && maxHeap.size() > 0) {
+				temp.add(maxHeap.poll());
+				k--;
+			}
+			
+			for(Entry<Character, Integer> entry : temp) {
+				sb.append(entry.getKey());
+				entry.setValue(entry.getValue() -1);
+				if(entry.getValue() > 0) maxHeap.offer(entry);
+			}
+			
+			if(maxHeap.size() > 0) for(int i = temp.size(); i <= coolDown; i++) sb.append("_"); // avoid adding extra _ at the end
+		}
+		
+		return sb.toString();
 	}
 }

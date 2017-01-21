@@ -3,7 +3,7 @@
 // 2. Follow up: Given a task sequence and the cool down time, rearrange the task sequence such that the execution time is minimal.
 
 //https://discuss.leetcode.com/topic/112/minimal-run-time-scheduler
-//https://www.careercup.com/question?id=14260662
+//https://www.careercup.com/question?id=5653760530448384
 
 //1. O(n), space O(k), k = types of different tasks
 

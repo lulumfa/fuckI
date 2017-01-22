@@ -1,4 +1,7 @@
 // O(mn), space(m + n)
+
+//https://discuss.leetcode.com/topic/30508/easiest-java-solution-with-graph-explanation/23
+
 public class Solution {
     public String multiply(String num1, String num2) {
         

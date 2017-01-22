@@ -4,25 +4,30 @@
 
 public class Solution {
     public String multiply(String num1, String num2) {
+        //   45 [i =1]
+        //  *12 [j =1]
+        //   10 [i+j=2, i+j+1=3]
+        //  08
+        //  05
+        // 04
+        //=0540
+        // this is assuming input string are valid, all numeric char, we can add validation
         
-        // num1[i] * num2[j] = [i + j, i + j + 1]
         if(num1 == null || num2 == null) return null;
         int m = num1.length(), n = num2.length();
+        int[] digits = new int[m+n];
         
-        int[] digits = new int[m + n];
-        
-        for(int i = m -1; i >=0; i--) {
-            for(int j = n -1; j >=0; j--) {
-                int mult = (num1.charAt(i) - '0') * (num2.charAt(j) - '0');
-                int sum = mult + digits[i + j + 1];
-                
-                digits[i + j] += sum/10;
-                digits[i + j + 1] = sum % 10;
+        for(int i = m-1; i >=0; i--) {
+            for(int j = n-1; j >=0; j--) {
+                int mult = (int)(num1.charAt(i) - '0') * (int)(num2.charAt(j) -'0');
+                mult += digits[i+j+1];
+                digits[i+j+1] = mult%10;
+                digits[i+j] += mult/10;
             }
         }
-        
         StringBuilder sb = new StringBuilder();
-        for(int digit : digits) if(!(sb.length() == 0 && digit == 0)) sb.append(digit);
+        for(int digit : digits) if(!(digit == 0 && sb.length() == 0)) sb.append(digit);
+        
         return sb.length() == 0 ? "0" : sb.toString();
     }
 }

@@ -39,6 +39,17 @@ public class ReverseLinkedList {
     }
 }
 
+// my own way recursively
+public class Solution {
+    public ListNode reverseList(ListNode head) {
+        if(head == null || head.next == null) return head;
+        ListNode newHead = reverseList(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
+    }
+}
+
 // raw reverse
 // Time complexity is O(n), space O(n), cause generation of stack by recursion
 

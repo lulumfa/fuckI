@@ -1,5 +1,18 @@
 // in order to check the equal scenario, left can be equal, right cannot and assuming there can be dup. This one has to confirm with the interviewers
-//O(n), space(lgn)
+//O(n), spaceO(n)
+
+// using Long to validate corner cases
+public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return preorderValidation(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+    
+    private boolean preorderValidation(TreeNode node, Long low, Long high) {
+        if(node == null) return true;
+        if(node.val <= low || node.val >= high) return false;
+        return preorderValidation(node.left, low, (long)(node.val)) && preorderValidation(node.right, (long)(node.val), high);
+    }
+}
 
 //reference: http://blog.csdn.net/linhuanmars/article/details/23810735
 

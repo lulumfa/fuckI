@@ -1,6 +1,7 @@
 
 // lgn, constant space
 // using long to avoid extra check
+// confirm with the interview at last or begining, Integer.MIN_VALUE / -1 = Integer.MIN_VALUE(correct as in eclipse) instead of Integer.MAX_VALUE like in leetcode.
 
 public class Solution {
     public int divide(int dividend, int divisor) {

@@ -1,6 +1,34 @@
 // in order to check the equal scenario, left can be equal, right cannot and assuming there can be dup. This one has to confirm with the interviewers
 //O(n), spaceO(n)
 
+//iteratively way
+//https://discuss.leetcode.com/topic/46016/learn-one-iterative-inorder-traversal-apply-it-to-multiple-tree-questions-java-solution
+
+public class Solution {
+    public boolean isValidBST(TreeNode root) {
+        if(root == null) return true;
+        
+        Integer pre = null;
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode node = root;
+        
+        while(!stack.isEmpty() || node != null) {
+            while(node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+            
+            node = stack.pop();
+            if(pre == null) pre = node.val;
+            else if(pre >= node.val) return false;
+            pre = node.val;
+            node = node.right;
+        }
+        
+        return true;
+    }
+}
+
 // using Long to validate corner cases
 public class Solution {
     public boolean isValidBST(TreeNode root) {

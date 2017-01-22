@@ -1,3 +1,5 @@
+// O(n*klgk), sorting n = a * b, O(a * blgb) = O(nlgb) close to linear
+
 //http://www.programcreek.com/2014/04/leetcode-anagrams-java/
 
 public List<List<String>> groupAnagrams(String[] strs) {

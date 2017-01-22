@@ -33,7 +33,8 @@ public class Solution {
 }
 
 // my own (m+n)^2, space constant
-
+//假设第一个数长度是n，第二个数长度是m，我们知道结果长度为m+n或者m+n-1（没有进位的情况）。对于某一位i，要计算这个位上的数字，
+//我们需要对所有能组合出这一位结果的位进行乘法，即第1位和第i位，第2位和第i-1位，... ，然后累加起来，最后我们取个位上的数值
 public class Solution {
     public String multiply(String num1, String num2) {
         if(num1 == null || num2 == null || num1.length() == 0 || num2.length() ==0) return "";

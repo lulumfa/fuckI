@@ -1,3 +1,36 @@
+
+// lgn, constant space
+// using long to avoid extra check
+
+public class Solution {
+    public int divide(int dividend, int divisor) {
+        if(divisor == 0) return Integer.MAX_VALUE;
+        boolean isNeg = ((dividend ^ divisor) >>> 31 ) == 1;
+        long a = (long) dividend, b = (long) divisor;
+        if(a < 0) a = -a;
+        if(b < 0) b = -b;
+        
+        int digit = 0;
+        while(b <= a >> 1) {
+            digit++;
+            b <<= 1;
+        }
+        long res = 0;
+        
+        while(digit >= 0) {
+            if(a >= b) {
+                res += (((long)1) << digit); //Integer.MIN_VALUE, -1 should be Integer.MAX_VALUE, i >>> 31 will be MIN_VALUE if not casted to long
+                a -= b;
+            }
+            digit--;
+            b >>= 1;
+        }
+        
+        if(res > Integer.MAX_VALUE) return isNeg ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+        int intRes = (int)res;
+        return isNeg ? -intRes : intRes;
+    }
+}
 // my latest, Integer.MIN_VALUE / -1 = Integer.MIN_VALUE(correct as in eclipse) instead of Integer.MAX_VALUE like in leetcode.
 
 public class Solution {

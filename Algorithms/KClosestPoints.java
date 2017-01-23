@@ -1,3 +1,79 @@
+// using built-in PriorityQueue, O(k + nlgk) , implements the comparable so that you can just pass in the collection
+
+package Facebook;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.PriorityQueue;
+
+public class ClosestKPoints {
+	public static void main(String[] args) {
+		ClosestKPoints c = new ClosestKPoints();
+		
+		Point[] input = {
+				new Point(1, 2),
+				new Point(1, 0),
+				new Point(0, 1),
+//				new Point(-1, 0),
+				new Point(0, -1),
+				new Point(5, 0)
+		};
+		
+		System.out.println(Arrays.toString(c.findKNearestNeighbors(input, 4)));
+	}
+	
+	// quick select
+	
+	// maxHeap
+	private Point[] findKNearestNeighbors(Point[] input, int k) {
+		if(input == null || k >= input.length) return null;
+		
+		List<Point> kInput = Arrays.asList(Arrays.copyOfRange(input, 0, k));
+		PriorityQueue<Point> maxHeap = new PriorityQueue<Point>(kInput);
+
+		for(int i = k; i < input.length; i++) {
+			if(maxHeap.peek().compareTo(input[i]) < 0) {
+				maxHeap.poll();
+				maxHeap.offer(input[i]);
+			}
+		}
+		
+		Point[] res = new Point[k];
+		int i = 0;
+		while(!maxHeap.isEmpty()) {
+			res[i++] = maxHeap.poll();
+		}
+		
+		return res;
+	}
+}
+
+class Point implements Comparable<Point>{
+	int x;
+	int y;
+	static Point target = new Point(0, 0);
+
+	public Point(int x, int y) {
+		this.x = x;
+		this.y = y;
+	}
+	
+	@Override
+	public String toString() {
+		return "[" + x + ", " + y + "]";
+	}
+
+	@Override
+	public int compareTo(Point o) {
+		return distance(o, target) > distance(this, target) ? 1: distance(o, target) == distance(this, target)? 0 : -1;
+	}
+	
+	private double distance(Point a, Point b) {
+		return Math.hypot((double)(a.x - b.x), (double)(a.y - b.y));
+	}
+}
+
+
 // k closest points, O(k + mlgk) = O(m), space O(k), better than O(m + klgm)=O(m), space O(m), less space, 
 // using existing priority queue and implement the maxHeap by myself
 package Leetcode;

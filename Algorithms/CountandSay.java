@@ -1,4 +1,33 @@
-// O(n), space O(longest res) about 2^n because each digit will become 1 count and 1 say for the worst case
+//space O(longest res) about 2^n because each digit will become 1 count and 1 say for the worst case
+
+// Have seen some statements like O(n^2), but it seems that the growing of string s is not only linear, 
+// so I doubt O(n^2) is not sufficient, and may require O(2^n). 
+//And the space complexity would also be O(2^n) as we need to store the generated string.
+
+// cleaner
+public class Solution {
+    public String countAndSay(int n) {
+        if(n < 1) return null;
+        
+        StringBuilder sb = new StringBuilder("1");
+        
+        for(int i = 1; i < n; i++) {
+            StringBuilder next = new StringBuilder();
+            for(int j = 1, count = 1; j <= sb.length(); j++) {
+                if(j == sb.length() || sb.charAt(j) != sb.charAt(j-1)) {
+                    next.append(count).append(sb.charAt(j-1));
+                    count = 1;
+                } else {
+                    count++;
+                }
+            }
+            
+            sb = next;
+        }
+        
+        return sb.toString();
+    }
+}
 
 public class Solution {
     public String countAndSay(int n) {

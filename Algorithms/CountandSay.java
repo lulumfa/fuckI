@@ -1,4 +1,5 @@
-//space O(longest res) about 2^n because each digit will become 1 count and 1 say for the worst case
+// O(n * longest res),space O(longest res) about 2^n because each digit will become 1 count and 1 say for the worst case
+// So as summary, runtime = Min(n* longest res, 2^n);
 
 // Have seen some statements like O(n^2), but it seems that the growing of string s is not only linear, 
 // so I doubt O(n^2) is not sufficient, and may require O(2^n). 

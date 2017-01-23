@@ -1,4 +1,6 @@
 // O(n), space O(n), using deque because stack is deprecated and also it provides pollLast() method from the deque interface
+//usually pronounced "deck"
+// double- ended queue
 
 public class Solution {
     public String simplifyPath(String path) {

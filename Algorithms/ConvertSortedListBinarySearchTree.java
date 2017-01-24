@@ -1,5 +1,5 @@
 // reference: http://blog.csdn.net/linhuanmars/article/details/23904937
-
+//整体过程就是一次中序遍历，时间复杂度是O(n)，空间复杂度是栈空间O(logn)
 /**
  * Definition for singly-linked list.
  * public class ListNode {

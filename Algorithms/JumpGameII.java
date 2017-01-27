@@ -1,3 +1,26 @@
+//https://discuss.leetcode.com/topic/3191/o-n-bfs-solution
+public class Solution {
+    public int jump(int[] nums) {
+        if(nums == null || nums.length < 2) return 0;
+        
+        int nextReach = 0, curReach = 0, i = 0, level = 0;
+        
+        while(curReach - i + 1 > 0) {
+            level++;
+            
+            while(i <= curReach) {
+                nextReach = Math.max(nextReach, i + nums[i]);
+                if(nextReach >= (nums.length -1)) return level;
+                i++;
+            }
+            
+            curReach = nextReach;
+        }
+        
+        return -1;
+    }
+}
+
 //reference: http://blog.csdn.net/linhuanmars/article/details/21356187
 
 //时间复杂度仍然是O(n)，空间复杂度也是O(1)

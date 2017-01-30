@@ -26,8 +26,7 @@ public class Solution {
             if(cur.right != null) {
                 next.next = cur.right;
                 next = next.next;
-            }
-            
+            }           
             if(cur.next == null) {
                 cur = nextHead;
                 nextHead = new TreeLinkNode(0);

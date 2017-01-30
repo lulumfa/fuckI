@@ -1,3 +1,52 @@
+// 。时间上我们需要扫描单词一遍，然后在找到行尾的时候在扫描一遍当前行的单词，不过总体每个单词不会被访问超过两遍，所以总体时间复杂度是O(n)。
+// 而空间复杂度则是结果的大小（跟单词数量和长度有关，不能准确定义，如果知道最后行数r，则是O(r*L)）。
+
+// a little bit shorter but less readable due to combination of 2 cases
+public class Solution {
+    public List<String> fullJustify(String[] words, int maxWidth) {
+        if(words == null) return null;
+        
+        List<String> res = new ArrayList<String>();
+        
+        int wordsLength = 0, n = words.length;
+        
+        for(int i = 0; i < n; i++) {
+            int start = i;
+            wordsLength = words[i].length();
+            
+            while((i+ 1) < n && (wordsLength + words[i+1].length() + i + 1 -start) <= maxWidth) {
+                i++;
+                wordsLength += words[i].length();
+            }
+            
+            int spaces = maxWidth - wordsLength;
+            int segs = (i < n -1 && i - start > 0) ? spaces/(i - start) : 1;
+            int extra = i < n -1 ? spaces - segs * (i-start) : 0;
+            
+            StringBuilder sb = new StringBuilder();
+            for(int j = start; j <=i; j++) {
+                sb.append(words[j]);
+                for(int k = 0;k < segs && spaces > 0; k++) {
+                    sb.append(" ");
+                }
+                spaces -= segs;
+                if(spaces > 0 && extra-- > 0) {
+                    sb.append(" ");
+                    spaces--;
+                }
+            }
+            
+            while(spaces-- > 0) {
+                sb.append(" ");
+            }
+            
+            res.add(sb.toString());
+        }
+        
+        return res;
+    }
+}
+
 // my latest own way
 public class Solution {
     public List<String> fullJustify(String[] words, int maxWidth) {

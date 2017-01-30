@@ -8,21 +8,19 @@ public class Solution {
         // n = 0; -2 => x = 1/x overflow case, multiplicative inverse
         
         
-        if(x == 0) return 0.;
-        if(x == 1. || n == 0) return 1.; 
-        double res = 1.;
+        if(x == 0 || x == 1) return x;
+
+        double res = 1.0;
         
-        if(n < 0) {
-            // invalid case 1/x > Double.MAX_VALUE or 1/x < -Double.MAX_VALUE
-            if(x >= 1./Double.MAX_VALUE || x <= -1./Double.MAX_VALUE) {
-                x = 1./x;
-            } else {
-                return Double.MAX_VALUE;
-            }
-            // abs(Integer.MIN) = abs(Integer.MAX) + 1
+        double errorCode = Double.MAX_VALUE;
+        
+        while(n < 0) {
+            if(x < 1/Double.MAX_VALUE && x > -1.0/Double.MAX_VALUE) return errorCode;
+            x = 1.0/x;
+            
             if(n == Integer.MIN_VALUE) {
-                n++;
                 res *= x;
+                n++;
             }
             n = Math.abs(n);
         }
@@ -31,16 +29,17 @@ public class Solution {
         if(x < 0) x = Math.abs(x);
         
         double base = x;
-        //'111' : x ^ n = x ^ (1*1 + 2*1 + 4*1)
+        
         while(n > 0) {
-            if((n & 1) == 1) {
-                if(res  > Double.MAX_VALUE/base) return Double.MAX_VALUE;
+            if((n&1) == 1) {
+                if(res > Double.MAX_VALUE/base) return errorCode;
                 res *= base;
             }
-            if(base > Double.MAX_VALUE/base) return Double.MAX_VALUE;
-            base *= base;
+            if(base > Double.MAX_VALUE/base) return errorCode;
             n >>= 1;
+            base *= base;
         }
+        
         return isNeg ? -res : res;
     }
 }

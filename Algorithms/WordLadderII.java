@@ -84,47 +84,77 @@ public class Solution {
     }
 }
 
-// my implementation below is not passed because of the TLE
+// output one path, runtime O(min(26*L, size(dict))), space(size(dict))
+package Facebook;
 
-public class Solution {
-    public List<List<String>> findLadders(String start, String end, Set<String> dict) {
-        List<List<String>> res = new ArrayList<List<String>>();
-        if(dict==null || start==null || end==null || start.length()!=end.length()) return res;
-        HashSet<String> set = new HashSet<String>();
-        for(String s : dict) {
-            if(s.equals(start)) continue;
-            set.add(s);
-        }
-        List<String> list = new ArrayList<String>();
-        list.add(start);
-        helper(res, list, end, set);
-        return res;
-    }
-    
-    private void helper(List<List<String>> res, List<String> list, String end, HashSet<String> set) {
-        String temp = list.get(list.size()-1);
-        for(int i = 0; i<temp.length(); i++) {
-            char[] copy = temp.toCharArray();
-            for(char c = 'a'; c<='z'; c++) {
-                copy[i] = c;
-                String str = String.valueOf(copy);
-                if(str.equals(end)) {
-                	List<String> copyList = new ArrayList<String>(list);
-                	copyList.add(end);
-                    if(res.size()==0 || res.get(0).size()==copyList.size()) {
-                        res.add(copyList);
-                    } else if(res.get(0).size()>copyList.size()){
-                        res.clear();
-                        res.add(copyList);
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+import java.util.Set;
+
+public class WordLadder {
+	
+	public static void main(String[] args) {
+		WordLadder wl = new WordLadder();
+		
+		String beginWord = "hit";
+		String endWord = "cog";
+		List<String> wordList = Arrays.asList(new String[]{"hot","dot","dog","lot","log","cog"});
+		
+		System.out.println(wl.ladderPath(beginWord, endWord, wordList));
+	}
+	
+    public List<String> ladderPath(String beginWord, String endWord, List<String> wordList) {
+        if(beginWord == null || endWord == null || wordList == null) return null;
+        if(beginWord.equals(endWord)) return null;
+        
+        List<String> res = new ArrayList<String>();
+        
+        Set<String> set = new HashSet<String>();
+        for(String word : wordList) if(!word.equals(beginWord)) set.add(word);
+        if(!set.contains(endWord)) return res;
+        Queue<String> queue = new LinkedList<String>();
+        queue.offer(beginWord);
+        
+        HashMap<String, String> parent = new HashMap<String, String>();
+        
+        while(!queue.isEmpty()) {
+            String cur = queue.poll();
+            
+            for(int i = 0; i < cur.length(); i++) {
+                char[] charArray = cur.toCharArray();
+                for(int j = 0; j < 26; j++) {
+                    charArray[i] = (char)(j + 'a');
+                    String s = String.valueOf(charArray);
+
+                    if(set.contains(s)) {
+                    	parent.put(s, cur);
+                        if(s.equals(endWord)) {
+                        	break;
+                        }
+                        set.remove(s);
+                        queue.offer(s);
                     }
-                } else if(set.contains(str)){
-                    List<String> copyList = new ArrayList<String>(list);
-                    copyList.add(str);
-                    set.remove(str);
-                    helper(res, copyList, end, set);
-                    set.add(str);
                 }
             }
         }
+        
+        String rec = endWord;
+        
+        while(!rec.equals(beginWord)) {
+        	res.add(rec);
+        	rec = parent.get(rec);
+        }
+        res.add(beginWord);
+        
+        Collections.reverse(res);
+        
+        return res;
     }
 }
+

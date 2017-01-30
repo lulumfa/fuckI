@@ -45,6 +45,27 @@ public class Solution {
     }
 }
 
+// sorting O(n) and more readable
+public class Solution {
+    public int hIndex(int[] citations) {
+        if(citations == null) return 0;
+        
+        Arrays.sort(citations);
+        
+        int count = 0;
+        int n = citations.length;
+        
+        int hIndex = 0;
+        for(int i = n -1; i >=0; i--) {
+            count++;
+            if(count <= citations[i]) hIndex = count;
+            else return hIndex;
+        }
+        
+        return hIndex;
+    }
+}
+
 // sorting + O(n)
 public class Solution {
     public int hIndex(int[] citations) {

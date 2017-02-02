@@ -50,6 +50,13 @@ public class RandomizedCollection {
     public int getRandom() {
         return list.get(rand.nextInt(list.size()));
     }
+    
+    public int removeRandom() {
+        int num = getRandom();
+        remove(num);
+        
+        return num;
+    }
 }
 
 /**

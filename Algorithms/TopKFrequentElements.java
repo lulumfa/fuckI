@@ -35,3 +35,39 @@ public class Solution {
     
     
 }
+
+// runtime O(nlgk) space O(k)
+public class Solution {
+    public List<Integer> topKFrequent(int[] nums, int k) {
+        if(nums == null) return null;
+        
+        HashMap<Integer, Integer> numCount = new HashMap<Integer, Integer>();
+        for(Integer num : nums) numCount.put(num, numCount.containsKey(num) ? numCount.get(num) + 1 : 1);
+        
+        PriorityQueue<Map.Entry<Integer, Integer>> minHeap = new PriorityQueue<Map.Entry<Integer, Integer>>(new Comparator<Map.Entry<Integer, Integer>>() {
+            @Override
+            public int compare(Map.Entry<Integer, Integer> a, Map.Entry<Integer, Integer> b) {
+                return a.getValue() - b.getValue();
+            }
+        });
+        
+        for(Map.Entry<Integer, Integer> entry : numCount.entrySet()) {
+            if(minHeap.size() < k) {
+                minHeap.offer(entry);
+            } else if (entry.getValue() > minHeap.peek().getValue()) {
+                minHeap.poll();
+                minHeap.offer(entry);
+            }
+        }
+        
+        List<Integer> res = new ArrayList<Integer>(k);
+        
+        while(minHeap.size() > 0) {
+            res.add(minHeap.poll().getKey());
+        }
+        
+        Collections.reverse(res);
+        
+        return res;
+    }
+}

@@ -2,38 +2,39 @@
 
 public class Solution {
     public List<Integer> topKFrequent(int[] nums, int k) {
-        List<Integer> res = new ArrayList<Integer>();
-
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        for(Integer num : nums) {
-            map.put(num, map.containsKey(num) ? map.get(num) + 1 : 1);
+        if(nums == null) return null;
+        
+        HashMap<Integer, Integer> numCount = new HashMap<Integer, Integer>();
+        for(Integer num : nums) numCount.put(num, numCount.containsKey(num) ? numCount.get(num) + 1 : 1);
+        
+        int n = nums.length;
+        List<Integer>[] buckets = new List[n + 1];
+        
+        for(Integer num : numCount.keySet()) {
+            int count = numCount.get(num);
+            if(buckets[count] == null) buckets[count] = new ArrayList<Integer>();
+            buckets[count].add(num);
         }
         
-        List<Integer>[] buckets = new List[nums.length + 1];
+        int count = 0;
+        List<Integer> res = new ArrayList<Integer>(k);
         
-        for(Integer key : map.keySet()) {
-            int freq = map.get(key);
-            if(buckets[freq] == null) {
-                buckets[freq] = new ArrayList<Integer>();
-            }
-            buckets[freq].add(key);
-        }
-        
-        for(int i = buckets.length -1; i >=0 && res.size() < k; i--) {
+        for(int i = n; i > 0 && count < k; i--) {
             if(buckets[i] != null) {
-                if(buckets[i].size() > k - res.size()) {
-                    for(int j = 0; j < k - res.size(); j++) {
+                if(buckets[i].size() <= (k - count)) {
+                    res.addAll(buckets[i]);
+                    count += buckets[i].size();
+                } else {
+                    for(int j = 0; j < buckets[i].size() && j < (k - count); j++) {
                         res.add(buckets[i].get(j));
                     }
-                } else {
-                    res.addAll(buckets[i]);
+                    break;   
                 }
             }
         }
+        
         return res;
     }
-    
-    
 }
 
 // runtime O(nlgk) space O(k)

@@ -1,5 +1,7 @@
 package Facebook;
 
+import java.util.Stack;
+
 // convert array to a minHeap while can be inorder traversed back to the orginal array
 
 //input是一个array，要求生成一个树，有以下三个属性
@@ -20,16 +22,44 @@ public class ArrayToMinHeap {
 	
 	public static void main(String[] args) {
 		ArrayToMinHeap atmh = new ArrayToMinHeap();
-		int[] input = {5, 2, 10, 7};
+		int[] input = {5, 2, 10, 7, 8};
 		TreeNode root = atmh.buildMinHeap(input);
 		
-		root = atmh.addNode(root, 8);
+//		root = atmh.addNode(root, 8);
 		System.out.println("done");
 	}
 	
 	public TreeNode buildMinHeap(int[] input) {
 		if(input == null) return null;
 		return divideConquerBuildTree(input, 0, input.length -1);
+	}
+	
+	public TreeNode buildMinHeapLinear(int[] input) {
+		if(input == null || input.length == 0) return null;
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		
+		for(Integer num : input) {
+			TreeNode newNode = new TreeNode(num);
+			
+			if(!stack.isEmpty()) {
+				if(num >= stack.peek().val) {
+					stack.peek().right = newNode;
+				} else {
+					TreeNode poped = null;
+					while(!stack.isEmpty() && stack.peek().val > num) poped = stack.pop();
+					if(!stack.isEmpty()) {
+						stack.peek().right = newNode;
+					} 
+					newNode.left = poped;
+				}
+			}
+			
+			stack.push(newNode);
+		}
+		
+		while(stack.size() > 1) stack.pop();
+		
+		return stack.pop();
 	}
 	
 	private TreeNode divideConquerBuildTree(int[] input, int start, int end) {

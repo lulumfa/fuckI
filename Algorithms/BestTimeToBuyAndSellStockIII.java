@@ -3,7 +3,7 @@
 public class Solution {
     // global[i][j] = max(g[i-1][j], local[i][j])
     
-    // local[i][j] = max(global[i-1][j-1] + max(diff, 0), local[i-1][j-1] + diff)
+    // local[i][j] = max(global[i-1][j-1] + max(diff, 0), local[i-1][j] + diff)
     public int maxProfit(int[] prices) {
         if(prices==null || prices.length<=1) return 0;
     

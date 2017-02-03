@@ -56,6 +56,35 @@ public class BinaryTreePostorderTraversal {
     }
 }
 
+// cleaner way iteratively
+
+public class Solution {
+    public List<Integer> postorderTraversal(TreeNode root) {
+        List<Integer> res = new ArrayList<Integer>();
+        if(root == null) return res;
+        
+        Stack<TreeNode> stack = new Stack<TreeNode>();
+        TreeNode node = root, pre = null;
+        
+        while(!stack.isEmpty() || node != null) {
+            while(node != null) {
+                stack.push(node);
+                node = node.left;
+            }
+            
+            TreeNode peek = stack.peek();
+            if(peek.right == null || pre == peek.right) {
+                res.add(stack.pop().val);
+                pre = peek;
+            } else {
+                node = peek.right;
+            }
+        }
+        
+        return res;
+    }
+}
+
 // Iterative way with one stack, wiki
 public class Solution 
 {

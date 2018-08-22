@@ -1,5 +1,7 @@
 // O(nk^2) = O(n), space O(n) i think.
 
+// ask upper case, lower case
+
 // KMP way, have not tried(same complexity) https://discuss.leetcode.com/topic/43848/code-redo-40-lines-o-n-k-solution-using-kmp
 
 public class Solution {

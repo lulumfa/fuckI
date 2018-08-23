@@ -4,6 +4,61 @@
 
 // KMP way, have not tried(same complexity) https://discuss.leetcode.com/topic/43848/code-redo-40-lines-o-n-k-solution-using-kmp
 
+class Solution {
+    class Node{
+            Node[] next;
+            int index;
+            List<Integer> list;
+            Node(){
+                next=new Node[26];
+                index=-1;
+                list=new ArrayList<>();
+            }
+        }
+        
+    public List<List<Integer>> palindromePairs(String[] words) {
+        Node root=new Node();
+        List<List<Integer>> res=new ArrayList();
+        for(int i=0;i<words.length;i++) addnode(words[i],i,root);
+        for(int i=0;i<words.length;i++) searchnode(words[i],i,root,res);
+        return res;
+    }
+    private void addnode(String word,int idx,Node root){  
+        for(int i=word.length()-1;i>=0;i--){
+            if(isP(word,0,i)) root.list.add(idx);
+            char c=word.charAt(i);
+            if(root.next[c-'a']==null) root.next[c-'a']=new Node();
+            root=root.next[c-'a'];
+        }
+        root.index=idx;
+        root.list.add(idx);
+    }
+    private void searchnode(String word,int idx,Node root,List<List<Integer>> res){
+        for(int i=0;i<word.length();i++){
+            char c=word.charAt(i);
+            if(root.index!=-1 && root.index!=idx && isP(word,i,word.length()-1)) res.add(Arrays.asList(idx,root.index));
+            root=root.next[c-'a'];
+            if(root==null) return;
+        }
+        for(int j:root.list){
+            if(j==idx) continue;
+            res.add(Arrays.asList(idx,j));
+        }
+        
+        
+    }
+     private boolean isP(String word, int i,int j){
+        while(i<j){
+            if(word.charAt(i++)!=word.charAt(j--)) return false;
+        }
+        return true;
+    }
+   
+    
+}
+
+
+
 public class Solution {
     public List<List<Integer>> palindromePairs(String[] words) {
         List<List<Integer>> res = new ArrayList<List<Integer>>();

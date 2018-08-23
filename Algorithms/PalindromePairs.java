@@ -1,7 +1,7 @@
 // O(nk^2) = O(n), space O(n) i think.
 
 // ask upper case, lower case
-
+// http://bookshadow.com/weblog/2016/03/10/leetcode-palindrome-pairs/
 // KMP way, have not tried(same complexity) https://discuss.leetcode.com/topic/43848/code-redo-40-lines-o-n-k-solution-using-kmp
 
 class Solution {

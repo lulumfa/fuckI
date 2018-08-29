@@ -22,11 +22,14 @@ public class CarThrottle {
 	}
 	
 	private boolean shouldSlowDown(double targetSpeed) {
-		double[] status = getStatus();
-		if (status ==  null || status.length < 2) {
+		double[] oldStatus = getStatus();
+		sleep();
+		double[] newStatus = getStatus();
+		if (oldStatus == null || newStatus == null || oldStatus.length < 2 || newStatus.length < 2) {
 			return false;
 		}
-		return status[1] > targetSpeed;
+		// when the speeds are above the targetSpeed and it keeps speeding up.
+		return oldStatus[1] > targetSpeed && newStatus[1] > oldStatus[1];
 	}
 	
 	private boolean shouldSpeedUp(double targetSpeed) {

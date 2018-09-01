@@ -61,6 +61,36 @@ public class NestedIterator implements Iterator<Integer> {
 // not using internal iterator and purely taking use of stack as dfs
 
 public class NestedIterator implements Iterator<Integer> {
+
+    Stack<NestedInteger> stack;
+    
+    public NestedIterator(List<NestedInteger> nestedList) {
+        stack = new Stack<NestedInteger>();
+        if (nestedList == null || nestedList.size() == 0) return;
+        for (int i = nestedList.size() -1; i>=0; i--) {
+            stack.push(nestedList.get(i));
+        }
+    }
+
+    @Override
+    public Integer next() {
+        if (!hasNext()) return null;
+        return stack.pop().getInteger();
+    }
+
+    @Override
+    public boolean hasNext() {
+        while(!stack.isEmpty() && !stack.peek().isInteger()) {
+            List<NestedInteger> list = stack.pop().getList();
+            for (int i = list.size() -1; i >= 0; i--) {
+                stack.push(list.get(i));
+            }
+        }
+        return !stack.isEmpty();
+    }
+}
+
+public class NestedIterator implements Iterator<Integer> {
     
     private Stack<NestedInteger> stack;
     

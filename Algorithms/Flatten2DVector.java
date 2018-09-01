@@ -68,3 +68,33 @@ public class Vector2D implements Iterator<Integer> {
         return !stack.isEmpty();
     }
 }
+
+// using the flattening work in the constructor, O(m*n) in the constructor, 
+// and constanst in other methods, asymptotic constant, but in reality this is not preferred as doing unnecessary work wihtout requested, especially when m and n is large
+
+public class Vector2D implements Iterator<Integer> {
+
+    Stack<Integer> stack;
+    
+    public Vector2D(List<List<Integer>> vec2d) {
+        stack = new Stack<Integer>();
+        if (vec2d == null || vec2d.size() == 0) return;
+        for (int i = vec2d.size() -1; i >=0 ;i--) {
+            List<Integer> list = vec2d.get(i);
+            for (int j = list.size() -1; j>=0; j--) {
+                stack.push(list.get(j));
+            }
+        }
+    }
+
+    @Override
+    public Integer next() {
+        if (!hasNext()) return null;
+        return stack.pop();
+    }
+
+    @Override
+    public boolean hasNext() {
+        return !stack.isEmpty();
+    }
+}

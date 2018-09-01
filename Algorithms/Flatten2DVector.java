@@ -1,8 +1,7 @@
 // Because we dont have wrapper class NestedInteger here, we cannot mingle list and integer in the stack easily
 // prefer using iterator then
 // m first layer, n sec layer avg
-// O(m) for the constructor, next() same as hasNext(), avg O(1), worst case(all emptry list) O(m)
-
+// O(m) for the constructor, next() same as hasNext(), avg O(1), worst case(all emptry list) O(m), space O(m)
 
 // iterator approach
 public class Vector2D implements Iterator<Integer> {
@@ -66,6 +65,31 @@ public class Vector2D implements Iterator<Integer> {
             }
         }
         return !stack.isEmpty();
+    }
+}
+
+// purely using iterator without stacks
+public class Vector2D implements Iterator<Integer> {
+
+    Iterator<List<Integer>> rowItr;
+    Iterator<Integer> colItr;
+    public Vector2D(List<List<Integer>> vec2d) {
+        if (vec2d == null) return;
+        rowItr = vec2d.listIterator();
+    }
+
+    @Override
+    public Integer next() {
+        if (!hasNext() || colItr == null) return null;
+        return colItr.next();
+    }
+
+    @Override
+    public boolean hasNext() {
+        while(rowItr.hasNext() && (colItr == null || !colItr.hasNext())) {
+            colItr = rowItr.next().listIterator();
+        }
+        return colItr != null && colItr.hasNext();
     }
 }
 

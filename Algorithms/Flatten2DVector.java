@@ -3,6 +3,62 @@
 // m first layer, n sec layer avg
 // O(m) for the constructor, next() same as hasNext(), avg O(1), worst case(all emptry list) O(m), space O(m)
 
+// pure iterator with implementating the remove method, one keynote is that dont forgot to use add(new ArrayList<Integer>(Arrays.asList(1, 2))); to add test cases,
+// adding simple Arrays.asList with return array based 'list' which does not have remove method supported, thorws
+// reference: https://stackoverflow.com/questions/28112309/unsupportedoperationexception-when-using-iterator-remove
+
+package Airbnb;
+
+import java.util.*;
+
+public class Iterator2DList implements Iterator<Integer>{
+	
+	public static void main(String[] args) {
+		
+		List<List<Integer>> list2d = new ArrayList<List<Integer>>();
+		list2d.add(new ArrayList<Integer>(Arrays.asList(1, 2)));
+		list2d.add(new ArrayList<Integer>(Arrays.asList(3)));
+		Iterator2DList itr = new Iterator2DList(list2d);
+		System.out.println(list2d);
+		System.out.println(itr.hasNext());
+		System.out.println(itr.next());
+		System.out.println(itr.hasNext());
+		System.out.println(itr.next());
+		itr.remove();
+		System.out.println(list2d);		
+	}
+
+    Iterator<List<Integer>> rowItr;
+    Iterator<Integer> colItr;
+    
+    public Iterator2DList(List<List<Integer>> vec2d) {
+        if (vec2d == null) return;
+        rowItr = vec2d.listIterator();
+    }
+
+    @Override
+    public Integer next() {
+        if (!hasNext() || colItr == null) return null;
+        return colItr.next();
+    }
+
+    @Override
+    public boolean hasNext() {
+        while(rowItr.hasNext() && (colItr == null || !colItr.hasNext())) {
+            colItr = rowItr.next().listIterator();
+        }
+        return colItr != null && colItr.hasNext();
+    }
+
+	@Override
+	public void remove() {
+		if (colItr != null) {
+			colItr.remove();
+		}
+	}
+}
+
+
 // iterator approach
 public class Vector2D implements Iterator<Integer> {
 

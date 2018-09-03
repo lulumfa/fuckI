@@ -18,7 +18,7 @@ Guess Number
 	The system has a secret four digits number, in which each digit is in range of one to 6 [1, 6].
 	Given a four digital number, the system also provide a API that returns the number of correct matched digits.
 	Design a method to guess this secret number.
-
+https://docs.google.com/document/d/1ksHuKzp2GIfCISf7YCEoe6EzUZ-x8Q02sHVgZYtPGvw/edit
 
 import socket
 

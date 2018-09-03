@@ -22,6 +22,9 @@ public class Iterator2DList implements Iterator<Integer>{
 		System.out.println(list2d);
 		System.out.println(itr.hasNext());
 		System.out.println(itr.next());
+		itr.remove();
+		System.out.println(itr.hasNext());
+		System.out.println(itr.next());
 		System.out.println(itr.hasNext());
 		System.out.println(itr.next());
 		itr.remove();
@@ -30,6 +33,7 @@ public class Iterator2DList implements Iterator<Integer>{
 
     Iterator<List<Integer>> rowItr;
     Iterator<Integer> colItr;
+    Iterator<Integer> lastColItr;
     
     public Iterator2DList(List<List<Integer>> vec2d) {
         if (vec2d == null) return;
@@ -45,18 +49,26 @@ public class Iterator2DList implements Iterator<Integer>{
     @Override
     public boolean hasNext() {
         while(rowItr.hasNext() && (colItr == null || !colItr.hasNext())) {
+        	if (colItr != null) {
+        		lastColItr = colItr;
+        	}
             colItr = rowItr.next().listIterator();
+            if (lastColItr == null) {
+            	lastColItr = colItr;
+            }
         }
         return colItr != null && colItr.hasNext();
     }
 
 	@Override
 	public void remove() {
-		if (colItr != null) {
-			colItr.remove();
+		if (lastColItr == null) {
+			throw new IllegalStateException("");
 		}
+		lastColItr.remove();
 	}
 }
+
 
 
 // iterator approach

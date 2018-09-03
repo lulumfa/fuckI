@@ -82,3 +82,26 @@ def take_guess(s, guess):
 
 
 print(guess_game())
+
+
+5. http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=200829&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26searchoption%5B3046%5D%5Bvalue%5D%3D37%26searchoption%5B3046%5D%5Btype%5D%3Dradio%26sortid%3D311
+
+6. 第一轮，merge intervals，一个白人小哥面的，第二轮是找最少的点遍历整个graph，之前地里有人发过，面试官是个国人妹子。
+http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=212885&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26searchoption%5B3046%5D%5Bvalue%5D%3D37%26searchoption%5B3046%5D%5Btype%5D%3Dradio%26sortid%3D311
+
+7. 
+北京的airbnb
+oa 2，就是按照一组数据按照host_id分页。.留学论坛-一亩-三分地
+我实现的思路能做到最坏情况下，不会遍历整个数组。
+电面follow up：.1point3acres网
+优化实现，即从O（N*N) 基础上再次优化。page number可以不用考虑。
+磕磕绊绊，N * m(lgm),m是不同host_id的数量。思路就是先统计hash:  key是host_id， values是[出现的index排序]。. 留学申请论坛-一亩三分地
+然后磕磕绊绊算出了时间复杂度。再次让优化。。。
+然后我说似乎没必要每次排序，可以使用heap 插入。。然后又磕磕绊绊一会。。。然后面试官说时间太久了，挂了。
+. 留学申请论坛-一亩三分地
+电话挂了，我也挂了。
+电话follow up挂很少见吧。但我不知道我的follow up这般难。。。。
+
+8. 
+
+http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=436244&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26searchoption%5B3046%5D%5Bvalue%5D%3D37%26searchoption%5B3046%5D%5Btype%5D%3Dradio%26sortid%3D311

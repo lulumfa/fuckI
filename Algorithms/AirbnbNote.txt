@@ -1,4 +1,84 @@
 1. Merge interval, LC
 http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=439706&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26searchoption%5B3046%5D%5Bvalue%5D%3D37%26searchoption%5B3046%5D%5Btype%5D%3Dradio%26sortid%3D311
 
-2. 
+2. . 新题。投两个骰子，从1-9里面选出几个数字，加和为这两个骰子的和。-google 1point3acres
+比如第一次，两个骰子为3，5，那么我们可以选出几个数字，加和为8. 假设我们选1和7.
+第二次，两个骰子为4，6，那么第一次1和7选了，这次不能再选了。我们可以选4和6.
+第三次，做同样的事情
+。。。。. visit 1point3acres for more.
+怎样找到一个最优解，使得我们胜率最大？胜利的定义是所有1-9的数都取了。
+
+http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=325445&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26searchoption%5B3046%5D%5Bvalue%5D%3D37%26searchoption%5B3046%5D%5Btype%5D%3Dradio%26sortid%3D311
+
+3. design: flight ticket booking from scratch.
+http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=437174&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26searchoption%5B3046%5D%5Bvalue%5D%3D37%26searchoption%5B3046%5D%5Btype%5D%3Dradio%26sortid%3D311
+
+4. Guess Number
+Guess Number
+	The system has a secret four digits number, in which each digit is in range of one to 6 [1, 6].
+	Given a four digital number, the system also provide a API that returns the number of correct matched digits.
+	Design a method to guess this secret number.
+
+
+import socket
+
+class MySocket:
+    def __init__(self, sock=None):
+        if sock is None:
+            self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        else:
+            self.sock = sock
+
+    def connect(self, host, port):
+        self.sock.connect((host, port))
+
+    def mysend(self, msg):
+        sent = self.sock.send(msg)
+        if sent == 0:
+            raise RuntimeError("socket connection broken")
+
+    def myreceive(self):
+        chunk = self.sock.recv(2048)
+        if chunk == b'':
+            raise RuntimeError("socket connection broken")
+        return chunk
+    
+
+def guess_game():
+    s = MySocket()
+    s.connect()
+    s.mysend('START\n'.encode())
+    r = s.myreceive()
+
+    # Find starting point
+    start = [1,1,1,1]
+    while True:
+        r = take_guess(s, start)
+        if r[0] == r[2] and r[0] == '0':
+            break
+        else:
+            start = [x+1 for x in start]
+    
+    print(start)
+    res = []
+    c = start[0]
+    for i in range(4):
+        for j in range(1, 7):
+            if j != c:
+                guess = start[:i] + [j] + start[i+1:]
+                r = take_guess(s, guess)
+                if r[0] == '1':
+                    res.append(j)
+                    break
+
+    return ''.join([str(x) for x in res])
+
+def take_guess(s, guess):
+    guess = ''.join([str(x) for x in guess])
+    s.mysend(('GUESS ' + guess + '\n').encode())
+    r = s.myreceive()
+    r = r.decode()
+    return r
+
+
+print(guess_game())

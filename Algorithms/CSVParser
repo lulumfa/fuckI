@@ -1,0 +1,68 @@
+// parse the list of inputs, not so interesting, but in case being asked,  O(M*N), m outer looper, n inner loop
+// https://hellosmallworld123.wordpress.com/2015/09/04/abnb-%E9%9D%A2%E7%BB%8F%E6%80%BB%E7%BB%93/
+
+//normal parser, O(n), space no extra space, res takes O(n)
+package Airbnb;
+
+import java.util.*;
+
+public class CSVParser {
+	
+	public static void main(String[] args) {
+		CSVParser parser = new CSVParser();
+		System.out.println(parser.parseCSV("John,Smith,john.smith@gmail.com,Los Angeles,1"));
+		System.out.println(parser.parseCSV("Jane,Roberts,janer@msn.com,\"San Francisco, CA\",0"));
+		System.out.println(parser.parseCSV("\"Alexandra \"\"Alex\"\"\",Menendez,alex.menendez@gmail.com,Miami,1 \"\"\"Alexandra Alex\"\"\""));
+		System.out.println(parser.parseCSV("\"Alexandra \"Alex\"\""));
+		System.out.println(parser.parseCSV("\"Alexandra \"\"Alex\"\"\""));
+	}
+	
+	public String parseCSV(String s) {
+		if (s == null || s.length() == 0) return s;
+		StringBuilder sb = new StringBuilder();
+		List<String> segments = new ArrayList<String>();
+		boolean quoted = false;
+		for (int i = 0; i < s.length(); i++) {
+			char c = s.charAt(i);
+			if (quoted) {
+				if (c == '\"') {
+					if (i+1 < s.length() && s.charAt(i+1) == '\"') {
+						sb.append('\"');
+						i++;
+					} else {
+						quoted = false;
+					}
+				} else {
+					sb.append(c);
+				}
+			} else {
+				if (c == '\"') {
+					quoted = true;
+				} else if (c == ',') {
+					segments.add(sb.toString());
+					sb.setLength(0);
+				} else {
+					sb.append(c);
+				}
+			}
+		}
+		if (sb.length() > 0) {
+			segments.add(sb.toString());
+		}
+		
+		return joinHelper(segments);
+//		return String.join("|", segments);
+	}
+
+	private String joinHelper(List<String> segments) {
+		StringBuilder sb = new StringBuilder();
+		for (String s : segments) {
+			if (sb.length() == 0) {
+				sb.append(s);
+			} else {
+				sb.append("|").append(s);
+			}
+		}
+		return sb.toString();
+	}
+}

@@ -1,7 +1,7 @@
-// O(n) if no cycle
+// O(V) if no cycle
 // when it comes with cycle or cycles, and when cycles connected with each other, there is no easy way to find who to visit first
 // and we would have to revisit visited vertices to remove from the res if found them as downsteam later.
-// and in this case, the runtime can be very large, worst case going through cycles from lower to upper always, so, 
+// and in this case, the runtime can be very large, worst case going through cycles from lower to upper always, so, O(V2)
 
 package Airbnb;
 

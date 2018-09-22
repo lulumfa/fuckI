@@ -1,4 +1,5 @@
 // O(nlogn) space O(n)
+// greedy, sort and compensate the most significant diff
 
 package Airbnb;
 

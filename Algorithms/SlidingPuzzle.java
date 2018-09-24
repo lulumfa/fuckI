@@ -1,5 +1,5 @@
 // bfs, O(E + V), might not be write, as the board keeps mutating and the upper bound of all possibility 
-// would be k = m*n, Ak = k*(k-1)(k-2)...1 = O(k!) = O(m!n!) and easy overflow, might need to A* solution here later, big-O same?
+// would be k = m*n, Ak = k*(k-1)(k-2)...1 = O(k!) = O(m!n! * m!n!) and easy overflow, might need to A* solution here later, big-O same?
 
 package Airbnb;
 

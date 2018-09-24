@@ -1,4 +1,18 @@
 // enhancement, just need 2 pointers actually instead of the array, space then will be constant
+// I, new 
+class Solution {
+    public int rob(int[] nums) {
+        if (nums == null || nums.length == 0) return 0;
+        int n = nums.length;
+        int prePre = 0, pre = 0;
+        for (Integer num : nums) {
+            int cur = Math.max(prePre + num, pre);
+            prePre = pre;
+            pre = cur;
+        }
+        return pre;
+    }
+}
 public class Solution {
     public int rob(int[] nums) {
         if(nums == null || nums.length == 0) return 0;

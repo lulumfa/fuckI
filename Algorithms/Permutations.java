@@ -26,3 +26,28 @@ public class Solution {
         }
     }
 }
+
+// iterative
+
+class Solution {
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if (nums == null || nums.length == 0) return res;
+        
+        Queue<List<Integer>> queue = new LinkedList<List<Integer>>();
+        queue.offer(new ArrayList<Integer>());
+        
+        for (int num : nums) {
+            int size = queue.size();
+            for (; size > 0; size--) {
+                List<Integer> cur = queue.poll();
+                for (int i = 0; i <= cur.size(); i++) {
+                    List<Integer> next = new ArrayList<Integer>(cur);
+                    next.add(i, num);
+                    queue.offer(next);
+                }
+            }
+        }
+        return new ArrayList<List<Integer>>(queue);
+    }
+}

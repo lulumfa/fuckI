@@ -65,3 +65,31 @@ class Solution {
         return pre;
     }
 }
+
+// III, O(n)
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public int rob(TreeNode root) {
+        int[] res = robHelper(root);
+        return Math.max(res[0], res[1]);
+    }
+    
+    private int[] robHelper(TreeNode node) {
+        int[] cur = new int[2]; // 1st element points to res exluding the current value, 2nd includes it
+        if (node == null) return cur;
+        int[] left = robHelper(node.left);
+        int[] right = robHelper(node.right);
+        
+        cur[0] = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+        cur[1] = node.val + left[0] + right[0];
+        return cur;
+    }
+}

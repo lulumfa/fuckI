@@ -2,6 +2,9 @@
 
 // big O would be hard  to estimate, as it sounds like random, but after playing around the methods,
 // 10,000 -> 262 steps, 100,000 -> 351 steps, 1,000,000 stackoverfloow
+
+// be careful of the memo part, needs to update the memo on every intermediate res and take use of them
+
 import java.io.*;
 import java.util.*;
 import org.junit.*;
@@ -19,6 +22,7 @@ class Solution {
     System.out.println(findLongestSteps(1));
     System.out.println(findLongestSteps(0));
     System.out.println(findLongestSteps(-2));
+    System.out.println(findLongestSteps(100000));
   }
   
   public static int findLongestSteps(int n) {
@@ -37,6 +41,11 @@ class Solution {
   private static int recursivelyFindSteps(int n, Map<Integer, Integer> memo) {
     if (n == 1) return 1;
     if (memo.containsKey(n)) return memo.get(n);
-    return 1 + (n % 2 == 1 ? recursivelyFindSteps(3 * n + 1, memo) : recursivelyFindSteps(n /2, memo)); 
+    int next = n % 2 == 1 ? 3 * n + 1 : n /2;
+    if (memo.containsKey(next)) return 1 + memo.get(next);
+    int rec = recursivelyFindSteps(next, memo);
+    memo.put(next, rec);
+    return 1 + rec;
   }
 }
+

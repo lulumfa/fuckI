@@ -1,32 +1,42 @@
 // http://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=273149
 
-package Airbnb;
+// big O would be hard  to estimate, as it sounds like random, but after playing around the methods,
+// 10,000 -> 262 steps, 100,000 -> 351 steps, 1,000,000 stackoverfloow
+import java.io.*;
+import java.util.*;
+import org.junit.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
 
-public class CollatzConjecture {
-	public static void main(String[] args) {
-		System.out.print(findLongestSteps(7));
-	}
-
-	private static int findLongestSteps(int num) {
-		if (num < 1) return 0;
-		int[] steps = new int[num];
-		int max = 0;
-		for (int i = 1; i <= num; i++) {
-			int cur = findStep(i, steps);
-			steps[i -1] = cur;
-			max = Math.max(max, cur);
-		}
-		return max;
-	}
-
-	private static int findStep(int i, int[] steps) {
-		int step = 1;
-		if (i == 1) return step;
-		if (i < steps.length && steps[i -1] != 0) return steps[i-1];
-		if ((i & 1) == 1) {
-			return 1 + findStep(3* i + 1, steps);
-		} else {
-			return 1 + findStep(i/2, steps);
-		}
-	}
+class Solution {
+  
+  public static void main(String[] args) {
+    System.out.println(findLongestSteps(7));
+    System.out.println(findLongestSteps(1));
+    System.out.println(findLongestSteps(0));
+    System.out.println(findLongestSteps(-2));
+  }
+  
+  public static int findLongestSteps(int n) {
+    if (n < 1) return -1;
+    int max = 0;
+    Map<Integer, Integer> memo = new HashMap<Integer, Integer>();
+    for (int i = 1; i <= n; i++) {
+      int steps = recursivelyFindSteps(i, memo);
+      memo.put(i, steps); 
+      max = Math.max(max, steps);
+    }
+    
+    return max;
+  }
+  
+  private static int recursivelyFindSteps(int n, Map<Integer, Integer> memo) {
+    if (n == 1) return 1;
+    if (memo.containsKey(n)) return memo.get(n);
+    return 1 + (n % 2 == 1 ? recursivelyFindSteps(3 * n + 1, memo) : recursivelyFindSteps(n /2, memo)); 
+  }
 }

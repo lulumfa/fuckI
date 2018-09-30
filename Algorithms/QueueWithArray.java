@@ -101,7 +101,7 @@ public class QueueWithArray<T> {
 		}
 		
 		public void offer(T value) {
-			if (tail == list.length) return;
+			if (isFull()) return;
 			list[tail++] = value;
 		}
 		

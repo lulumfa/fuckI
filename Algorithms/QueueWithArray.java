@@ -5,7 +5,7 @@ import java.util.*;
 public class QueueWithArray<T> {
 	
 	public static void main(String[] args) {
-		QueueWithArray queue = new QueueWithArray(3);
+		QueueWithArray<Integer> queue = new QueueWithArray<Integer>(3);
 		
 		queue.offer(1);
 		System.out.println(queue.peek());
@@ -52,11 +52,11 @@ public class QueueWithArray<T> {
 	
 	public void offer(T value) {
 		if (head == null) {
-			head = new ListNode(arraySize, value);
+			head = new ListNode<T>(arraySize, value);
 			tail = head;
 		} else {
 			if (tail.isFull()) {
-				tail.next = new ListNode(arraySize, value);
+				tail.next = new ListNode<T>(arraySize, value);
 				tail = tail.next;
 				System.out.println("Expanding arrays: " + value);
 			} else {

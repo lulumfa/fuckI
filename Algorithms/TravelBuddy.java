@@ -1,5 +1,5 @@
 // nlgn for sorting
-// recommendation, 
+// recommendation, nlgn sort first, unless we save the data, then linear time to O(n), n = size we want
 
 import java.io.*;
 import java.util.*;

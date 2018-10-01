@@ -7,67 +7,77 @@
 // adding simple Arrays.asList with return array based 'list' which does not have remove method supported, thorws
 // reference: https://stackoverflow.com/questions/28112309/unsupportedoperationexception-when-using-iterator-remove
 
-package Airbnb;
 
+// be careful of when to update lastInnerIter, as the hasNext() can be called multiple times and we dont want it to mess up with the iterator
+import java.io.*;
 import java.util.*;
+import org.junit.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
 
-public class Iterator2DList implements Iterator<Integer>{
-	
-	public static void main(String[] args) {
-		
-		List<List<Integer>> list2d = new ArrayList<List<Integer>>();
-		list2d.add(new ArrayList<Integer>(Arrays.asList(1, 2)));
-		list2d.add(new ArrayList<Integer>(Arrays.asList(3)));
-		Iterator2DList itr = new Iterator2DList(list2d);
-		System.out.println(list2d);
-		System.out.println(itr.hasNext());
-		System.out.println(itr.next());
-		itr.remove();
-		System.out.println(itr.hasNext());
-		System.out.println(itr.next());
-		System.out.println(itr.hasNext());
-		System.out.println(itr.next());
-		itr.remove();
-		System.out.println(list2d);		
-	}
+class Solution {
+  
+  public static void main(String[] args) {
+    List<List<Integer>> nestedList = new ArrayList<List<Integer>>() {{
+      add(new ArrayList<Integer>(Arrays.asList(1, 2)));
+      add(new ArrayList<Integer>(Arrays.asList(3)));
+    }};
+    TwoDListIterator nestedIter = new TwoDListIterator(nestedList);
+    System.out.println(nestedIter.hasNext());
+    System.out.println(nestedIter.next());
+            nestedIter.remove();
 
-    Iterator<List<Integer>> rowItr;
-    Iterator<Integer> colItr;
-    Iterator<Integer> lastColItr;
-    
-    public Iterator2DList(List<List<Integer>> vec2d) {
-        if (vec2d == null) return;
-        rowItr = vec2d.listIterator();
-    }
+    System.out.println(nestedIter.hasNext());
+    System.out.println(nestedIter.next());
+    nestedIter.remove();
+    System.out.println(nestedIter.hasNext());
+        // nestedIter.remove();
 
-    @Override
-    public Integer next() {
-        if (!hasNext() || colItr == null) return null;
-        return colItr.next();
-    }
-
-    @Override
-    public boolean hasNext() {
-        while(rowItr.hasNext() && (colItr == null || !colItr.hasNext())) {
-        	if (colItr != null) {
-        		lastColItr = colItr;
-        	}
-            colItr = rowItr.next().listIterator();
-            if (lastColItr == null) {
-            	lastColItr = colItr;
-            }
-        }
-        return colItr != null && colItr.hasNext();
-    }
-
-	@Override
-	public void remove() {
-		if (lastColItr == null) {
-			throw new IllegalStateException("");
-		}
-		lastColItr.remove();
-	}
+    System.out.println(nestedIter.next());
+    nestedIter.remove();
+    System.out.println(Arrays.toString(nestedList.toArray()));
+  }
+  
 }
+
+class TwoDListIterator implements Iterator<Integer> {
+  Iterator<List<Integer>> outerIter;
+  Iterator<Integer> innerIter;
+  Iterator<Integer> lastInnerIter;
+  
+  public TwoDListIterator(List<List<Integer>> input) {
+    if (input == null) return;
+    outerIter = input.iterator();
+  }
+  
+  @Override
+  public boolean hasNext() {
+    // lastInnerIter = innerIter;
+    while ((innerIter == null || !innerIter.hasNext()) && outerIter.hasNext()) {
+      innerIter = outerIter.next().iterator();
+      if (lastInnerIter == null) lastInnerIter = innerIter;
+    }
+    return innerIter != null && innerIter.hasNext();
+  }
+  
+  @Override
+  public Integer next() {
+    if (lastInnerIter != null) lastInnerIter = innerIter;
+    if (!hasNext() || innerIter == null) return null;
+    return innerIter.next();
+  }
+  
+  @Override  
+  public void remove() {
+    if (lastInnerIter == null) return;
+    lastInnerIter.remove();
+  }
+}
+
 
 
 

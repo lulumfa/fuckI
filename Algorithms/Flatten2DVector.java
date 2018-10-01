@@ -109,6 +109,106 @@ public class Vector2D implements Iterator<Integer> {
     }
 }
 
+
+// using pointers, instead of iterators
+//https://github.com/allaboutjst/airbnb/blob/master/src/main/java/list_of_list_iterator/ListofListIterator.java
+import java.io.*;
+import java.util.*;
+import org.junit.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+  
+  public static void main(String[] args) {
+    List<List<Integer>> nestedList = new ArrayList<List<Integer>>() {{
+      add(new ArrayList<Integer>(Arrays.asList(1, 2)));
+      add(new ArrayList<Integer>(Arrays.asList(3)));
+    }};
+    TwoDListIterator nestedIter = new TwoDListIterator(nestedList);
+    System.out.println(nestedIter.hasNext());
+    System.out.println(nestedIter.next());
+            // nestedIter.remove();
+
+    System.out.println(nestedIter.hasNext());
+    System.out.println(nestedIter.next());
+    // nestedIter.remove();
+    System.out.println(nestedIter.hasNext());
+        nestedIter.remove();
+
+    System.out.println(nestedIter.next());
+    nestedIter.remove();
+    System.out.println(Arrays.toString(nestedList.toArray()));
+  }
+  
+}
+
+class TwoDListIterator implements Iterator<Integer> {
+  int outerIdx;
+  int innerIdx;
+  List<List<Integer>> data;
+  int lastOuterIdx;
+  int lastInnerIdx;
+  boolean hasCalledNext;
+  
+  public TwoDListIterator(List<List<Integer>> input) {
+    if (input == null) return;
+    data = input;
+    outerIdx = -1;
+    innerIdx = -1;
+    lastOuterIdx = -1;
+    lastInnerIdx = -1;
+  }
+  
+  @Override
+  public boolean hasNext() {
+    while(outerIdx < 0 || outerIdx + 1 < data.size() && innerIdx >= data.get(outerIdx).size()) {
+      outerIdx++;
+      innerIdx = 0;
+      if (lastOuterIdx == -1 || lastInnerIdx == -1) {
+        lastOuterIdx = outerIdx;
+        lastInnerIdx = innerIdx;
+      }
+    }
+    return outerIdx < data.size() && innerIdx < data.get(outerIdx).size();
+  }
+  
+  @Override
+  public Integer next() {
+    if (lastOuterIdx >= 0 && lastInnerIdx >= 0) {
+      lastOuterIdx = outerIdx;
+      lastInnerIdx = innerIdx;
+    }
+    if (!hasNext()) return null;
+    hasCalledNext = true;
+    return data.get(outerIdx).get(innerIdx++);
+  }
+  
+  @Override  
+  public void remove() {
+    if (!hasCalledNext || lastOuterIdx < 0 || lastInnerIdx < 0) {
+      System.out.println("Illegal Statement, cannot remove without next()");
+      return;
+    }
+    data.get(lastOuterIdx).remove(lastInnerIdx);
+    if (data.get(lastOuterIdx).size() == 0) {
+      data.remove(lastOuterIdx);
+      outerIdx--;
+    }
+    if (innerIdx > lastInnerIdx) {
+      innerIdx--;
+    }
+
+    hasCalledNext = false;
+  }
+}
+
+
+
 /**
  * Your Vector2D object will be instantiated and called as such:
  * Vector2D i = new Vector2D(vec2d);

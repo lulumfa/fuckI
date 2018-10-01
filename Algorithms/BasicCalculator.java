@@ -1,3 +1,6 @@
+// generic one fore all 4 questions
+// https://leetcode.com/problems/basic-calculator-iii/discuss/113592/Development-of-a-generic-solution-for-the-series-of-the-calculator-problems
+
 //http://blog.welkinlan.com/2015/09/06/basic-calculator-i-ii-leetcode-java/
 
 public int calculate(String s) {

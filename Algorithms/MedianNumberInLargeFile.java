@@ -15,7 +15,10 @@ public class MedianNumberInLargeFile {
 		for (Integer num : input) {
 			len++;
 		}
-		return ((len & 1) == 1 ? helper(input, Integer.MIN_VALUE, Integer.MAX_VALUE, len/2 + 1) : (double)(helper(input, Integer.MIN_VALUE, Integer.MAX_VALUE, len/2) + helper(input, Integer.MIN_VALUE, Integer.MAX_VALUE, len/2 + 1)) /2);  
+		return ((len & 1) == 1 
+			? helper(input, Integer.MIN_VALUE, Integer.MAX_VALUE, len/2 + 1) 
+			: (double)(helper(input, Integer.MIN_VALUE, Integer.MAX_VALUE, len/2) 
+				   + helper(input, Integer.MIN_VALUE, Integer.MAX_VALUE, len/2 + 1)) /2);  
 	}
 	
 	private long helper(int[] input, long low, long high, int k) {

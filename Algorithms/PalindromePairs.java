@@ -57,69 +57,75 @@ class Solution {
     
 }
 
+// hashmap ways, outputing index
 
+import java.io.*;
+import java.util.*;
+import org.junit.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
 
-public class Solution {
+class Solution {
+  
+ public static void main(String[] args) {
+    PalindromePair pp = new PalindromePair();
+    System.out.println(pp.palindromePairs(new String[] {"abcd","dcba","lls","s","sssll"}));
+   
+    System.out.println(pp.palindromePairs(new String[] {"abcd","dcba","lls","s","sssll", "", "aba"}));
+  }
+}
+
+class PalindromePair {
     public List<List<Integer>> palindromePairs(String[] words) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        if(words == null || words.length < 2) return res;
-        HashMap<String, Integer> map = new HashMap<String, Integer>();
-        for(int i=0; i< words.length; map.put(words[i], i), i++);
+        List<List<Integer>> pairs = new ArrayList<List<Integer>>();
+        if (words == null || words.length < 2) return pairs;
         
-        if(map.containsKey("")){
-            int index = map.get("");
-            for(int i = 0; i< words.length; i++){
-                if(index != i && isPalindrome(words[i])) {
-                    res.add(Arrays.asList(index, i));
-                    res.add(Arrays.asList(i, index));
-                }
+        int len = words.length;
+        Map<String, Integer> wmap = new HashMap<String, Integer>();
+        for (int i = 0; i < len; i++) wmap.put(words[i], i);
+        
+        for (String word : words) {
+            if (wmap.containsKey("") && isP(word, 0, word.length() -1) && !word.equals("")) {
+                pairs.add(Arrays.asList(wmap.get(""), wmap.get(word)));
+                pairs.add(Arrays.asList(wmap.get(word), wmap.get("")));
             }
-        }
-        
-        for(String word : words) {
-            String rev = strrev(word);
-            if(!rev.equals(word) && map.containsKey(rev)) {
-                res.add(Arrays.asList(map.get(word), map.get(rev)));
+            String rev = new StringBuilder(word).reverse().toString();
+            if (wmap.containsKey(rev) && !rev.equals(word)) {
+                pairs.add(Arrays.asList(wmap.get(word), wmap.get(rev)));
             }
-        }
-        
-        for(String word : words) {
-            for(int i = 1; i< word.length(); i++) {
-                if(isPalindrome(word.substring(0, i))) {
-                    String rev = strrev(word.substring(i, word.length()));
-                    if(map.containsKey(rev)){
-                        res.add(Arrays.asList(map.get(rev), map.get(word)));
+            
+            for (int i = 0; i < word.length() -1; i++) {
+                if (isP(word, 0, i)) {
+                    rev = new StringBuilder(word.substring(i + 1)).reverse().toString();
+                    if (wmap.containsKey(rev)) {
+                       pairs.add(Arrays.asList(wmap.get(rev), wmap.get(word))); 
                     }
                 }
             }
-        }
-        
-        for(String word : words) {
-            for(int i = word.length()-1; i>0 ;i--) {
-                if(isPalindrome(word.substring(i, word.length()))) {
-                    String rev = strrev(word.substring(0, i));
-                    if(map.containsKey(rev)){
-                        res.add(Arrays.asList(map.get(word), map.get(rev)));
+            
+            for (int i = word.length() -1; i > 0; i--) {
+                if (isP(word, i, word.length() -1)) {
+                    rev = new StringBuilder(word.substring(0, i)).reverse().toString();
+                    if (wmap.containsKey(rev)) {
+                        pairs.add(Arrays.asList(wmap.get(word), wmap.get(rev)));
                     }
                 }
-            }
+            }            
         }
-        return res;
+        return pairs;
     }
     
-    private String strrev(String input){
-        if(input == null) return input;
-        StringBuilder sb = new StringBuilder(input);
-        return sb.reverse().toString();
-    }
-    
-    private boolean isPalindrome(String input) {
-        if(input == null) return false;
-        int left = 0;
-        int right = input.length()-1;
-        while(left <= right){
-            if(input.charAt(left++) != input.charAt(right--)) return false;
+    public boolean isP(String word, int left, int right) {
+        if (word == null || left < 0 || right >= word.length()) return false;
+        while (left < right) {
+            if (word.charAt(left++) != word.charAt(right--)) return false;
         }
         return true;
     }
 }
+
+

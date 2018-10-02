@@ -129,3 +129,75 @@ class PalindromePair {
 }
 
 
+// hashmap, outputing strings, instead of index
+import java.io.*;
+import java.util.*;
+import org.junit.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+  
+ public static void main(String[] args) {
+    PalindromePair pp = new PalindromePair();
+    System.out.println(pp.palindromePairs(new String[] {"abcd","dcba","lls","s","sssll"}));
+   
+    System.out.println(pp.palindromePairs(new String[] {"abcd","dcba","lls","s","sssll", "", "aba"}));
+  }
+}
+
+class PalindromePair {
+    public List<List<String>> palindromePairs(String[] words) {
+        List<List<String>> pairs = new ArrayList<List<String>>();
+        if (words == null || words.length < 2) return pairs;
+        
+        int len = words.length;
+        Map<String, Integer> wmap = new HashMap<String, Integer>();
+        for (int i = 0; i < len; i++) wmap.put(words[i], i);
+        
+        for (String word : words) {
+            if (wmap.containsKey("") && isP(word, 0, word.length() -1) && !word.equals("")) {
+                pairs.add(Arrays.asList("", word));
+                pairs.add(Arrays.asList(word, ""));
+            }
+            String rev = new StringBuilder(word).reverse().toString();
+            if (wmap.containsKey(rev) && !rev.equals(word)) {
+                pairs.add(Arrays.asList(word, rev));
+            }
+            
+            for (int i = 0; i < word.length() -1; i++) {
+                if (isP(word, 0, i)) {
+                    rev = new StringBuilder(word.substring(i + 1)).reverse().toString();
+                    if (wmap.containsKey(rev)) {
+                       pairs.add(Arrays.asList(rev, word)); 
+                    }
+                }
+            }
+            
+            for (int i = word.length() -1; i > 0; i--) {
+                if (isP(word, i, word.length() -1)) {
+                    rev = new StringBuilder(word.substring(0, i)).reverse().toString();
+                    if (wmap.containsKey(rev)) {
+                        pairs.add(Arrays.asList(word, rev));
+                    }
+                }
+            }            
+        }
+        return pairs;
+    }
+    
+    public boolean isP(String word, int left, int right) {
+        if (word == null || left < 0 || right >= word.length()) return false;
+        while (left < right) {
+            if (word.charAt(left++) != word.charAt(right--)) return false;
+        }
+        return true;
+    }
+}
+
+
+

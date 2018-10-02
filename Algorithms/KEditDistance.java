@@ -1,3 +1,9 @@
+// np issue
+
+
+// double a = 1.5, b = 1.1213; double c = 2.6213; 􄘉􀑚􁰦􀙉 a+b-c 是不等于0的 具体的理解􄈧会􄇞
+// computer arch。
+// we either introduce epsilon or in this case it is easier to just convert it to int by *100 as it is price
 
 import java.io.*;
 import java.util.*;
@@ -16,80 +22,99 @@ public class Solution {
       String target = "abcd";
       int k = 2;
       KEditDistance edit = new KEditDistance();
-      System.out.println(edit.kDistance(input, target, k));
+      System.out.println(edit.getKEditDistance(input, target, k));
     }
 }
 
 class KEditDistance {
- public List<String> kDistance(String[] words, String target, int k) {
-        // Write your code here
-        TrieNode root = new TrieNode();
-        for (int i = 0; i < words.length; i++)
-            TrieNode.addWord(root, words[i]);
+ private void search(String curr, String target, int k, TrieNode root,
+                            int[] prevDist, List<String> result) {
+            if (root.isLeaf) {
+                if (prevDist[target.length()] <= k) {
+                    result.add(curr);
+                } else {
+                    return;
+                }
+            }
 
-        List<String> result = new ArrayList<String>();
+            for (int i = 0; i < 26; i++) {
+                if (root.children[i] == null) {
+                    continue;
+                }
 
-        int n = target.length();
-        int[] dp = new int[n + 1];
-        for (int i = 0; i <= n; ++i)
-            dp[i] = i;
-
-        find(root, result, k, target, dp);
-        return result;
-    }
-
-    public void find(TrieNode node, List<String> result, int k, String target, int[] dp) {
-        int n = target.length();
-        // dp[i] 表示从Trie的root节点走到当前node节点，形成的Prefix
-        // 和 target的前i个字符的最小编辑距离
-        if (node.hasWord && dp[n] <= k) {
-            result.add(node.str);
-        }
-        int[] next = new int[n + 1];
-        for (int i = 0; i <= n; ++i)
-            next[i] = 0;
-
-        for (int i = 0; i < 26; ++i)
-            if (node.children[i] != null) {
-                next[0] = dp[0] + 1;
-                for (int j = 1; j <= n; j++) {
-                    if (target.charAt(j - 1) - 'a' == i) {
-                        next[j] = Math.min(dp[j - 1], Math.min(next[j - 1] + 1, dp[j] + 1));
+                int[] currDist = new int[target.length() + 1];
+                currDist[0] = curr.length() + 1;
+                for (int j = 1; j < prevDist.length; j++) {
+                    if (target.charAt(j - 1) == (char) (i + 'a')) {
+                        currDist[j] = prevDist[j - 1];
                     } else {
-                        next[j] = Math.min(dp[j - 1] + 1, Math.min(next[j - 1] + 1, dp[j] + 1));
+                        currDist[j] = Math.min(Math.min(prevDist[j - 1], prevDist[j]), currDist[j - 1]) + 1;
                     }
                 }
-                find(node.children[i], result, k, target, next);
+
+                search(curr + (char) (i + 'a'), target, k, root.children[i], currDist, result);
             }
-    }
-
-}
-
-  class TrieNode {
-    // Initialize your data structure here.
-    public TrieNode[] children;
-    public boolean hasWord;
-    public String str;
-    
-    // Initialize your data structure here.
-    public TrieNode() {
-        children = new TrieNode[26];
-        for (int i = 0; i < 26; ++i)
-            children[i] = null;
-        hasWord = false;
-    }
-
-    // Adds a word into the data structure.
-    static public void addWord(TrieNode root, String word) {
-        TrieNode now = root;
-        for(int i = 0; i < word.length(); i++) {
-            Character c = word.charAt(i);
-            if (now.children[c - 'a'] == null) {
-                now.children[c - 'a'] = new TrieNode();
-            }
-            now = now.children[c - 'a'];
         }
-        now.str = word;
-        now.hasWord = true;
-    }
+
+        public List<String> getKEditDistance(String[] words, String target, int k) {
+            List<String> res = new ArrayList<>();
+            if (words == null || words.length == 0 || target == null ||
+                    target.length() == 0 || k < 0) {
+                return res;
+            }
+
+            Trie trie = new Trie();
+            for (String word : words) {
+                trie.insert(word);
+            }
+
+            TrieNode root = trie.root;
+            // The edit distance from curr to target
+            int[] prev = new int[target.length() + 1];
+            for (int i = 0; i < prev.length; i++) {
+                prev[i] = i;
+            }
+
+            search("", target, k, root, prev, res);
+
+            return res;
+        }
+
+        class TrieNode {
+            TrieNode[] children;
+            boolean isLeaf;
+
+            public TrieNode() {
+                children = new TrieNode[26];
+            }
+        }
+
+        class Trie {
+            TrieNode root;
+
+            public Trie() {
+                root = new TrieNode();
+            }
+
+            // Add a word into trie
+            public void insert(String s) {
+                if (s == null || s.length() == 0) {
+                    return;
+                }
+
+                TrieNode p = root;
+                for (int i = 0; i < s.length(); i++) {
+                    char c = s.charAt(i);
+                    if (p.children[c - 'a'] == null) {
+                        p.children[c - 'a'] = new TrieNode();
+                    }
+
+                    if (i == s.length() - 1) {
+                        p.children[c - 'a'].isLeaf = true;
+                    }
+
+                    p = p.children[c - 'a'];
+                }
+            }
+        }
 }

@@ -1,5 +1,10 @@
 // np issue
 
+
+// double a = 1.5, b = 1.1213; double c = 2.6213; 􄘉􀑚􁰦􀙉 a+b-c 是不等于0的 具体的理解􄈧会􄇞
+// computer arch。
+// we either introduce epsilon or in this case it is easier to just convert it to int by *100 as it is price
+
 import java.io.*;
 import java.util.*;
 

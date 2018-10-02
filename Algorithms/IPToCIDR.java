@@ -10,12 +10,37 @@
 
 // runtime, constant, but if really want to analyze, all constatns, 
 // and the while is doing bit manipulations and takes O(lgn), as most 64 bits, so still constant
+import java.io.*;
+import java.util.*;
+import org.junit.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
 class Solution {
+  
+public static void main(String[] args) {
+    IpCIDRConverter converter = new IpCIDRConverter();
+    System.out.println(converter.ipToCIDR("255.0.0.7", 10));
+    // 0000 0111 (7), 32
+    // 0000 1000 (8), 29 (32-3)
+    // 0001 0000 (16), 32
+  }
+
+}
+
+class IpCIDRConverter {
     public List<String> ipToCIDR(String ip, int n) {
         List<String> cidrs = new ArrayList<String>();
         Integer num = ipToNumber(ip);
         if (num == null || n < 1) return cidrs;
         while(n > 0) {
+// identify the location of first 1's from lower bit to higher
+// bit of start IP
+// e.g. 00000001.00000001.00000001.01101100, return 4 (100)
             int bit = num & -num;
             while (bit > n) {
                 bit /=2;
@@ -56,3 +81,7 @@ class Solution {
         return x;
     }
 }
+
+
+
+

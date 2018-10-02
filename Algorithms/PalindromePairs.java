@@ -4,7 +4,27 @@
 // http://bookshadow.com/weblog/2016/03/10/leetcode-palindrome-pairs/
 // KMP way, have not tried(same complexity) https://discuss.leetcode.com/topic/43848/code-redo-40-lines-o-n-k-solution-using-kmp
 
+import java.io.*;
+import java.util.*;
+import org.junit.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
 class Solution {
+  
+ public static void main(String[] args) {
+    PalindromePair pp = new PalindromePair();
+    System.out.println(pp.palindromePairs(new String[] {"abcd","dcba","lls","s","sssll"}));
+   
+    System.out.println(pp.palindromePairs(new String[] {"abcd","dcba","lls","s","sssll", "", "aba"}));
+  }
+}
+
+class PalindromePair {
     class Node{
             Node[] next;
             int index;
@@ -18,7 +38,7 @@ class Solution {
         
     public List<List<Integer>> palindromePairs(String[] words) {
         Node root=new Node();
-        List<List<Integer>> res=new ArrayList();
+        List<List<Integer>> res= new ArrayList<List<Integer>>();
         for(int i=0;i<words.length;i++) addnode(words[i],i,root);
         for(int i=0;i<words.length;i++) searchnode(words[i],i,root,res);
         return res;
@@ -53,9 +73,9 @@ class Solution {
         }
         return true;
     }
-   
-    
 }
+
+
 
 // hashmap ways, outputing index
 

@@ -11,6 +11,21 @@ import org.junit.*;
  * If you need more classes, simply define them inline.
  */
 
+// from the normal regex matching question, need to add + logic
+        // dp[i+1][j+1] corresponds to s[i] and p[j]
+        // if p[j] != "*"  dp[i][j] = true && (s[i] == p[j] || p[j] == '.')
+        // if p[j] == "*" 
+        //      if p[j-1] != "." : dp[i][j+1] && s[i] == s[i-1] && p[j-1] == s[i-1] || dp[i+1][j-1] || dp[i+1][j]
+        //      if p[j-1] == '.' : dp[i+1][j-1] || dp[i+1][j], dp[i+2][j+1],....
+        
+        // "" -> "" true
+        // ""-> "*" or "a" -> "*a" should be false
+        // abc -> abc true
+        // abcd -> abc false
+        // xx -> x* true
+        // xxsdsdsd -> .* true
+        // xxy -> a*x*y true
+
 public class Solution {
   
   public static void main(String[] args) {

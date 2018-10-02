@@ -1,9 +1,5 @@
-// np issue
-
-
-// double a = 1.5, b = 1.1213; double c = 2.6213; 􄘉􀑚􁰦􀙉 a+b-c 是不等于0的 具体的理解􄈧会􄇞
-// computer arch。
-// we either introduce epsilon or in this case it is easier to just convert it to int by *100 as it is price
+// n = size of string
+// trie + dp, O(buildtrie O(n * max_len) + )
 
 import java.io.*;
 import java.util.*;
@@ -29,6 +25,8 @@ public class Solution {
 class KEditDistance {
  private void search(String curr, String target, int k, TrieNode root,
                             int[] prevDist, List<String> result) {
+   //      // dp[i] 表示从Trie的root节点走到当前node节点，形成的Prefix
+        // 和 target的前i个字符的最小编辑距离
             if (root.isLeaf) {
                 if (prevDist[target.length()] <= k) {
                     result.add(curr);

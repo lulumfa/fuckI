@@ -1,42 +1,52 @@
 // bfs, O(E + V), might not be correct, as the board keeps mutating and the upper bound of all possibility 
 // would be k = m*n, Ak = k*(k-1)(k-2)...1 = O(k!) = O(m!n! * m!n!) and easily overflow, might need to A* solution here later, big-O same?
 
-package Airbnb;
-
+import java.io.*;
 import java.util.*;
+import org.junit.*;
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
 
-public class SlidingPuzzle {
-
-	public static void main(String[] args) {
-		SlidingPuzzle sp = new SlidingPuzzle();
-//		// valid more nums case
-//		int[][] board = new int[][] {
-//			{1, 2, 3},
-//			{4, 0, 5},
-//			{7, 8, 6}, 
-//			{10, 11, 9}
-//		};
-		
-		// large board, invalid case, easy to overflow
-		int[][] board = new int[][] {
-			{1, 2, 3},
-			{4, 0, 5},
-			{7, 8, 6}, 
-			{11, 10, 9}
-		};
-		
-//		// small board, invalid case
-//		int[][] board = new int[][] {
-//			{1, 2, 3},
-//			{5, 4, 0}
-//		};
-		
-		System.out.println(sp.slidingPuzzleBoolean(board));
-//		System.out.println(Arrays.toString(sp.slidingPuzzleWithSteps(board)));
-	}
+public class Solution {
+  
+public static void main(String[] args) {
+    SlidingPuzzle sp = new SlidingPuzzle();
+    // valid more nums case
+    int[][] board = new int[][] {
+      {1, 2, 3},
+      {4, 0, 5},
+      {7, 8, 6}, 
+      {10, 11, 9}
+    };
     
-	public boolean slidingPuzzleBoolean(int[][] board) {
-		if (board == null) return false;
+//    // large board, invalid case
+//    int[][] board = new int[][] {
+//      {1, 2, 3},
+//      {4, 0, 5},
+//      {7, 8, 6}, 
+//      {11, 10, 9}
+//    };
+    
+//    // small board, invalid case
+//    int[][] board = new int[][] {
+//      {1, 2, 3},
+//      {5, 4, 0}
+//    };
+    
+    System.out.println(sp.slidingPuzzleBoolean(board));
+    System.out.println(sp.slidingPuzzle(board));
+    System.out.println(Arrays.toString(sp.slidingPuzzleWithSteps(board)));
+  }
+}
+
+class SlidingPuzzle {
+    
+  public boolean slidingPuzzleBoolean(int[][] board) {
+    if (board == null) return false;
         int m = board.length, n = board[0].length;
         
         Queue<Footprint> queue = new LinkedList<Footprint>();
@@ -65,9 +75,7 @@ public class SlidingPuzzle {
             if (cur.boardString.equals(ansString)) {
                 return true;    
             }
-            
-            System.out.println(Arrays.deepToString(deserialize(cur.boardString, m , n)));
-            
+                        
             for (Integer[] dir : dirs) {
                 int xNext = x + dir[0], yNext = y + dir[1];
                 if (xNext >= 0 && xNext < m && yNext >= 0 && yNext < n) {
@@ -78,15 +86,15 @@ public class SlidingPuzzle {
                     if (!visited.contains(boardString)) {
                         visited.add(boardString);
                         queue.offer(new Footprint(xNext * n + yNext, boardString, new ArrayList<Integer[]>(cur.steps) {{
-                            add((Integer[])dir);
+                            add(dir);
                         }}));
                     }
                 }
             }
         }
-        	    
-	    return false;
-	}
+              
+      return false;
+  }
 
 private final static Integer[][] dirs = new Integer[][] {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     
@@ -135,7 +143,7 @@ private final static Integer[][] dirs = new Integer[][] {{1, 0}, {0, 1}, {-1, 0}
                     if (!visited.contains(boardString)) {
                         visited.add(boardString);
                         queue.offer(new Footprint(xNext * n + yNext, boardString, new ArrayList<Integer[]>(cur.steps) {{
-                            add((Integer[])dir);
+                            add(dir);
                         }}));
                         newSize++;
                     }
@@ -193,7 +201,7 @@ private final static Integer[][] dirs = new Integer[][] {{1, 0}, {0, 1}, {-1, 0}
                     if (!visited.contains(boardString)) {
                         visited.add(boardString);
                         queue.offer(new Footprint(xNext * n + yNext, boardString, new ArrayList<Integer[]>(cur.steps) {{
-                            add((Integer[])dir);
+                            add(dir);
                         }}));
                     }
                 }
@@ -205,24 +213,24 @@ private final static Integer[][] dirs = new Integer[][] {{1, 0}, {0, 1}, {-1, 0}
     
     //private final static Integer[][] dirs = new Integer[][] {{1, 0} // down, {0, 1} // right, {-1, 0} // up, {0, -1} // left};
     private String[] formatSteps(List<Integer[]> steps) {
-		if (steps == null) return null;
-		String[] res = new String[steps.size()];
-		int i = 0;
-		for (Integer[] step : steps) {
-			if (Arrays.equals(dirs[0], step)) {
-				res[i++] = "Down";
-			} else if (Arrays.equals(dirs[1], step)) {
-				res[i++] = "Right";
-			} else if (Arrays.equals(dirs[2], step)) {
-				res[i++] = "Up";
-			} else if (Arrays.equals(dirs[3], step)) {
-				res[i++] = "Left";
-			}
-		}
-		return res;
-	}
+    if (steps == null) return null;
+    String[] res = new String[steps.size()];
+    int i = 0;
+    for (Integer[] step : steps) {
+      if (Arrays.equals(dirs[0], step)) {
+        res[i++] = "Down";
+      } else if (Arrays.equals(dirs[1], step)) {
+        res[i++] = "Right";
+      } else if (Arrays.equals(dirs[2], step)) {
+        res[i++] = "Up";
+      } else if (Arrays.equals(dirs[3], step)) {
+        res[i++] = "Left";
+      }
+    }
+    return res;
+  }
 
-	private String serialize(int[][] board, int m, int n) {
+  private String serialize(int[][] board, int m, int n) {
         StringBuilder sb = new StringBuilder();
         for (int[] row : board) {
             for (int i : row) {
@@ -245,6 +253,7 @@ private final static Integer[][] dirs = new Integer[][] {{1, 0}, {0, 1}, {-1, 0}
         return board;
     }
 }
+
 class Footprint {
     int pos;
     String boardString;
@@ -256,3 +265,7 @@ class Footprint {
         this.steps = steps;
     }
 }
+
+
+
+

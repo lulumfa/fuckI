@@ -1,6 +1,7 @@
 // 用trie+DFS 找到所有words
 // DFS，分􀡛是不取􄘉个􀦅􄇽，取第一个序列，取第二个序列
-//
+// k of dict size, len of word longest, m, n
+// O(k*len + mn * k*len + 2^k*len)
 
 import java.io.*;
 import java.util.*;

@@ -1,5 +1,5 @@
 // n = size of string
-// trie + dp, O(buildtrie O(n * max_len) + )
+// trie + dp, O(buildtrie O(n * max_len) + target_string_len * k)
 
 import java.io.*;
 import java.util.*;

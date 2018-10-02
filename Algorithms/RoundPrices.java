@@ -1,5 +1,5 @@
 // O(nlogn) space O(n)
-// greedy, sort and compensate the most significant diff
+// greedy, sort and compensate the least significant diff, to minimize the sum(|diff|)
 
 package Airbnb;
 

@@ -15,13 +15,23 @@ public class Solution {
   
 public static void main(String[] args) {
     SlidingPuzzle sp = new SlidingPuzzle();
-    // valid more nums case
+    
     int[][] board = new int[][] {
       {1, 2, 3},
-      {4, 0, 5},
-      {7, 8, 6}, 
-      {10, 11, 9}
+      {4, 5, 6},
+      {7, 8, 0}
     };
+    
+    board = Shuffle.shuffle(board);
+    System.out.println(Arrays.deepToString(board));
+    // valid more nums case
+//    int[][] board = new int[][] {
+//      {1, 2, 3},
+//      {4, 0, 5},
+//      {7, 8, 6}, 
+//      {10, 11, 9}
+//    };
+    
     
 //    // large board, invalid case
 //    int[][] board = new int[][] {
@@ -40,6 +50,32 @@ public static void main(String[] args) {
     System.out.println(sp.slidingPuzzleBoolean(board));
     System.out.println(sp.slidingPuzzle(board));
     System.out.println(Arrays.toString(sp.slidingPuzzleWithSteps(board)));
+  }
+}
+
+// 1/k, k-1/k * 1/k-1 = 1/k, guarantee to be random for every element to be 1/k, 
+// this is the possibility of the last element to be on i position, same for any element 
+class Shuffle {
+  public static int[][] shuffle(int[][] matrix) {
+    if (matrix == null) return matrix;
+    int m = matrix.length, n = matrix[0].length;
+    int[][] shuffled = new int[m][n];
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        shuffled[i][j] = matrix[i][j];
+      }
+    }
+    Random random = new Random();
+    int size = m*n;
+    for (int i = size -1; i > 0; i--) {
+      int r = random.nextInt(i + 1);
+      int curX = i/n, curY = i %n;
+      int rX = r/n, rY = r %n;
+      int temp = shuffled[curX][curY];
+      shuffled[curX][curY] = shuffled[rX][rY];
+      shuffled[rX][rY] = temp;
+    }
+    return shuffled;
   }
 }
 
@@ -265,6 +301,10 @@ class Footprint {
         this.steps = steps;
     }
 }
+
+
+
+
 
 
 

@@ -158,7 +158,7 @@ public class LRUCache {
     }
     
     private void delete(DoubleLinkedList node)  {
-        map.remove(node);
+        map.remove(node.key);
         if(node==head && node==tail) {
             head = null;
             tail = null;

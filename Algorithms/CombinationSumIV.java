@@ -1,4 +1,4 @@
-//dp O(mn), space O(n)
+//dp O(mn), space O(n), if negative number allowed, we need to add requirement that no dup usage aloowe, or infinite loop -1 + 1
 
 // if nums size small, then sort first
 public class Solution {

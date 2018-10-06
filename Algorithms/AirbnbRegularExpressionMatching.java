@@ -66,7 +66,63 @@ public class Solution {
   }
 }
 
+// my latest
+package Airbnb;
 
+public class RegularExpression {
 
-
+	public static void main(String[] args) {
+		RegularExpression regex = new RegularExpression();
+		
+		System.out.println(regex.isMatch("", ""));
+		System.out.println(regex.isMatch("abbb", "abbb"));
+		System.out.println(regex.isMatch("a", "."));
+		System.out.println(regex.isMatch("abbb", "a+b*"));
+		System.out.println(regex.isMatch("abbbc", "a+b*"));
+		System.out.println(regex.isMatch("abbb", ".+b*"));
+		
+		System.out.println(regex.isMatch("saaaa", "s+a*"));
+		System.out.println(regex.isMatch("saaaa", "s+b*"));
+		System.out.println(regex.isMatch("saaaab", "s+a*"));
+		System.out.println(regex.isMatch("saaaab", "s+b*"));
+		System.out.println(regex.isMatch("abc", ".*"));
+		System.out.println(regex.isMatch("aabb", "a+b*c*"));
+		System.out.println(regex.isMatch("afdfsdfd dvdv", ".*"));
+		
+		System.out.println(regex.isMatch("", "*"));
+		System.out.println(regex.isMatch("a", "*a"));
+		System.out.println(regex.isMatch("abcd", "abc"));
+		System.out.println(regex.isMatch("xxy", "a*x*y*"));
+	}
+	
+	public boolean isMatch(String s, String p) {
+		if (p == null || s == null) return false;
+		int m = p.length(), n = s.length();
+		boolean[][] dp = new boolean[m+1][n+1];
+		dp[0][0] = true;
+		
+		for (int j = 1; j < m; j++) {
+			if (dp[j-1][0] && p.charAt(j) == '*') dp[j+1][0] = true;
+		}
+		
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				if (p.charAt(i) == '.' || s.charAt(j) == p.charAt(i)) dp[i+1][j+1] = dp[i][j];
+				else if (i > 0 && (p.charAt(i) == '*' || p.charAt(i) == '+')) {
+					if (p.charAt(i-1) == '.' || p.charAt(i -1) == s.charAt(j)) {
+						if (p.charAt(i) == '*') {
+							dp[i+1][j+1] = dp[i-1][j] || dp[i+1][j] || dp[i][j+1];
+						} else {
+							dp[i+1][j+1] = dp[i+1][j] || dp[i][j+1];
+						}
+					} else {
+						dp[i+1][j+1] = p.charAt(i) == '*' && dp[i-1][j];
+					}
+				}
+			}
+		}
+		
+		return dp[m][n];
+	}
+}
 

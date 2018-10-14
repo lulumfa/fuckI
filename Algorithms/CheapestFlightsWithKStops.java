@@ -84,7 +84,7 @@ class CheapestFlightsWithKStops {
     }   
 	
 	
-    // dfs with prunning
+    // dfs with prunning， O(n^(k+1)) , space (k+1)
 	class Solution {
     private int min = Integer.MAX_VALUE;
     

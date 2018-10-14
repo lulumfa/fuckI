@@ -173,6 +173,7 @@ class Stop1 implements Comparable<Stop1> {
 }
 
 // dp, runtime O(k * |flights|) = O(k * n^2), space (n) or kn if not single row
+// https://zxi.mytechroad.com/blog/dynamic-programming/leetcode-787-cheapest-flights-within-k-stops/
 
 package airbnb;
 

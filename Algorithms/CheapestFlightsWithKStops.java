@@ -171,3 +171,127 @@ class Stop1 implements Comparable<Stop1> {
         return Integer.compare(this.cost, that.cost);
     }
 }
+
+// dp, runtime O(k * |flights|) = O(k * n^2), space (n) or kn if not single row
+
+package airbnb;
+
+import java.util.*;
+
+public class FLightsKStepsDP {
+
+    public static void main(String[] args) {
+//        int[][] flights = new int[][] {
+//                {0, 1, 100},
+//                {0, 2, 500},
+//                {1, 2, 100},
+//                {0, 3, 700},
+//                {2, 3, 50},
+//                {1, 3, 200}
+//        };
+
+        int[][] flights = new int[][] {
+                {0, 2, 100},
+                {2, 1, 100},
+                {1, 3, 50},
+                {0, 3, 1000}
+        };
+
+        FLightsKStepsDP flightsKStepsDP = new FLightsKStepsDP();
+
+        System.out.println(flightsKStepsDP.findKStepsMinPriceDP1D(flights, 0, 3, 2));
+        System.out.println(flightsKStepsDP.findKStepsMinPriceDP1DWithPath(flights, 0, 3, 2));
+        System.out.println(flightsKStepsDP.findKStepsMinPriceDP1D(flights, 0, 3, 1));
+        System.out.println(flightsKStepsDP.findKStepsMinPriceDP1DWithPath(flights, 0, 3, 1));
+        System.out.println(flightsKStepsDP.findKStepsMinPriceDP1D(flights, 0, 3, 0));
+        System.out.println(flightsKStepsDP.findKStepsMinPriceDP1DWithPath(flights, 0, 3, 0));
+//        System.out.println(flightsKStepsDP.findCheapestPricePath(3, flights, 0, 2, 1));
+    }
+
+    public int findKStepsMinPrice(int[][] flights, int src, int dst, int k) {
+        if (flights == null || flights.length == 0) return -1;
+
+        int n = 0;
+        for (int[] flight : flights) n = Math.max(n, Math.max(flight[0], flight[1]));
+        n++;
+        int[][] dp = new int[n][k+2];
+        int inf = 1 << 30;
+        for (int[]  record : dp) Arrays.fill(record, inf);
+
+        dp[src][0] = 0;
+
+        for (int i = 1; i <= k + 1; i++) {
+            dp[src][i] = 0;
+            for (int[] flight : flights) {
+                dp[flight[1]][i] = Math.min(dp[flight[1]][i], flight[2] + dp[flight[0]][i-1]);
+            }
+        }
+        return dp[dst][k+1] >= inf ? -1 : dp[dst][k+1];
+    }
+
+    public int findKStepsMinPriceDP1D(int[][] flights, int src, int dst, int k) {
+        if (flights == null || flights.length == 0) return -1;
+
+        int n = 0;
+        for (int[] flight : flights) n = Math.max(n, Math.max(flight[0], flight[1]));
+        n++;
+        int[] dp = new int[n];
+        int inf = 1 << 30;
+        Arrays.fill(dp, inf);
+        dp[src] = 0;
+
+        for (int i = 1; i <= k + 1; i++) {
+            int[] next = dp.clone();
+            next[src] = 0;
+            for (int[] flight : flights) {
+                next[flight[1]] = Math.min(next[flight[1]], flight[2] + dp[flight[0]]);
+            }
+            dp = next;
+        }
+        return dp[dst] >= inf ? -1 : dp[dst];
+    }
+
+    public List<Integer> findKStepsMinPriceDP1DWithPath(int[][] flights, int src, int dst, int k) {
+        if (flights == null || flights.length == 0) return null;
+
+        int n = 0;
+        for (int[] flight : flights) n = Math.max(n, Math.max(flight[0], flight[1]));
+        n++;
+        int[] dp = new int[n];
+        int inf = 1 << 30;
+        Arrays.fill(dp, inf);
+        dp[src] = 0;
+        int[] parent = new int[n];
+        for (int i = 0; i < n; i++) parent[i] = i;
+
+        for (int i = 1; i <= k + 1; i++) {
+//            int[] next = dp.clone();
+            int[] next = new int[n];
+            Arrays.fill(next, inf);
+            next[src] = 0;
+            for (int[] flight : flights) {
+                if (next[flight[1]] > flight[2] + dp[flight[0]]) {
+                    next[flight[1]] = flight[2] + dp[flight[0]];
+                    parent[flight[1]] = flight[0];
+                }
+            }
+            dp = next;
+        }
+
+        if ( dp[dst] >= inf) return null;
+
+        List<Integer> res = new ArrayList<>();
+
+        int id = dst;
+        while (id != src) {
+            res.add(id);
+            id = parent[id];
+        }
+        res.add(src);
+
+        Collections.reverse(res);
+
+        return res;
+    }
+}
+

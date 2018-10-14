@@ -82,6 +82,58 @@ class CheapestFlightsWithKStops {
         }
         return null;
     }   
+	
+	
+    // dfs with prunning
+	class Solution {
+    private int min = Integer.MAX_VALUE;
+    
+    public int findCheapestPrice(int n, int[][] flights, int src, int dst, int K) {
+        if (flights == null || flights.length == 0) return -1;
+        Map<Integer, List<Tuple>> map = new HashMap<Integer, List<Tuple>>();
+        
+        for (int[] flight : flights) {
+            if (flight == null || flight.length != 3) continue;
+            int s = flight[0], dest = flight[1], cost = flight[2];
+            List<Tuple> tuple = map.get(s);
+            if (tuple == null) {
+                tuple = new ArrayList<Tuple>();
+            }
+            tuple.add(new Tuple(dest, cost));
+            map.put(s, tuple);
+            if (!map.containsKey(dest)) map.put(dest, new ArrayList<Tuple>());
+        }
+        
+        dfs(map, new boolean[map.size()], src, dst, K + 1, 0);
+        return min == Integer.MAX_VALUE ? -1 : min;
+    }
+    
+    private void dfs(Map<Integer, List<Tuple>> map, boolean[] visited, int src, int dst, int steps, int cost) {
+        if (src == dst) {
+            if (cost < min) {
+                min = cost;
+            }
+            return;   
+        }
+        if (steps == 0) return;
+        visited[src] = true;
+        for (Tuple tuple : map.get(src)) {
+            if (visited[tuple.dest] || (cost + tuple.price > min)) continue;
+            dfs(map, visited, tuple.dest, dst, steps - 1, cost + tuple.price);
+        }
+        visited[src] = false;
+    }
+}
+
+class Tuple {
+    int dest;
+    int price;
+    
+    public Tuple(int dest, int price) {
+        this.dest = dest;
+        this.price = price;
+    }
+}
 }
 
 class Stop implements Comparable<Stop> {

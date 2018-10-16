@@ -19,7 +19,11 @@ import org.junit.*;
  * If you need more classes, simply define them inline.
  */
 
-// my latest iterator way to handle remove, cleaner
+// my latest iterator way to handle remove, cleaner, but not being able to handle the cleaning 
+// the empty list visited (orginal empty list is not visited acutally..so also stays).
+// ****!!!! Need to clarify with the interviewer if needs to remove the empty list itself, if so, 
+// we need to handle the orginal empty stuff. Only by storing the index can do that, because 
+// when iterator jumps to next one by hasNext, removing the previous list will cause concurent modification exception
 package airbnb;
 
 import java.util.*;
@@ -28,7 +32,7 @@ public class Vector2D implements Iterator<Integer> {
 
     public static void main(String[] args) {
         List<List<Integer>> input = new ArrayList<>() {{
-            add(new ArrayList<>(Arrays.asList(1, 2)));
+            add(new ArrayList<>(Arrays.asList()));
             add(new ArrayList<>(Arrays.asList()));
             add(new ArrayList<>(Arrays.asList(3)));
         }};
@@ -41,21 +45,21 @@ public class Vector2D implements Iterator<Integer> {
         System.out.println(vector2D.next());
         vector2D.remove();
         System.out.println(vector2D.next());
-        vector2D.remove();
+//        vector2D.remove();
         System.out.println(input.toString());
     }
 
     Iterator<List<Integer>> row;
     Iterator<Integer> col;
     Iterator<Integer> pre;
-    Map<Iterator<Integer>, Integer> map;
-    List<List<Integer>> source;
-    int index;
+//    Map<Iterator<Integer>, Integer> map;
+//    List<List<Integer>> source;
+//    int index;
 
     public Vector2D(List<List<Integer>> vec2d) {
         if (vec2d == null) return;
-        source = vec2d;
-        map = new HashMap<>();
+//        source = vec2d;
+//        map = new HashMap<>();
         row = vec2d.iterator();
     }
 
@@ -71,7 +75,7 @@ public class Vector2D implements Iterator<Integer> {
     public boolean hasNext() {
         while(row.hasNext() && (col == null || !col.hasNext())) {
             col = row.next().iterator();
-            map.put(col, index++);
+//            map.put(col, index++);
         }
         return col != null && col.hasNext();
     }
@@ -80,11 +84,11 @@ public class Vector2D implements Iterator<Integer> {
     public void remove() {
         if (pre == null) return;
         pre.remove();
-        
-        int i = map.get(pre);
-        if (i >= source.size()) return;
-        List<Integer> listToRemove = source.get(i);
-        if (listToRemove.size() == 0) source.remove(listToRemove);
+
+//        int i = map.get(pre);
+//        if (i >= source.size()) return;
+//        List<Integer> listToRemove = source.get(i);
+//        if (listToRemove.size() == 0) source.remove(listToRemove);
     }
 }
 

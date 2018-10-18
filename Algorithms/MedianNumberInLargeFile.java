@@ -39,7 +39,7 @@ public static void main(String[] args) {
         res = Math.max(res, num);
       }
     }
-    if (count == k) return pivot;
+    if (count == k) return res;
     else if (count < k) return helper(input, Math.max(res + 1, pivot), high, k);
     else return helper(input, low, res, k);
   }

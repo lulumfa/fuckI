@@ -223,40 +223,62 @@ class PalindromePair {
 
 class Solution {
     public List<List<Integer>> palindromePairs(String[] words) {
-        List<List<Integer>> res = new ArrayList<List<Integer>>();
-        if (words == null || words.length < 2) return res;
-        
         TrieNode root = new TrieNode();
         for (int i = 0; i < words.length; i++) addWord(root, words[i], i);
         
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        
+        for (int i = 0; i < words.length; i++) search(res, words[i], i, root);
+        return res;
     }
     
-    private void addWord(TrieNode root, String word, int index) {
-        if (root == null) return;
-        
-        for (int i = word.length() -1; i >=0; i--) {
-            int c = word.charAt(i) - 'a';
-            if (root.next[c] == null) {
-                root.next[c] = new TrieNode();
+    private void search(List<List<Integer>> res, String word, int index, TrieNode root) {
+        if (root == null || res == null || word == null) return;
+        for (int i = 0; i < word.length(); i++) {
+            if (root.index >= 0 && root.index != index && isP(word, i, word.length() -1)) {
+                res.add(Arrays.asList(index, root.index));
             }
+            int c = word.charAt(i) - 'a';
+            root = root.next[c];
+            if (root == null) return;
+        }
+        for (Integer i : root.list) {
+            if (index == i) continue;
+            res.add(Arrays.asList(index, i));
+        }
+    }
+    
+    // adding word to trie backfoward
+    private void addWord(TrieNode root, String word, int index) {
+        if (word == null || root == null) return;
+        
+        for (int i = word.length() - 1; i>=0 ;i--) {
+            int c = word.charAt(i)  - 'a';
+            if (root.next[c] == null) root.next[c] = new TrieNode();
+            
+            if (isP(word, 0, i)) {
+                root.list.add(index);
+            }
+                
             root = root.next[c];
         }
+        
         root.index = index;
         root.list.add(index);
     }
     
     private boolean isP(String word, int start, int end) {
-        if (word == null || start > end || start < 0 || end > word.length() || start > word.length()) return false;
+        if (word == null || start > end) return false;
         
-        while(start < end) {
+        while (start < end) {
             if (word.charAt(start++) != word.charAt(end--)) return false;
         }
         return true;
-     }
+    }
 }
 
 class TrieNode {
-    int index = -1;
+    int index=  -1;
     List<Integer> list;
     TrieNode[] next;
     

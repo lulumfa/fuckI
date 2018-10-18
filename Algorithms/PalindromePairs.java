@@ -221,3 +221,47 @@ class PalindromePair {
 
 
 
+class Solution {
+    public List<List<Integer>> palindromePairs(String[] words) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if (words == null || words.length < 2) return res;
+        
+        TrieNode root = new TrieNode();
+        for (int i = 0; i < words.length; i++) addWord(root, words[i], i);
+        
+    }
+    
+    private void addWord(TrieNode root, String word, int index) {
+        if (root == null) return;
+        
+        for (int i = word.length() -1; i >=0; i--) {
+            int c = word.charAt(i) - 'a';
+            if (root.next[c] == null) {
+                root.next[c] = new TrieNode();
+            }
+            root = root.next[c];
+        }
+        root.index = index;
+        root.list.add(index);
+    }
+    
+    private boolean isP(String word, int start, int end) {
+        if (word == null || start > end || start < 0 || end > word.length() || start > word.length()) return false;
+        
+        while(start < end) {
+            if (word.charAt(start++) != word.charAt(end--)) return false;
+        }
+        return true;
+     }
+}
+
+class TrieNode {
+    int index = -1;
+    List<Integer> list;
+    TrieNode[] next;
+    
+    public TrieNode() {
+        list = new ArrayList<Integer>();
+        next = new TrieNode[26];
+    }
+}

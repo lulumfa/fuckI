@@ -296,3 +296,69 @@ public class FLightsKStepsDP {
     }
 }
 
+// if using string as city names, which making the dp a bit hard
+package airbnb;
+
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class FlightsKStops {
+
+    public static void main(String[] args) {
+        List<String> flights = Arrays.asList("A->B,100", "B->C,100", "A->C,500", "B->D,10", "D->C,10");
+        FlightsKStops flightsKStops = new FlightsKStops();
+
+        System.out.println(flightsKStops.minCostWithAtMostKStopsLinearFLights(flights, "A", "C", -5));
+    }
+
+    // dp[i][j] = min(dp[i-1], dist(a to j) + dp[i-1][a]
+    public int minCostWithAtMostKStopsLinearFLights(List<String> flights, String source, String target, int k) {
+        if (flights == null || flights.size() == 0 || source == null || target == null || k < 0) return -1;
+
+        Line[] lines = new Line[flights.size()];
+        Map<String, Integer> dp = new HashMap<>();
+        int idx = 0;
+        int INF = 1 << 30;
+
+        for (String flight : flights) {
+            if (flight == null) continue;
+            String[] segments = flight.split(",");
+            if (segments.length != 2) continue;
+            String[] cities = segments[0].split("->");
+            if (cities.length != 2) continue;
+            String from = cities[0], to = cities[1];
+            int price = Integer.valueOf(segments[1]);
+
+            if (!dp.containsKey(from)) dp.put(from, INF);
+            if (!dp.containsKey(to)) dp.put(to, INF);
+
+            lines[idx++] = new Line(from, to, price);
+        }
+
+        dp.put(source, 0);
+
+        for (int i = 0; i <= k; i++) {
+            Map<String, Integer> next = (Map<String, Integer>) ((HashMap<String, Integer>) dp).clone();
+            next.put(source, 0);
+            for (Line line : lines) {
+                next.put(line.to, Math.min(next.get(line.to), dp.get(line.from) + line.price));
+            }
+            dp = next;
+        }
+        return dp.get(target) >= INF ? -1 : dp.get(target);
+    }
+}
+
+class Line {
+    String from;
+    String to;
+    int price;
+
+    public Line(String from, String to, int price) {
+        this.from = from;
+        this.to = to;
+        this.price = price;
+    }
+}

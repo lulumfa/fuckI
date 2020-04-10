@@ -1,3 +1,4 @@
+// O(lgn) space O(1)
 public class Solution {
     public int findPeakElement(int[] num) {
         if(num==null || num.length==0) return -1;
@@ -13,5 +14,23 @@ public class Solution {
             }
         }
         return -1;
+    }
+}
+
+// O(n), space 1
+
+class Solution {
+    public int findPeakElement(int[] nums) {
+        if (nums == null || nums.length == 0) return -1;
+        
+        int candidate = 0, i = 1;
+        while (i < nums.length) {
+            if (nums[candidate] < nums[i]) {
+                candidate = i++;
+            } else {
+                return candidate;
+            } 
+        }
+        return candidate;
     }
 }

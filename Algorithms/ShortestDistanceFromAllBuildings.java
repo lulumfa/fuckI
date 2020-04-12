@@ -1,4 +1,4 @@
-// O(m*n * mn), O(m^2 * N^2), all 2d points (MN) to do BFS (MN)
+// O(m*n * mn), O(m^2 * N^2), all 2d points (MN) to do BFS (MN), some improvement could be made to only instore full reached points, by calculating total buildings first
 class Solution {
     private static int[][] dirs = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
     public int shortestDistance(int[][] grid) {

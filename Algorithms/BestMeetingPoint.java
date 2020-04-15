@@ -1,4 +1,4 @@
-// O(mn), space (max(m, n))
+// O(mn), space (mn) for space, worst case all 1, then col list or row list would be mn elements in it
 class Solution {
     public int minTotalDistance(int[][] grid) {
         if (grid == null || grid.length == 0 || grid[0].length ==0) return -1;

@@ -1,4 +1,5 @@
 // O(n) np, space (n) or O(1) constant if we can override the input array
+// https://www.youtube.com/watch?v=XTGEbhZmqCY&feature=youtu.be
 
 class Solution {
     public int maxSumTwoNoOverlap(int[] A, int L, int M) {

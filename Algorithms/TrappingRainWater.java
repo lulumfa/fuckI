@@ -1,3 +1,27 @@
+// O(n), space constant
+class Solution {
+    public int trap(int[] height) {
+        if (height == null || height.length < 3) return 0;
+        
+        int left = 0, right = height.length -1;
+        int lMax = 0, rMax = 0;
+        
+        int res = 0;
+        while (left <= right) {
+            if (lMax >= rMax) {
+                if (rMax - height[right] > 0) res += rMax - height[right];
+                rMax = Math.max(rMax, height[right]);
+                right--;
+            } else {
+                if (lMax - height[left] > 0) res += lMax - height[left];
+                lMax = Math.max(lMax, height[left]);
+                left++;
+            }
+        }
+        return res;
+    }
+}
+
 //http://blog.csdn.net/linhuanmars/article/details/20888505
 
 //所以时间复杂度是O(2*n)=O(n)。空间上需要一个长度为n的数组，复杂度是O(n)

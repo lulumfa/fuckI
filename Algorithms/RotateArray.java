@@ -1,4 +1,22 @@
 
+// not the fastest one, n*k, space constant
+
+class Solution {
+    public void rotate(int[] nums, int k) {
+        if (nums == null || nums.length <= 1 || k <= 0) return;
+        
+        
+        for (int i = 0; i < k; i++) {
+            int last = nums[nums.length - 1];
+            
+            for (int j = 0; j < nums.length; j++) {
+                int temp = nums[j];
+                nums[j] = last;
+                last = temp;
+            }
+        }
+    }
+}
 
 //https://oj.leetcode.com/discuss/26418/my-java-solution
 

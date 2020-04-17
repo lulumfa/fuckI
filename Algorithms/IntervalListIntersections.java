@@ -1,3 +1,62 @@
+// cleaner one
+// O(M+N) my own, space (M+N)
+class Solution {
+  public int[][] intervalIntersection(int[][] A, int[][] B) {
+    List<int[]> ans = new ArrayList();
+    int i = 0, j = 0;
+
+    while (i < A.length && j < B.length) {
+      // Let's check if A[i] intersects B[j].
+      // lo - the startpoint of the intersection
+      // hi - the endpoint of the intersection
+      int lo = Math.max(A[i][0], B[j][0]);
+      int hi = Math.min(A[i][1], B[j][1]);
+      if (lo <= hi)
+        ans.add(new int[]{lo, hi});
+
+      // Remove the interval with the smallest endpoint
+      if (A[i][1] < B[j][1])
+        i++;
+      else
+        j++;
+    }
+
+    return ans.toArray(new int[ans.size()][]);
+  }
+}
+
+// O(M+N) my own, space (M+N)
+class Solution {
+    public int[][] intervalIntersection(int[][] A, int[][] B) {
+        if (A == null || B == null || A.length == 0 || B.length == 0) return new int[0][0];
+        
+        int i = 0, j = 0;
+        List<int[]> list = new ArrayList<int[]>();
+        
+        while(i < A.length && j < B.length) {
+            int[] a = A[i], b = B[j];
+
+            if (a[0] > b[1]) {
+                j++;
+            } else if (b[0] > a[1]) {
+                i++;
+            } else {
+                list.add(new int[] {Math.max(a[0], b[0]), Math.min(a[1], b[1])});
+                
+                if (a[1] < b[1]) i++;
+                else j++;
+            }
+        }
+        
+        int[][] res = new int[list.size()][2];
+        i = 0;
+        for (int[] tuple : list) {
+            res[i++] = tuple;
+        }
+        return res;
+    }
+}
+
 // On(logn), not accepted.., space (m+n)
 class Solution {
     public int[][] intervalIntersection(int[][] A, int[][] B) {

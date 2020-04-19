@@ -1,4 +1,4 @@
-// latest mine
+// latest mine, O(log (A + B)), space O(log (A + B))
 
 	public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         if(nums1 == null && nums2 ==null || nums1.length ==0 && nums2.length ==0 ) return 0;

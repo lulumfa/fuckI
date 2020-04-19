@@ -1,4 +1,10 @@
-//
+//AutocompleteSystem() takes O(k*l)O(k∗l) time. We need to iterate over ll sentences each of average length kk, 
+// to create the trie for the given set of sentencessentences.
+
+//input() takes O\big(p+q+m \log m\big)O(p+q+mlogm) time. Here, pp refers to the length of the sentence formed till now,
+// \text{cur\_sent}cur_sent. qq refers to the number of nodes in the trie considering the sentence formed till now 
+// as the root node. Again, we need to sort the listlist of length mm indicating the options available for the hot sentences
+// , which takes O\big(m \log m\big)O(mlogm) time.
 
 class Node {
   String sentence;

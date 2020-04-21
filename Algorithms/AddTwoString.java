@@ -1,3 +1,18 @@
+// O(n) Space and Time
+
+public String addStrings(String num1, String num2) {
+        StringBuilder result = new StringBuilder();
+        int a = num1.length(), b = num2.length(), carry = 0;
+        while (a > 0 || b > 0 || carry > 0){
+            int aNum = a > 0 ? num1.charAt(--a) - '0' : 0;
+            int bNum = b > 0 ? num2.charAt(--b) - '0' : 0;
+            int sum = aNum + bNum + carry;
+            carry = sum / 10;   
+            result.append(sum % 10);
+        }
+        return result.reverse().toString();
+    }
+
 // http://codereview.stackexchange.com/questions/32954/adding-two-big-integers-represented-as-strings
 
 // handle different lengths and also the last carry issue

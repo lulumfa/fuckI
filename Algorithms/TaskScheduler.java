@@ -1,3 +1,36 @@
+// O(n) n = len of tasks, len of count map is constant and the while loop is just taking constant time.
+// this algorithm is based on the math / pic , for example as below, do the squire area calculation of the rows except the last one
+// and add the last row with all the max count chars.
+// the reason we need to get max between this and tasks.length is that n might be smaller than all nonzero chars which would leave 
+// no idle slots at all, so we would need to guarantee the flooring to be tasks.length
+// n = 4
+// A B C - -
+// A B - - -
+// A B
+// https://www.cnblogs.com/grandyang/p/7098764.html
+
+class Solution {
+  public int leastInterval(char[] tasks, int n) {
+    if (tasks == null) return 0;
+      
+    if (n <= 0 || tasks.length == 0) return tasks.length;
+    
+    int[] count = new int[26];
+    for (char c : tasks) count[c - 'A']++;
+      
+    Arrays.sort(count);
+      
+    int max = count[25];
+      
+    int i = 25;
+    while(i >= 0 && count[i] == max) i--;
+    
+    return Math.max(tasks.length, (n+1) * (max -1) + (25 - i));
+  }
+}
+
+
+
 // 1. Given a task sequence and the cool down time, return the total execution time.
 
 // 2. Follow up: Given a task sequence and the cool down time, rearrange the task sequence such that the execution time is minimal.

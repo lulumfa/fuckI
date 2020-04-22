@@ -1,4 +1,4 @@
-// O(n), assuming the p size is small and only unique 26 chars.
+// O(S+P) = O(S), assuming the p size is small and only unique 26 chars.
 // space (1), 26 
 
 class Solution {

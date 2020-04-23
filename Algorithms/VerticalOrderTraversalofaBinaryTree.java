@@ -1,5 +1,5 @@
 
-// recursion O(n), space (n) map + stack
+// recursion O(nlogn) with worst sorting the entire thing, space (n) map + stack
 
 class Solution {
     public List<List<Integer>> verticalTraversal(TreeNode root) {
@@ -34,7 +34,7 @@ class Solution {
     }
 }
 
-// iterative, O(n), space (n)
+// iterative, O(nlogn) sorting, space (n)
 
 class Solution {
     

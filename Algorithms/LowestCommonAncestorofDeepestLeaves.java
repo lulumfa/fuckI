@@ -1,5 +1,5 @@
 // O(n), space O(H) hight, worst case n
-
+//https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/discuss/409660/Java-clean-solution-with-explanation.-O(N)-time-O(H)-space.-100-beat.
 class Solution {
     int maxDepth = 0;
     TreeNode lca = null;

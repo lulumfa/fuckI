@@ -1,3 +1,106 @@
+/**
+ * 解法1：逐个合并数组，时间复杂度O(n*k)，n >> k
+ * 合并k个排序（升序）数组
+ * http://www.lintcode.com/zh-cn/problem/merge-k-sorted-arrays/
+ * @author yzwall
+ */
+class Solution {
+    public List<Integer> mergekSortedArrays(int[][] arrays) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        if (arrays == null || arrays.length == 0 || arrays[0].length == 0) {
+            return list;
+        }
+        if (arrays.length == 1) {
+            Arrays.sort(arrays[0]);
+            for (int num : arrays[0]) {
+                list.add(num);
+            }
+            return list;
+        }
+        
+        int[] temp = mergeTwoArrays(arrays[0], arrays[1]);
+        for (int i = 2; i < arrays.length; i++) {
+            temp = mergeTwoArrays(temp, arrays[i]);
+        }
+        for (int num : temp) {
+            list.add(num);
+        }
+        return list;
+    }
+    
+    private int[] mergeTwoArrays(int[] A, int[] B) {
+        if (A.length == 0 || B.length == 0) {
+            return new int[0];
+        }
+        int[] temp = new int[A.length + B.length];
+        int index = 0, i = 0, j = 0;
+        while (i < A.length && j < B.length) {
+            if (A[i] < B[j]) {
+                temp[index++] = A[i++];
+            } else {
+                temp[index++] = B[j++];
+            }
+        }
+        while (i < A.length) {
+            temp[index++] = A[i++];
+        }
+        while (j < B.length) {
+            temp[index++] = B[j++];
+        }
+        return temp;
+    }
+}
+
+/**
+ * 解法2：分治法K路归并，时间复杂度O(n logk)
+ * 合并k个排序（升序）数组
+ * http://www.lintcode.com/zh-cn/problem/merge-k-sorted-arrays/
+ * @author yzwall
+ */    
+class Solution20 {
+    public List<Integer> mergekSortedArrays(int[][] arrays) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        if (arrays == null || arrays.length == 0 || arrays[0].length == 0) {
+            return list;
+        }
+        int[] ans = kMergeSort(arrays, 0, arrays.length - 1);
+        for (int num : ans) {
+            list.add(num);
+        }
+        return list;
+    }
+    
+    // 分治递归深度为O(log k), 每层合并时间复杂度O(n)
+    private int[] kMergeSort(int[][] arrays, int start, int end) {
+        if (start >= end) {
+            return arrays[start];
+        }
+        int mid = start + (end - start) / 2;
+        int[] left = kMergeSort(arrays, start, mid);
+        int[] right = kMergeSort(arrays, mid + 1, end);
+        return mergeTwoArrays(left, right);
+    }
+    
+    private int[] mergeTwoArrays(int[] A, int[] B) {
+        int[] temp = new int[A.length + B.length];
+        int index = 0, i = 0, j = 0;
+        while (i < A.length && j < B.length) {
+            if (A[i] < B[j]) {
+                temp[index++] = A[i++];
+            } else {
+                temp[index++] = B[j++];
+            }
+        }
+        while (i < A.length) {
+            temp[index++] = A[i++];
+        }
+        while (j < B.length) {
+            temp[index++] = B[j++];
+        }
+        return temp;
+    }
+}
+
 // merge k sorted array
 // The time complexity is O(nlog(k)), where n is the total number of elements and k is the number of arrays.
 class ArrayContainer implements Comparable<ArrayContainer> {

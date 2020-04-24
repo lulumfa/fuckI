@@ -52,6 +52,7 @@ class Solution {
 }
 
 /**
+// if need to do it in parallel, this is better as we can split the work into different jobs independently, like bottom-up merge sort
  * 解法2：分治法K路归并，时间复杂度O(n logk)
  * 合并k个排序（升序）数组
  * http://www.lintcode.com/zh-cn/problem/merge-k-sorted-arrays/

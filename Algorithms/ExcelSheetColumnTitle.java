@@ -1,5 +1,5 @@
 // http://www.danielbit.com/blog/puzzle/leetcode/leetcode-excel-sheet-column-title
-
+// O(n/26)
 public class Solution {
     public String convertToTitle(int n) {
         StringBuilder sb = new StringBuilder();

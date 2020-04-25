@@ -8,6 +8,8 @@
 // 2.How to generate substring hash in a constant time?
 // Rolling hash: hash generation in a constant time
 // How to have constant time of hash generation? Use the advantage of slice: only one integer in, and only one - out.
+// That's the idea of rolling hash. Here we'll implement the simplest one, polynomial rolling hash. 
+// Beware that's polynomial rolling hash is NOT the Rabin fingerprint.
 
 public class Solution {
     public int strStr(String haystack, String needle) {

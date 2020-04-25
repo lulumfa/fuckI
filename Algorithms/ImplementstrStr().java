@@ -1,6 +1,10 @@
 // my latest, O(n), space O(1)
-
 //O(n), space(1)
+// challenge: 
+// 1.How to implement a string slice in a constant time?
+
+// 2.How to generate substring hash in a constant time?
+
 public class Solution {
     public int strStr(String haystack, String needle) {
         if(haystack == null || needle == null || haystack.length() < needle.length()) return -1;

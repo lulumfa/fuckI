@@ -1,5 +1,5 @@
 // normal way
-
+// O(n) ,space (1)
 /**
  * Definition for singly-linked list.
  * public class ListNode {
@@ -13,45 +13,29 @@
  */
 public class Solution {
     public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-        if(headA == null || headB == null) return null;
-        TailAndCount tailA = findTailAndCount(headA);
-        TailAndCount tailB = findTailAndCount(headB);
-        
-        if(tailA.tail != tailB.tail) return null;
-        
-        ListNode longer = tailA.count >= tailB.count ? headA : headB;
-        ListNode shorter = tailA.count >= tailB.count ? headB : headA;
-        
-        for(int i = 0; i< Math.abs(tailA.count- tailB.count) && longer != null; i++) {
-            longer = longer.next;
+        int lA=0,lB=0;
+        ListNode pA=headA, pB=headB;
+        if(headA==null||headB==null)    return null;
+        while(pA!=null){
+            lA++;
+            pA=pA.next;
         }
-        
-        while(longer != shorter) {
-            longer = longer.next;
-            shorter = shorter.next;
+        while(pB!=null){
+            lB++;
+            pB=pB.next;
         }
-        
-        return longer;
-    }
-    
-    private TailAndCount findTailAndCount(ListNode head) {
-        if(head == null) return new TailAndCount(null, 0);
-        int count = 1;
-        while(head.next != null) {
-            count++;
-            head = head.next;
+        for(int i=0;i<Math.abs(lA-lB);i++){
+            if(lA<lB)
+                headB=headB.next;
+            else 
+                headA=headA.next;
         }
-        return new TailAndCount(head, count);
-    }
-}
-
-class TailAndCount {
-    public ListNode tail;
-    public int count;
-    
-    public TailAndCount(ListNode node, int count) {
-        this.tail = node;
-        this.count = count;
+        while(headA!=null&&headB!=null){
+            if(headA==headB) return headA;
+            headA=headA.next;
+            headB=headB.next;
+        }
+        return null;
     }
 }
 

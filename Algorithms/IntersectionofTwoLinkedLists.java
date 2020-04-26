@@ -39,6 +39,22 @@ public class Solution {
     }
 }
 
+// O(n), space O(n) hashset
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        Set<ListNode> common = new HashSet<>();
+        ListNode a = headA;
+        while(a != null){
+            common.add(a);
+            a = a.next;
+        }
+        a = headB;
+        while(a != null && !common.contains(a)){
+            a = a.next;
+        }
+        return a;
+    }
+}
 
 // smart wayI found most solutions here preprocess linkedlists to get the difference in len.
 Actually we don't care about the "value" of difference, we just want to make sure two pointers reach the intersection node at the same time.

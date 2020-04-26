@@ -57,6 +57,84 @@ public class RandomPickWithoutRepeating {
 }
 
 
+// using shuffle first and then swap, 
+// O(n), space O(n) n = len of input array
+
+package fb;
+
+
+import java.util.Random;
+
+public class RandomPickWithoutRepeatUsingShuffle {
+
+  int[] nums;
+  int usedStartIndex;
+  Random rand;
+
+  public static void main(String[] args) {
+    RandomPickWithoutRepeatUsingShuffle repeating = new RandomPickWithoutRepeatUsingShuffle(10);
+
+    for (int i = 0; i < 10; i++) {
+      System.out.println(repeating.pick());
+    }
+  }
+  public RandomPickWithoutRepeatUsingShuffle(int size) {
+
+    this.nums = new int[size];
+    for (int i = 0; i < size; i++) {
+      nums[i] = i+1;
+    }
+    rand = new Random();
+    shuffle();
+    for (int element: nums) {
+      System.out.print(element);
+    }
+    System.out.println("");
+
+    usedStartIndex = size - 1;
+
+  }
+
+  /**
+   * Resets the array to its original configuration and return it.
+   */
+  public int[] reset() {
+    return this.nums;
+  }
+
+  /**
+   * Returns a random shuffling of the array.
+   */
+  public int[] shuffle() {
+    int n = this.nums.length;
+    int[] shuffled = this.nums.clone();
+    for (int i = n - 1; i > 0; i--) {
+      int r = rand.nextInt(i + 1);
+      int temp = shuffled[i];
+      shuffled[i] = shuffled[r];
+      shuffled[r] = temp;
+    }
+
+    return shuffled;
+  }
+
+  public int pick() {
+    if (usedStartIndex == -1) return -1;
+
+    int rIndex = rand.nextInt(usedStartIndex + 1);
+
+//    System.out.println("rIndex: " + rIndex + " usedStartIndex: " + usedStartIndex);
+
+    int temp = nums[rIndex];
+    nums[rIndex] = nums[usedStartIndex];
+    nums[usedStartIndex] = temp;
+    usedStartIndex--;
+
+    return temp;
+  }
+}
+
+
 
 
 

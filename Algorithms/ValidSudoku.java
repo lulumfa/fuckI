@@ -1,5 +1,7 @@
 // most straightforward way, my own way
+// no need to worry about whether it is solvable or not.
 
+// runtime and space both O(1), 81 cells, you can consider it as n, but it is really just constant
 public class Solution {
     public boolean isValidSudoku(char[][] board) {
         if(board == null || board.length != 9 || board[0].length !=9) return false;

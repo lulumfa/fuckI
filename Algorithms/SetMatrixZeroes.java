@@ -7,6 +7,7 @@
 // 3. use mark to set elements
 // 4. rst column and row by using marks in step 1
 
+// O(m*n) space O(1)
 public class Solution {
     public void setZeroes(int[][] matrix) {
         boolean firstRowZero = false;

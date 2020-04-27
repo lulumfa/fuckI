@@ -1,5 +1,8 @@
 // http://blog.csdn.net/linhuanmars/article/details/20748761
-
+// Backtracking
+// constant, but (9!) *9, each row (9!), and 9 rows
+// space constant , reusing the board space
+// 
 public void solveSudoku(char[][] board) {
     if(board == null || board.length != 9 || board[0].length !=9)
         return;

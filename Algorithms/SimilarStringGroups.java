@@ -1,6 +1,11 @@
-// runtime O(N^2W)
+// runtime O(N^2W), N is len of the A, W is the len of word
 
-// space O(NW^3)
+// space O(N)
+
+// confirm with interview with this assumption that N < W^2
+
+// if N > W^2, then we want to check each anagram instead of going through the list, then check this link for the else situation
+// https://leetcode.com/articles/similar-string-groups/
 
 class Solution {
     public int numSimilarGroups(String[] A) {

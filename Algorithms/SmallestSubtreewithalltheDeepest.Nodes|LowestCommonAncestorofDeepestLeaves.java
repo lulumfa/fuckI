@@ -1,4 +1,46 @@
 // O(n), space O(H) hight, worst case n
+// ez exentable to n-ary tree, just loop through the children list and get max and if more than 1 has deepest nodes
+
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public TreeNode subtreeWithAllDeepest(TreeNode root) {
+        Record rootRecord = dfsTraveral(root);
+        return rootRecord.lca;
+    }
+    
+    private Record dfsTraveral(TreeNode node) {
+        if (node == null) return new Record(null, 0);
+        Record left = dfsTraveral(node.left);
+        Record right = dfsTraveral(node.right);
+        
+        if (left.depth == right.depth) {
+            return new Record(node, left.depth + 1);
+        } else if (left.depth < right.depth) {
+            return new Record(right.lca, right.depth + 1);
+        } else {
+            return new Record(left.lca, left.depth + 1);
+        }
+    }
+}
+
+class Record {
+    TreeNode lca;
+    int depth;
+    
+    public Record(TreeNode lca, int depth) {
+        this.lca = lca;
+        this.depth = depth;
+    }
+}
+// O(n), space O(H) hight, worst case n
 //https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/discuss/409660/Java-clean-solution-with-explanation.-O(N)-time-O(H)-space.-100-beat.
 class Solution {
     int maxDepth = 0;

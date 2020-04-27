@@ -79,6 +79,16 @@ public class MyMap<K, V> {
       
       private int getHash(K key) {
             // customized hash function
+          https://stackoverflow.com/questions/2237720/what-is-an-objects-hash-code-if-hashcode-is-not-overridden
+          Typically, hashCode() just returns the object's address in memory if you don't override it.
+
+              As much as is reasonably practical, the hashCode method defined by class Object does return distinct integers
+                  for distinct objects. (This is typically implemented by converting the internal address of the object into
+                 
+             an integer, but this implementation technique is not required by the JavaTM programming language.)
+                      
+               // incremental id is ok as well, but it would require lock
+
       }
 }
 

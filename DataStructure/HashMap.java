@@ -1,45 +1,97 @@
-public class HashMap {
-      public class HashEntry {
-          private int key;
-          private int value;
-     
-          HashEntry(int key, int value) {
-                this.key = key;
-                this.value = value;
-          }     
-     
-          public int getKey() {
-                return key;
+// https://blog.miyozinc.com/algorithms/custom-hashmap-implementation-in-java/
+// This post illustrated how hashmap (or hashtable) can be implemented with an array-based linked list.
+// Time complexity
+// Since different keys can be mapped to the same index, there is a chance of collision. If the number of collisions is very high, the worst case runtime is O(N), where N is the number of keys.
+// However, we generally assume a good implementation that keeps collisions to a minimum, in which case the lookup time is a(1).\
+
+
+// about hash func: First, compute the key's hash code, which will usually be an int. 
+// The two different objects could have the same hash code, as there may be an infinite number of elements 
+// and a finite number of ints. Then, calculate the index in the array using hash code 
+// using modulo as hashCode (key) % array_length. Here, two different hash codes could map to the same index.
+class Entry<K, V> {
+    final K key;
+    V value;
+    Entry<K, V> next;
+
+    public Entry(K key, V value, Entry<K, V> next) {
+        this.key = key;
+        this.value = value;
+        this.next = next;
+    }
+
+    // getters, equals, hashCode and toString
+}
+
+public class MyMap<K, V> {
+    private Entry<K, V>[] buckets;
+    private static final int INITIAL_CAPACITY = 1 << 4; // 16
+
+    private int size = 0;
+
+    public MyMap() {
+        this(INITIAL_CAPACITY);
+    }
+
+    public MyMap(int capacity) {
+        this.buckets = new Entry[capacity];
+    }
+
+    public void put(K key, V value) {
+        Entry<K, V> entry = new Entry<>(key, value, null);
+
+        int bucket = getHash(key) % getBucketSize();
+
+        Entry<K, V> existing = buckets[bucket];
+        if (existing == null) {
+            buckets[bucket] = entry;
+            size++;
+        } else {
+            // compare the keys see if key already exists
+            while (existing.next != null) {
+                if (existing.key.equals(key)) {
+                    existing.value = value;
+                    return;
+                }
+                existing = existing.next;
+            }
+
+            if (existing.key.equals(key)) {
+                existing.value = value;
+            } else {
+                existing.next = entry;
+                size++;
+            }
+        }
+    } 
+    
+      public V get(K key) {
+          Entry<K, V> bucket = buckets[getHash(key) % getBucketSize()];
+
+          while (bucket != null) {
+              if (key == bucket.key) {
+                  return bucket.value;
+              }
+              bucket = bucket.next;
           }
-     
-          public int getValue() {
-                return value;
-          }
+          return null;
       }
-      private final static int TABLE_SIZE = 128;
- 
-      HashEntry[] table;
- 
-      HashMap() {
-            table = new HashEntry[TABLE_SIZE];
-            for (int i = 0; i < TABLE_SIZE; i++)
-                  table[i] = null;
+      
+      private int getHash(K key) {
+            // customized hash function
       }
- 
-      public int get(int key) {  //could be any type for key, you can write a hash function use hash = key.hashcode()/TABLE_SIZE
-            int hash = (key % TABLE_SIZE);
-            while (table[hash] != null && table[hash].getKey() != key)
-                  hash = (hash + 1) % TABLE_SIZE;
-            if (table[hash] == null)
-                  return -1;
-            else
-                  return table[hash].getValue();
-      }
- 
-      public void put(int key, int value) {
-            int hash = (key % TABLE_SIZE);
-            while (table[hash] != null && table[hash].getKey() != key)
-                  hash = (hash + 1) % TABLE_SIZE;
-            table[hash] = new HashEntry(key, value);
-      }
+}
+
+@Test
+public void testMyMap() {
+    MyMap<String, String> myMap = new MyMap<>();
+    myMap.put("USA", "Washington DC");
+    myMap.put("Nepal", "Kathmandu");
+    myMap.put("India", "New Delhi");
+    myMap.put("Australia", "Sydney");
+
+    assertNotNull(myMap);
+    assertEquals(4, myMap.size());
+    assertEquals("Kathmandu", myMap.get("Nepal"));
+    assertEquals("Sydney", myMap.get("Australia"));
 }

@@ -1,0 +1,122 @@
+O(n), in place space eventually from O(n) bfs
+
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+  public static void main(String[] args) {
+    ArrayList<String> strings = new ArrayList<String>();
+    strings.add("Hello, World!");
+    strings.add("Welcome to CoderPad.");
+    strings.add("This pad is running Java " + Runtime.version().feature());
+
+    for (String string : strings) {
+      System.out.println(string);
+    }
+  }
+  
+  class Node {
+    int id;
+    Node left;
+    Node right;
+    Node next;
+  }
+  
+  
+  /**
+                1 -> null
+          2     ->       3 -> null
+       4 ->    5  ->   6   ->     7   -> null
+       
+       
+       
+                  1 -> null
+             2   ->    3 -> null
+          4              5   
+  */
+  
+  public void createNextPointers(Node root)
+  {
+    if (root == null) return;
+    
+    Queue<Node> queue = new LinkedList<Node>();
+    
+    root.next = null;
+    queue.offer(root);
+        
+    while(!queue.isEmpty()) {
+      
+      // process the previous layer
+      int size = queue.size();
+      Node pre = null;
+      for (int j = 0; j < size; j++) {
+        TreeNode temp = queue.poll();
+        if (pre != null) pre.next = temp;
+        pre = temp;
+        pre.next = null;
+        
+        list.add(temp);
+        
+        if (temp.left != null) {
+          queue.offer(temp.left);
+          curNum++;
+        }
+        if (temp.right != null) {
+          queue.offer(temp.right);
+        }
+      }
+    }
+  }
+  
+  public void createNextPointersSpaceEfficient(Node root)
+  {
+    if (root == null) return;
+    
+    Node node = root;
+    root.next = null;
+    
+    // Node firstChild = root.left != null ? root.left : root.right;
+    Node firstChild = null;
+    Node preChild = null;
+    
+    while (node != null) {
+      if(node.left != null) {
+        if (firstChild == null) {
+          firstChild = node.left;
+        }
+        if (preChild != null) {
+          preChild.next = node.left;
+          preChild = preChild.next;
+        }
+      }
+      
+      if(node.right != null) {
+        if (firstChild == null) {
+          firstChild = node.right;
+        }
+       if (preChild != null) {
+          preChild.next = node.right;
+          preChild = preChild.next;
+        }
+      }
+      
+      if(preChild != null) preChild.next = null;
+      
+      node = node.next;
+      if (node == null) {
+        node = firstChild;
+        firstChild = null;
+        preChild = null;
+      }
+    }
+  }
+}
+
+  

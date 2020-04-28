@@ -7,6 +7,9 @@
     
 // http://www.noteanddata.com/leetcode-935-Knight%20Dialer-java-solution-note.html
 
+// transition equation/  transition function is dp[i][j] = sum of (dp[i-1][j]) 
+// i = ith iteration, j is the possible pre-step (successor)
+
  public int knightDialer(int n) {
     int[][] nextPosTable = {{4,6},{6,8},{7,9},{4,8},{3,9,0}, {},{1,7,0},{6,2}, {1,3},{4,2}};
     long[] countTable = new long[10];

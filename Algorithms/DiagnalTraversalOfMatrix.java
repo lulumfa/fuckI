@@ -54,7 +54,7 @@ public class DiagnalTraversalOfMatrix {
 		if(matrix == null) return;
 		
 		int size = matrix.length + matrix[0].length -1;
-		int line = size * 2 -1;
+		int line = size * 2 -1; // should be just size?
 		
 		for(int k = 0; k < line; k++) {
 			for(int i = 0; i < matrix.length; i++) {

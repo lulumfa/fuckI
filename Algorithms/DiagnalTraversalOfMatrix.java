@@ -64,6 +64,36 @@ public class DiagnalTraversalOfMatrix {
 		}
 	}
 	
+	// more straightforward way, scannig from starting points of first row and last column
+ public static void printDiagnalFromLeft2(int[][] matrix) {
+    if(matrix == null) return;
+
+    // top rown
+    for (int jStart = 0, i = 0; jStart < matrix[0].length; jStart++) {
+      int j = jStart;
+      while(j >= 0 && i < matrix.length) {
+        System.out.print(matrix[i][j] + " ");
+        j--;
+        i++;
+      }
+      System.out.println();
+
+      i = 0;
+    }
+
+    // right row
+    for (int iStart = 1, j = matrix[0].length -1; iStart < matrix.length; iStart++) {
+      int i = iStart;
+      while(j >= 0 && i < matrix.length) {
+        System.out.print(matrix[i][j] + " ");
+        j--;
+        i++;
+      }
+      System.out.println();
+      j = matrix[0].length -1;
+    }
+  }
+	
 	public static void printDiagnalFromRight(int[][] matrix) {
 		if(matrix == null) return;
 		

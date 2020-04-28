@@ -1,4 +1,4 @@
-// O(n), int[][] format solution
+// O(n), int[][] format solution, constant space
 class Solution {
   public int[][] insert(int[][] intervals, int[] newInterval) {
     // init data
@@ -40,7 +40,8 @@ class Solution {
 }
 
 
-// binary search O(n) runtime and space, int[][] format
+// binary search O(n) runtime (worst case need to change all previous sorted elements) and space, int[][] format
+
 public int[][] insert(int[][] intervals, int[] newInterval) {
 	if ((intervals.length == 0) || (intervals[0].length == 0))
 		return new int[][]{newInterval};

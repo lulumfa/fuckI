@@ -1,4 +1,4 @@
-//So the time complexity is O(4^n)
+//So the time complexity is O(n+4^n), space O(n)
 
 //T(n) = 3 * T(n-1) + 3 * T(n-2) + 3 * T(n-3) + ... + 3 *T(1);
 //T(n-1) = 3 * T(n-2) + 3 * T(n-3) + ... 3 * T(1);

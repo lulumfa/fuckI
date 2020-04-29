@@ -43,3 +43,7 @@ class Solution {
         return res.reverse().toString();
     }
 }
+
+
+// one pass with stack
+// '(' push to stack and ')' pop put

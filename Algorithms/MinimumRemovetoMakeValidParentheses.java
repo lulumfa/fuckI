@@ -1,5 +1,9 @@
 // O(n), space O(n)
 
+// Consider a string s that contains no invalid ")" (it has had all the invalid ")" removed 
+// by the first parse of the algorithm). It's important to understand that we therefore know there 
+// is a way of removing balance "(" that will make it valid. For example, one of our examples from above.
+
 class Solution {
     public String minRemoveToMakeValid(String s) {
         if(s == null || s.length() == 0){

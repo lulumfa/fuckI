@@ -1,6 +1,6 @@
 //http://blog.csdn.net/linhuanmars/article/details/24826871
 
-// O(n^3) space O(n) for sorting 
+// O(n^3) space O(n) for built-in java sort for sorting or O(1) if doing heapsort myself, reference to sortanarray.java
 public ArrayList<ArrayList<Integer>> fourSum(int[] num, int target) {
     ArrayList<ArrayList<Integer>> res = new ArrayList<ArrayList<Integer>>();
     if(num==null||num.length==0)

@@ -21,8 +21,8 @@ public class Solution {
         int len = sb.length();
         
         for(int i = start; i < num.length(); i++) {
-            if(num.charAt(start) == '0' && i != start) break;
-            long cur = Long.parseLong(num.substring(start, i + 1));
+            if(num.charAt(start) == '0' && i != start) break; // avoid doing number like 08 with leading zeros
+            long cur = Long.parseLong(num.substring(start, i + 1)); // we can use integer if not including *, confirm with interviewer
             if(start == 0) {
                 dfs(num, target, res, sb.append(cur), i + 1, cur, cur);
                 sb.setLength(len);

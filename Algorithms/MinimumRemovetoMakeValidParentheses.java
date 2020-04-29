@@ -4,6 +4,10 @@
 // by the first parse of the algorithm). It's important to understand that we therefore know there 
 // is a way of removing balance "(" that will make it valid. For example, one of our examples from above.
 
+// "))(("
+// "a)b(c)d"
+// lee(t(c)o)de)
+// "(a(b(c)d)"
 class Solution {
     public String minRemoveToMakeValid(String s) {
         if(s == null || s.length() == 0){

@@ -74,7 +74,8 @@ public class TaskScheduler {
 		return time;
 	}
 	
-	// O(max(nlogk, k * max(k count) * cooldown) k = 26 if just a - z, same as space, depending of # of of '-'
+	// O(max(nlogk, k * max(k count) * cooldown) k = 26 if just a - z, 
+	// similar as space, depending of # of of '-', O(max(n, k * max(k count) * cooldown) k = 26, k -> 1, then. O(n * cooldown) worst case
 	
 	public String scheduleTasks(String tasks, int coolDown) {
 		if(tasks == null || coolDown < 0) return null;

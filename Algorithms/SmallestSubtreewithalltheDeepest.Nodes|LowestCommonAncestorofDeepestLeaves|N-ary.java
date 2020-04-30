@@ -73,3 +73,100 @@ class Solution {
         return Math.max(leftMax, rightMax);
     }
 }
+
+// O(n), space (n) for worst stack + Record utility node
+package fb;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+
+/*
+*
+*
+*       a
+    / | \
+  b  c  d
+/  \
+e  f
+
+*
+* */
+public class SmallestSubtreeToContainAllDeepestNodesInNaryTree {
+
+  public static void main(String[] args) {
+    Node a = new Node('a');
+    Node b = new Node('b');
+    Node c = new Node('c');
+    Node d = new Node('d');
+    Node e = new Node('e');
+    Node f = new Node('f');
+    Node g = new Node('g');
+    Node h = new Node('h');
+
+
+    a.children.add(b);
+    a.children.add(c);
+    a.children.add(d);
+
+    b.children.add(e);
+    b.children.add(f);
+
+    d.children.add(g);
+
+    h.children.add(a);
+
+    SmallestSubtreeToContainAllDeepestNodesInNaryTree s = new SmallestSubtreeToContainAllDeepestNodesInNaryTree();
+
+    System.out.println(s.findLCAForDeepestNodes(h).val);
+  }
+
+  public Node findLCAForDeepestNodes(Node root) {
+    if (root == null) return null;
+
+    return dfsFindLCA(root).lca;
+  }
+
+  private Record dfsFindLCA(Node node) {
+    if (node == null)return new Record(null, 0);
+
+    int maxDepth = 0;
+    Node lca = null;
+
+    boolean moreThanOneDeepest = false;
+
+    for (Node child : node.children) {
+      Record result = dfsFindLCA(child);
+      if (result.depth == maxDepth) moreThanOneDeepest = true;
+      if (result.depth > maxDepth) {
+        maxDepth = result.depth;
+        lca = result.lca;
+        moreThanOneDeepest = false;
+      }
+    }
+
+    return moreThanOneDeepest ? new Record(node, maxDepth + 1) : new Record(lca, maxDepth + 1);
+  }
+}
+
+class Record {
+  Node lca;
+  int depth;
+
+  public Record(Node node, int depth) {
+    this.lca = node;
+    this.depth = depth;
+  }
+}
+
+class Node {
+  char val;
+  List<Node> children;
+
+  public Node(char val) {
+    this.val = val;
+    children = new ArrayList<>();
+  }
+}

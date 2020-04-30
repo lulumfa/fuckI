@@ -1,5 +1,5 @@
 //O(n) constant space, except the space for the res
-
+// why not multiple all number and then divide? hard to deal with 0 scenario, the a*b*c = 0 and not useful at all, and division by 0 issues as well
 public class Solution {
     public int[] productExceptSelf(int[] nums) {
         if(nums == null || nums.length <1 ) return null;

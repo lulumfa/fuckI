@@ -24,11 +24,15 @@
     return value;
 }
 
+class Solution {
  public int closestValue(TreeNode root, double target) {
+    if (root == null) return Integer.MIN_VALUE; // or something interviewer wants us to return
     int val, closest = root.val;
     while (root != null) {
       val = root.val;
       closest = Math.abs(val - target) < Math.abs(closest - target) ? val : closest;
+      if (closest == target) return closest; // return faster, in java int + double, java would create a temp double for the int and do the calculatation with two double, e.g. 1 == 1.1 -> 1.0 == 1.1 wont be the same 
+        
       root =  target < root.val ? root.left : root.right;
     }
     return closest;

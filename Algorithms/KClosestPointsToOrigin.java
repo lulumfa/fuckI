@@ -22,7 +22,7 @@ class Solution {
 
 
 // quick select to have better performance in reality
-// O(n) if randomized the pivot, worst case O(n2), space O(k)
+// space Best	O(1) if randomlized, Average	O(log n) Worst	O(n)
 
 
 import java.util.concurrent.ThreadLocalRandom;

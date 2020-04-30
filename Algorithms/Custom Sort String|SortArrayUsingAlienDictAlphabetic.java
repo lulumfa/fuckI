@@ -4,7 +4,8 @@
 
 // https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=623771&extra=page%3D1%26filter%3Dsortid%26sortid%3D311%26searchoption%5B3089%5D%5Bvalue%5D%5B2%5D%3D2%26searchoption%5B3089%5D%5Btype%5D%3Dcheckbox%26searchoption%5B3046%5D%5Bvalue%5D%3D2%26searchoption%5B3046%5D%5Btype%5D%3Dradio%26sortid%3D311%26orderby%3Ddateline
 
-/// O(s*t) = O(t) or say O(n) if the pattern s is short enough, space O(s+t)
+/// O(s+t) = O(t) or say O(n) if the pattern s is short enough, space O(s+t)
+// why it is not s*t due to for nested with while? because the inner while will only run t times in total, so it is actually s + t, even though we count i++ for outer loop
   
   class Solution {
     public String customSortString(String S, String T) {

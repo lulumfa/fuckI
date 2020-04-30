@@ -1,5 +1,7 @@
 //O(nk), space k
 
+// updated: O(2^n) space (n), n is number of parenthesis?
+
 //The program only generates valid answers. Every path in the search generates one valid answer. 
 //The whole search space is a tree with k leaves. The number of nodes in the tree is roughly O(k). 
 // But this is not always true, for example a degenerated tree.

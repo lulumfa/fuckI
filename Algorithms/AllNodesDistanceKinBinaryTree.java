@@ -1,3 +1,8 @@
+// Time Complexity:
+// for constructing graph: O(n)
+// for BFS: O(m+n) , since m=n-1, so O(2n-1) -> O(n)
+// So total Time Complexity is O(n)
+
 class Solution {
     HashMap<TreeNode,List<TreeNode>> map = new HashMap<>();
     public List<Integer> distanceK(TreeNode root, TreeNode target, int K) {

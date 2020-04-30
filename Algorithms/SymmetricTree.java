@@ -76,35 +76,22 @@ public class Solution {
  *     TreeNode(int x) { val = x; }
  * }
  */
-public class Solution {
-    public boolean isSymmetric(TreeNode root) {
-        if(root==null) return true;
-        if(root.left==null && root.right==null) return true;
-        if(root.left==null || root.right==null) return false;
-        Queue<TreeNode> q1 = new LinkedList<TreeNode>();
-        Queue<TreeNode> q2 = new LinkedList<TreeNode>();
-        q1.offer(root.left);
-        q2.offer(root.right);
-        TreeNode n1;
-        TreeNode n2;
-        while(!q1.isEmpty()) {
-            n1 = q1.poll();
-            n2 = q2.poll();
-            if(n1.val!=n2.val) return false;
-            if(n1.left!=null && n2.right==null || n1.left==null && n2.right!=null || n1.right!=null && n2.left==null || n1.right==null && n2.left!=null) return false;
-            
-            if(n1.left!=null && n2.right!=null) {
-                q1.offer(n1.left);
-                q2.offer(n2.right);
-            }
-            if(n1.right!=null && n2.left!=null) {
-                q1.offer(n1.right);
-                q2.offer(n2.left);
-            }
-        }
-        return true;
+public boolean isSymmetric(TreeNode root) {
+    Queue<TreeNode> q = new LinkedList<>();
+    q.add(root);
+    q.add(root);
+    while (!q.isEmpty()) {
+        TreeNode t1 = q.poll();
+        TreeNode t2 = q.poll();
+        if (t1 == null && t2 == null) continue;
+        if (t1 == null || t2 == null) return false;
+        if (t1.val != t2.val) return false;
+        q.add(t1.left);
+        q.add(t2.right);
+        q.add(t1.right);
+        q.add(t2.left);
     }
-
+    return true;
 }
 
 

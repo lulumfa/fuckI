@@ -51,6 +51,8 @@ public class TaskScheduler {
 		System.out.println(ts.scheduleTasks("AAABBB", 2));
 	}
 	
+	
+	// O(n) space O(k) k = number of different jobs, if only A-Z, then 26 constant
 	private int getTotalTime(String task, int coolDown) {
 		if(task == null || coolDown < 0) return -1;
 		
@@ -71,6 +73,8 @@ public class TaskScheduler {
 		
 		return time;
 	}
+	
+	// O(max(nlogk, k * max(k count) * cooldown) k = 26 if just a - z
 	
 	public String scheduleTasks(String tasks, int coolDown) {
 		if(tasks == null || coolDown < 0) return null;

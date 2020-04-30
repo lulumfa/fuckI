@@ -22,7 +22,7 @@ class Solution {
 
 
 // quick select to have better performance in reality
-// space Best	O(1) if randomlized, Average	O(log n) Worst	O(n)
+// space Best	O(1) , Average	O(log n) if randomlized Worst	O(n)
 
 
 import java.util.concurrent.ThreadLocalRandom;

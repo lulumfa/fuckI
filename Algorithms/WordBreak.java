@@ -1,3 +1,5 @@
+// O(n^3), Two loops are required to fill \text{dp}dp array and one loop for appending a list .
+// space O(n^3),  Length of \text{dp}dp array is nn and each value of \text{dp}dp array contains a list of string i.e. n^2 space.
 // ii more efficient with arraylist than hashmap, np expenetial
 //though space will cost more than the brute force recursive way. so practically just recursion may be better
 public class Solution {

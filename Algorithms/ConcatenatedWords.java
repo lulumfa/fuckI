@@ -44,3 +44,73 @@ private boolean wordBreak(String s, HashSet<String> preWords){
 // another method using trie, have not thought the time complexity yet
 
 // https://leetcode.com/problems/concatenated-words/discuss/280915/java-41ms-trie-and-dfs-solution-which-beats-97
+
+
+// with exactly k words that can be used to break words
+// O(n*len^3), n = size of words list, len = longest word length
+// space O(n + len^2), n for sorting, len^2 as the map
+package snap;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class ConcatenatedWords {
+  public static void main(String[] args) {
+    ConcatenatedWords concatenatedWords = new ConcatenatedWords();
+
+    String[] words = {"catdogfish", "cat", "dog", "fish", "dummy", "fishdog"};
+    int k = 3;
+
+    System.out.println(concatenatedWords.findWordsThatCanbeContatenatedByKOtherWords(words, k).toString());
+  }
+
+  public List<String> findWordsThatCanbeContatenatedByKOtherWords(String[] words, int k) {
+    List<String> res=  new ArrayList<>();
+
+    if(words == null || words.length == 0 || k < 0) return res;
+
+    Arrays.sort(words, (a, b) -> a.length() - b.length());
+    Set<String> dict = new HashSet<>();
+
+    for (String word : words) {
+      if (canBeBreakIntoKWords(dict, word, k)) res.add(word);
+      dict.add(word);
+    }
+
+    return res;
+  }
+
+  private boolean canBeBreakIntoKWords(Set<String> dict, String word, int k) {
+    if (dict == null || word == null || k < 1) return false;
+
+    dict.remove(word);
+
+    List<Set<Integer>> dp = new ArrayList<>(word.length() + 1);
+
+    Set<Integer> set = new HashSet<>();
+    set.add(0);
+    dp.add(set);
+
+    for (int i = 1; i <= word.length(); i++) {
+        dp.add(new HashSet<>());
+        for (int j = 0;  j < i; j++) {
+          if(dict.contains(word.substring(j, i)) && dp.get(j).size() > 0) {
+            for (Integer step : dp.get(j)) {
+              int next = step + 1;
+              if (next <= k) {
+                dp.get(i).add(next);
+              }
+            }
+          }
+        }
+    }
+
+    dict.add(word);
+
+    return dp.get(word.length()).contains(k);
+  }
+}
+

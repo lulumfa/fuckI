@@ -49,6 +49,9 @@ private boolean wordBreak(String s, HashSet<String> preWords){
 // with exactly k words that can be used to break words
 // O(n*len^3), n = size of words list, len = longest word length
 // space O(n + len^2), n for sorting, len^2 as the map
+
+// change to List<Integer> dp if it is at most k wordbreak, then we only store min(dp[j]) and at the last line just check if value is <= k
+
 package snap;
 
 import java.util.ArrayList;
@@ -88,6 +91,7 @@ public class ConcatenatedWords {
 
     dict.remove(word);
 
+    // change to List<Integer> dp if it is at most k wordbreak, then we only store min(dp[j]) and at the last line just check if value is <= k
     List<Set<Integer>> dp = new ArrayList<>(word.length() + 1);
 
     Set<Integer> set = new HashSet<>();

@@ -40,3 +40,7 @@ private boolean wordBreak(String s, HashSet<String> preWords){
  return dp[s.length()];
 }
 }
+
+// another method using trie, have not thought the time complexity yet
+
+// https://leetcode.com/problems/concatenated-words/discuss/280915/java-41ms-trie-and-dfs-solution-which-beats-97

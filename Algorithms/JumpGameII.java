@@ -1,4 +1,6 @@
 //https://discuss.leetcode.com/topic/3191/o-n-bfs-solution
+
+// continue as BFS, layer by layer, to next level only after processing everything at the current layer
 public class Solution {
     public int jump(int[] nums) {
         if(nums == null || nums.length < 2) return 0;

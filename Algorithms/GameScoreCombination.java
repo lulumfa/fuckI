@@ -1,7 +1,7 @@
 // https://www.1point3acres.com/bbs/forum.php?mod=viewthread&tid=624815&ctid=230577
 // dp 4D matrix lol, 2D for all x, y combination, 3D for various result, 4D for list of steps
 // O(m*n * k * (m+n)) if m == n, then O(n^3 *k) k is the # of score possibilities, like 2, 5, 6, then k = 3
-// space O(m*n * (m+n))?  TODO
+// space O(m*n * (m+n)^2)?  (m+n)^2 from select m from (m+n) combination C(m+n) m
 
 
 // // If only ask how many results, then we can do 2D with initializing count = 0, and dp[i][j] = sum (dp[i-score_x][y], dp[i][j - score_k] + ..) 

@@ -1,4 +1,4 @@
-// better ones for I, II, III, 
+// ez to understand resursive ways for I, II, III, 
 // https://leetcode.com/problems/basic-calculator-iii/discuss/344371/Java-Common-template-for-Basic-Calculator-I-II-and-III-using-Stack
 // generic one fore all 4 questions
 // https://leetcode.com/problems/basic-calculator-iii/discuss/113592/Development-of-a-generic-solution-for-the-series-of-the-calculator-problems
@@ -118,86 +118,93 @@ class Solution {
     }
 }
 
-// Iterative solution: O(n) time, O(n) space
-
-// calculator III, (, ), +, -, *, /
-import java.io.*;
-import java.util.*;
-import org.junit.*;
-/*
- * To execute Java, please define "static void main" on a class
- * named Solution.
- *
- * If you need more classes, simply define them inline.
- */
-
-class Solution {
-  
-  public static void main(String[] args) {
-    System.out.println(Solution.calculate("3+2*2"));
-    System.out.println(Solution.calculate("(3+2)*2"));
-    System.out.println(Solution.calculate("3+(2*2)"));
-    System.out.println(Solution.calculate("3+5 / 2"));
-    System.out.println(Solution.calculate("3*2 + 5 / 2"));
-    System.out.println(Solution.calculate("3*(2 + 5) / 2"));
-
-    // System.out.println(Solution.calculate("1 + 1"));
-    // System.out.println(Solution.calculate("-1 + 1"));
-    // System.out.println(Solution.calculate("+(1 + 1)"));
-    // System.out.println(Solution.calculate("(1+(4+5+2)-3)+(6+8)"));
-  }
-  
- public static int calculate(String s) {
-    int l1 = 0, o1 = 1;
-    int l2 = 1, o2 = 1;
-
-    Deque<Integer> stack = new ArrayDeque<>(); // stack to simulate recursion
-
-    for (int i = 0; i < s.length(); i++) {
-        char c = s.charAt(i);
-
-        if (Character.isDigit(c)) {
-            int num = c - '0';
-
-            while (i + 1 < s.length() && Character.isDigit(s.charAt(i + 1))) {
-                num = num * 10 + (s.charAt(++i) - '0');
+// Caculator II easier to understand one, but O(n), space O(n) rather than constant
+public class Solution {
+public int calculate(String s) {
+    int len;
+    if(s==null || (len = s.length())==0) return 0;
+    Stack<Integer> stack = new Stack<Integer>();
+    int num = 0;
+    char sign = '+';
+    for(int i=0;i<len;i++){
+        if(Character.isDigit(s.charAt(i))){
+            num = num*10+s.charAt(i)-'0';
+        }
+        if((!Character.isDigit(s.charAt(i)) &&' '!=s.charAt(i)) || i==len-1){
+            if(sign=='-'){
+                stack.push(-num);
             }
-
-            l2 = (o2 == 1 ? l2 * num : l2 / num);
-
-        } else if (c == '(') {
-            // First preserve current calculation status
-            stack.offerFirst(l1); stack.offerFirst(o1);
-            stack.offerFirst(l2); stack.offerFirst(o2);
-            
-            // Then reset it for next calculation
-            l1 = 0; o1 = 1;
-            l2 = 1; o2 = 1;
-
-        } else if (c == ')') {
-            // First preserve the result of current calculation
-            int num = l1 + o1 * l2;
-
-            // Then restore previous calculation status
-            o2 = stack.poll(); l2 = stack.poll();
-            o1 = stack.poll(); l1 = stack.poll();
-            
-            // Previous calculation status is now in effect
-            l2 = (o2 == 1 ? l2 * num : l2 / num);
-
-        } else if (c == '*' || c == '/') {
-            o2 = (c == '*' ? 1 : -1);
-
-        } else if (c == '+' || c == '-') {
-            l1 = l1 + o1 * l2;
-            o1 = (c == '+' ? 1 : -1);
-
-            l2 = 1; o2 = 1;
+            if(sign=='+'){
+                stack.push(num);
+            }
+            if(sign=='*'){
+                stack.push(stack.pop()*num);
+            }
+            if(sign=='/'){
+                stack.push(stack.pop()/num);
+            }
+            sign = s.charAt(i);
+            num = 0;
         }
     }
 
-    return (l1 + o1 * l2);
-}
+    int re = 0;
+    for(int i:stack){
+        re += i;
+    }
+    return re;
 }
 
+    
+// Iterative solution: O(n) time, O(n) space
 
+// https://leetcode.com/problems/basic-calculator-iii/discuss/113600/Java-and-Python-O(n)-Solution-Using-Two-Stacks
+public static int calculate(String s) {
+        if (s == null || s.length() == 0) return 0;
+        Stack<Integer> nums = new Stack<>(); // the stack that stores numbers
+        Stack<Character> ops = new Stack<>(); // the stack that stores operators (including parentheses)
+        int num = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == ' ') continue;
+            if (Character.isDigit(c)) {
+                num = c - '0';
+                // iteratively calculate each number
+                while (i < s.length() - 1 && Character.isDigit(s.charAt(i+1))) {
+                    num = num * 10 + (s.charAt(i+1) - '0');
+                    i++;
+                }
+                nums.push(num);
+                num = 0; // reset the number to 0 before next calculation
+            } else if (c == '(') {
+                ops.push(c);
+            } else if (c == ')') {
+                // do the math when we encounter a ')' until '('
+                while (ops.peek() != '(') nums.push(operation(ops.pop(), nums.pop(), nums.pop()));
+                ops.pop(); // get rid of '(' in the ops stack
+            } else if (c == '+' || c == '-' || c == '*' || c == '/') {
+                while (!ops.isEmpty() && precedence(c, ops.peek())) nums.push(operation(ops.pop(), nums.pop(),nums.pop()));
+                ops.push(c);
+            }
+        }
+        while (!ops.isEmpty()) {
+            nums.push(operation(ops.pop(), nums.pop(), nums.pop()));
+        }
+        return nums.pop();
+    }
+
+    private static int operation(char op, int b, int a) {
+        switch (op) {
+            case '+': return a + b;
+            case '-': return a - b;
+            case '*': return a * b;
+            case '/': return a / b; // assume b is not 0
+        }
+        return 0;
+    }
+    // helper function to check precedence of current operator and the uppermost operator in the ops stack 
+    private static boolean precedence(char op1, char op2) {
+        if (op2 == '(' || op2 == ')') return false;
+        if ((op1 == '*' || op1 == '/') && (op2 == '+' || op2 == '-')) return false;
+        return true;
+    }

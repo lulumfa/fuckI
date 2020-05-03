@@ -1,4 +1,5 @@
 // dp O(S+T) for both s, t length, space is the O(s), rolling array
+// https://leetcode.com/problems/minimum-window-subsequence/discuss/109362/Java-Super-Easy-DP-Solution-(O(mn))
 
 public String minWindow(String S, String T) {
     int m = T.length(), n = S.length();

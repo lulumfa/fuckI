@@ -1,5 +1,22 @@
 // my own way, O(n), space (n)
-// my output
+// my output，need to confirm with interviewer if we need to handle " " and \s differently
+(AnyCharacter, ONCE)
+(AnyCharacter, ONCE_OR_MORE)
+(Character(','), ONCE)
+(Character(' '), ONCE)
+(Character('h'), ONCE)
+(Character('e'), ONCE)
+(Character('l'), ONCE)
+(Character('l'), ONCE)
+(Character('o'), ONCE)
+(Character(' '), ONCE)
+(Character('w'), ONCE)
+(Character('o'), ONCE)
+(Character('r'), ONCE)
+(Character('l'), ONCE)
+(Character('d'), ONCE)
+(Character('!'), ONCE)
+(SPACE_OR_TAB, ZERO_OR_MORE)
 
 // https://docs.google.com/document/d/1DZw2kBvWuECzrnfRHnz0p0X_T4oYaqn51ex0nuZtUaI/edit#
 package snap;

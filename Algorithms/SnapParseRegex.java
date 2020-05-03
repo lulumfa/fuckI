@@ -1,5 +1,6 @@
 // my own way, O(n), space (n)
 // my output，need to confirm with interviewer if we need to handle " " and \s differently
+// A space just matches a space. The \s code matches any kind of "white space", including space, tab, vertical tab, return, new line, and form feed.
 (AnyCharacter, ONCE)
 (AnyCharacter, ONCE_OR_MORE)
 (Character(','), ONCE)

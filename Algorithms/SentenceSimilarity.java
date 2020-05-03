@@ -1,6 +1,6 @@
 // O(N * M) , M = pairs, space O(M * k)
 
-// or use two hashmap <String, Set<String>>, put the pair and self word in, and two of this map to be more intuitive
+// or use two hashmap <String, String> for the pair,  and two of this map to be more intuitive. and dont forgot to check if same words
 
 class Solution {
     public boolean areSentencesSimilar(String[] words1, String[] words2, List<List<String>> pairs) {

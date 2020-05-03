@@ -6,51 +6,51 @@
 //http://blog.welkinlan.com/2015/09/06/basic-calculator-i-ii-leetcode-java/
 
 // calculator I, only +, -, (, )
-import java.io.*;
-import java.util.*;
-import org.junit.*;
-/*
- * To execute Java, please define "static void main" on a class
- * named Solution.
- *
- * If you need more classes, simply define them inline.
- */
+// O(n), space (n)
+// Simple iterative solution by identifying characters one by one. One important thing is that the input is valid, which means the parentheses are always paired and in order.
+// Only 5 possible input we need to pay attention:
 
-class Solution {
-  
-  public static void main(String[] args) {
-    System.out.println(Solution.calculate("1 + 1"));
-    System.out.println(Solution.calculate("-1 + 1"));
-    System.out.println(Solution.calculate("+(1 + 1)"));
-    System.out.println(Solution.calculate("(1+(4+5+2)-3)+(6+8)"));
-  }
-  
-  public static int calculate(String s) {
-          Stack<Integer> stack = new Stack<Integer>(); //store the signs for the '('
-          stack.push(1); //invisible '+' before the (whole string)
-          int res = 0;
-          int sign = 1; //the operator before num (default: '+')
-          for (int i = 0; i < s.length(); i++) {
-              char c = s.charAt(i);
-              if (c == '+' || c == '-') {
-                  sign = c == '+' ? 1: -1;
-              } else if (c == '(') {
-                  stack.push(stack.peek() * sign); //stack.peek() is the sign before the enclosing '()' of this '('; sign : the operator before this '('; 
-                  sign = 1; //default sign = '+' for a digit right after a '('
-              } else if (c == ')') {
-                  stack.pop();
-              } else if (Character.isDigit(c)) {
-                  int num = 0;
-                  while (i < s.length() && Character.isDigit(s.charAt(i))) {
-                      num = num * 10 + (s.charAt(i) - '0');
-                      i++;
-                  }
-                  i--;
-                  res += stack.peek() * sign * num; //stack.peek() is the sign before the enclosing '()' of this num; sign : the operator before num; 
-              }
-          }
-          return res;
-      }
+// digit: it should be one digit from the current number
+// '+': number is over, we can add the previous number and start a new number
+// '-': same as above
+// '(': push the previous result and the sign into the stack, set result to 0, just calculate the new result within the parenthesis.
+// ')': pop out the top two numbers from stack, first one is the sign before this pair of parenthesis, second is the temporary result before this pair of parenthesis. We add them together.
+
+// Finally if there is only one number, from the above solution, we haven't add the number to the result, so we do a check see if the number is zero.
+public int calculate(String s) {
+    Stack<Integer> stack = new Stack<Integer>();
+    int result = 0;
+    int number = 0;
+    int sign = 1;
+    for(int i = 0; i < s.length(); i++){
+        char c = s.charAt(i);
+        if(Character.isDigit(c)){
+            number = 10 * number + (int)(c - '0');
+        }else if(c == '+'){
+            result += sign * number;
+            number = 0;
+            sign = 1;
+        }else if(c == '-'){
+            result += sign * number;
+            number = 0;
+            sign = -1;
+        }else if(c == '('){
+            //we push the result first, then sign;
+            stack.push(result);
+            stack.push(sign);
+            //reset the sign and result for the value in the parenthesis
+            sign = 1;   
+            result = 0;
+        }else if(c == ')'){
+            result += sign * number;  
+            number = 0;
+            result *= stack.pop();    //stack.pop() is the sign before the parenthesis
+            result += stack.pop();   //stack.pop() now is the result calculated before the parenthesis
+            
+        }
+    }
+    if(number != 0) result += sign * number;
+    return result;
 }
 
 

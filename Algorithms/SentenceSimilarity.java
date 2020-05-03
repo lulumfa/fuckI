@@ -1,5 +1,7 @@
 // O(N * M) , M = pairs, space O(M * k)
 
+// or use two hashmap <String, Set<String>>, put the pair and self word in, and two of this map to be more intuitive
+
 class Solution {
     public boolean areSentencesSimilar(String[] words1, String[] words2, List<List<String>> pairs) {
         if (words1 == null || words2 == null || pairs == null || words1.length != words2.length) return false;

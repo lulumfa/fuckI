@@ -7,8 +7,11 @@
 // https://leetcode.com/problems/find-duplicate-file-in-system/discuss/104120/Follow-up-questions-discussion
 
 1. Imagine you are given a real file system, how will you search files? DFS or BFS ?
-In general, BFS will use more memory then DFS. However BFS can take advantage of the locality of files in inside directories, and therefore will probably be faster
+linux uses DFS? BFS uses more memory and would be too much when it gets to the last few layers, balanced tree, half of the entire size..
+   In general, BFS will use more memory then DFS. However BFS can take advantage of the locality of files in inside directories, and therefore will probably be faster
 So it adds a lot of overhead of "cd" (change directory) operations. due to back and force between directories
+
+
    
 2. If the file content is very large (GB level), how will you modify your solution?
 In a real life solution we will not hash the entire file content, since it's not practical. 

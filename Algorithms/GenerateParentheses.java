@@ -1,5 +1,6 @@
 // my own
-// O(result #) mroe than polinomial, close to np
+// O(result #) mroe than polinomial, upper bound is O(4^n) = O(2^(2n)) 
+// since we have total 2n element and each position can be either ( or ), close to np, same as space
 public class Solution {
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<String>();

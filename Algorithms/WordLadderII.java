@@ -6,6 +6,9 @@
 
 
 // my latest working one , no runtime analysis yet, BFS + predecessors list map + backTrack
+// The total time complexity is O(n^2 * m). The space complexity is O(n) + O(n) = O(n).  n len of word, m is total number of words?
+// All words contain only lowercase alphabetic characters.
+
 public class Solution {
     public List<List<String>> findLadders(String beginWord, String endWord, Set<String> wordList) {
         List<List<String>> res = new ArrayList<List<String>>();

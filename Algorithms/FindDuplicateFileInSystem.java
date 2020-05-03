@@ -10,7 +10,12 @@
 In general, BFS will use more memory then DFS. However BFS can take advantage of the locality of files in inside directories, and therefore will probably be faster
 
 2. If the file content is very large (GB level), how will you modify your solution?
-In a real life solution we will not hash the entire file content, since it's not practical. Instead we will first map all the files according to size. Files with different sizes are guaranteed to be different. We will than hash a small part of the files with equal sizes (using MD5 for example). Only if the md5 is the same, we will compare the files byte by byte
+In a real life solution we will not hash the entire file content, since it's not practical. 
+   Instead we will first map all the files according to size. Files with different sizes are guaranteed to be different.
+    We will than hash a small part of the files with equal sizes (using MD5 for example). Only if the md5 is the same, 
+we will compare the files byte by byte
+
+bloom filter to have multi hash for differnet part of the file, front and end maybe?
 
 3. If you can only read the file by 1kb each time, how will you modify your solution?
 This won't change the solution. We can create the hash from the 1kb chunks, and then read the entire file if a full byte by byte comparison is required.
@@ -20,7 +25,7 @@ Time complexity is O(n^2 * k) since in worse case we might need to compare every
 
 5. How to make sure the duplicated files you find are not false positive?
 We will use several filters to compare: File size, Hash and byte by byte comparisons.
-
+bloom filter as well
 
 public class Solution {
     public List<List<String>> findDuplicate(String[] paths) {

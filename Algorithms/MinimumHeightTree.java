@@ -5,7 +5,7 @@
 // This link can give further insights: https://cs.stackexchange.com/a/2622
 // Basically it proves that no two disjoint longest paths can exist, and if more than one exist, they intersect in middle. Hence the middle points of any longest path gives the solution.
 
-// O(E+V) = O(n^2) both runtime and space 
+// O(E+V) = O(n) if this is tree structure, and only one parent per node, both runtime and space 
 
 public List<Integer> findMinHeightTrees(int n, int[][] edges) {
     if (n == 1) return Collections.singletonList(0);

@@ -29,7 +29,8 @@ public String minWindow(String S, String T) {
     return len == n + 1 ? "" : S.substring(start, start + len);
 }
 
-// two pointer to save space
+// S = "bbbbdde", T = "bde 先
+// two pointer to save space O(s*t), space constant if not using char[], we can just do charAt
 // https://leetcode.com/problems/minimum-window-subsequence/discuss/109356/JAVA-two-pointer-solution-(12ms-beat-100)-with-explaination
 class Solution {
     public String minWindow(String S, String T) {

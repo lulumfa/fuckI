@@ -1,3 +1,13 @@
+
+- 需要跟面试官讨论清楚他需要的最佳匹配是什么
+- 如果是要求全局人车距离最短 
+-- 二分图的最佳匹配问题，使用匈牙利算法，参考题目https://blog.csdn.net/u011721440/article/details/38169201
+-- 发现这里不能使用max flow， 因为这个bipartite is a weighted graph. 参考 https://www.topcoder.com/community/competitive-programming/tutorials/assignment-problem-and-hungarian-algorithm/ 
+
+- 如果是要求最佳匹配只是给每个人匹配到车，可以用PQ+Map
+
+
+
 // https://leetcode.com/problems/campus-bikes/discuss/305603/Java-Fully-Explained
 
 //As the question states, there are n workers and m bikes, and m > n.

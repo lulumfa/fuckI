@@ -48,3 +48,71 @@ class DirectedGraphNode {
         adjacencyList = new ArrayList<Integer>();
     }
 }
+
+// DFS
+
+class Solution {
+    public int[] findOrder(int numCourses, int[][] prerequisites) {
+        if (numCourses < 1) return null;
+        
+        
+        Map<Integer, Node> map = new HashMap<Integer,Node>();
+        
+        // build all nodes
+        for (int i = 0; i < numCourses; i++) {
+            map.put(i, new Node(i));    
+        }
+        
+        
+        // adding all edges
+        for (int[] edge : prerequisites) {
+            map.get(edge[1]).neighbors.add(map.get(edge[0]));
+        }
+        
+        int[] res = new int[numCourses];
+        Stack<Node> stack = new Stack<Node>();
+        
+        // iterate through all nodes, and skip processed nodes
+        for (int i = 0; i < numCourses; i++) {
+            if (map.get(i).state == State.VISITED) continue;
+            if (!dfsProcessNodes(stack, map.get(i))) return new int[]{};
+        }
+        
+        for (int i = 0; i < res.length; i++) {
+            res[i] = stack.pop().id;
+        }
+        
+        return res;
+    }
+    
+    private boolean dfsProcessNodes(Stack<Node> stack, Node cur) {
+        cur.state = State.VISITING;
+        for (Node next : cur.neighbors) {
+            if (next.state == State.VISITED) continue;
+            if (next.state == State.VISITING || !dfsProcessNodes(stack, next)) return false;
+        }
+        stack.push(cur);
+        cur.state = State.VISITED;
+        
+        return true;
+    }
+}
+
+class Node {
+    int id;
+    List<Node> neighbors;
+    State state;
+    
+    public Node(int id) {
+        this.state = State.NOT_VISITED;
+        this.id = id;
+        neighbors = new ArrayList<Node>();
+    }
+}
+
+enum State {
+    NOT_VISITED,
+    VISITING,
+    VISITED
+}
+

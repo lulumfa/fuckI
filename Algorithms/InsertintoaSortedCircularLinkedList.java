@@ -1,3 +1,5 @@
+// O(n), space (1)
+
 // Test case 1:  insert(null, 1)
 // Test case 2:  insert(1->null, 0)
 // Test case 3:  insert(1->null, 1)

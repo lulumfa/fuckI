@@ -160,3 +160,72 @@ public class TaskScheduler {
     *    the answer is the length of the nums
     *    the task which does not have max count first fills the empty slots and then just insert any valid place
     * */
+
+
+// snowflake
+
+import java.io.*;
+import java.util.*;
+
+/*
+ * To execute Java, please define "static void main" on a class
+ * named Solution.
+ *
+ * If you need more classes, simply define them inline.
+ */
+
+class Solution {
+  public static void main(String[] args) {
+    ArrayList<String> strings = new ArrayList<String>();
+    strings.add("Hello, World!");
+    strings.add("Welcome to CoderPad.");
+    strings.add("This pad is running Java " + Runtime.version().feature());
+
+    for (String string : strings) {
+      System.out.println(string);
+    }
+  }
+    
+  public int calculateTotalTaskTime(int[] input, int cooldown) {
+      if (input == null || cooldown < 0) return -1;
+      
+      int totalTime = 0;
+      
+      Map<Integer, Integer> taskAvailability = new HashMap<Integer, Integer>();
+      
+      for (int i = 0; i < input.length; i++) {
+          int cur = input[i];
+          
+          if (taskAvailability.containsKey(cur)) {
+             int availableTime = taskAvailability.get(cur);
+             if (availableTime > time) {
+                 time = availableTime;
+             }
+          }
+          taskAvailability.put(cur, time + coolDown + 1);
+          time++;
+      }
+      
+      return time;
+  }
+}
+
+//Sql type: 1, 2, 1, 1, 3, 4; 
+
+// 1 2 - '1' '2'
+
+
+// O(n), n is lenght of input list
+
+// space O(n)
+
+//Sql type: 1, 2, 1, 1, 3, 4; 
+//Cool down: 2 time slot;
+//Scheduler：1, 2, _, 1, _, _, 1, 3, 4，
+//Total time 9.
+
+// taskAvailability [1:6, 2:4];
+// time: 4
+// scheduler: 1 2 - 1
+
+

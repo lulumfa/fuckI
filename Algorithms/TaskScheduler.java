@@ -228,4 +228,29 @@ class Solution {
 // time: 4
 // scheduler: 1 2 - 1
 
-
+/if cooldown is very small, but there are lots of tasks, how to reduce space? O(cooldown) space
+   private static int taskSchedule2(int[] tasks, int cooldown) {
+       if (tasks == null || tasks.length == 0) {
+           return 0;
+       }
+       Queue<Integer> queue = new LinkedList<>();//store tasks that are waiting for cooldown?
+       HashMap<Integer, Integer> map = new HashMap<>();//store indices, where cooldown stops, of tasks in window
+       int slots = 0;
+       for (int task : tasks) {
+           if (map.containsKey(task) && map.get(task) > slots) {
+               //add this code if our output is a string, eg.AA, 2 -> A__A
+               //int waitingTime = map.get(task) - slots;
+               //for (int i = 0; i < waitingTime; i++) {
+               //    sb.append("_");
+               //}
+               slots = map.get(task);//if we need to wait for the cooldown of the same task, just update the slots
+           }
+           if (queue.size() == cooldown + 1) {
+               map.remove(queue.poll());//we should do this after updating the slots, cuz we store indices of cooldown
+           }//stops, we don't know whether we have any idol period between these two same tasks yet, so update it first
+           map.put(task, slots + cooldown + 1);//update the time slot to the time when curr task can be done again
+           queue.offer(task);
+           slots++;//update the used 1 slot of curr task
+       }
+       return slots;
+   }

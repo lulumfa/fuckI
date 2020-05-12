@@ -1,0 +1,13 @@
+Cluster of 1000 Machines
+Shared storage (shared access to files - think of an S3 bucket)
+A file contains Integers (range of each integer is: 0 - 2B), each file is of a fixed size (e.g. 10MB ~2.5M numbers per file)
+There is a large number of files, e.g. 1M (~ 10 TB of data -> 2.5T numbers in total)
+
+Create an algorithm to sort the data that maximizes cluster utilization.
+The result should be available in Storage, with a set of files f1 - f1_000_000(max size for the file should be 10 MB), the file ids should be sequential with no gaps (1_000_000 is given as a reference)
+
+In each file first integer is the smallest in the file, and all integers in f<N+1> are >= f<N>
+
+// 10 MB -> 2.5M numbers
+
+""

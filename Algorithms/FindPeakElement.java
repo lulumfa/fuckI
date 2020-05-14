@@ -1,16 +1,17 @@
 // O(lgn) space O(1)
-public class Solution {
-    public int findPeakElement(int[] num) {
-        if(num==null || num.length==0) return -1;
-        int l = 0;
-        int r = num.length-1;
-        while(l<=r) {
-            if(l==r) return l;
-            int mid = (l+r)/2;
-            if(num[mid]<num[mid+1]) {
-                l = mid+1;
+class Solution {
+    public int findPeakElement(int[] nums) {
+        if (nums == null || nums.length == 0) return -1;
+        
+        int left = 0, right = nums.length -1;
+        while (left <= right) {
+            if (left == right) return left;
+            int mid = left + (right -left) /2;
+            
+            if (mid + 1 < nums.length && nums[mid] < nums[mid + 1]) {
+                left = mid + 1;
             } else {
-                r = mid;
+                right = mid;
             }
         }
         return -1;

@@ -1,5 +1,6 @@
 class Solution {
   /// O(M*N * logM) M length of accounts, N avg len of emails
+  // space O(M * N), basically everything are in the map and user list
   
   // logM is from the union find operations, if using weighted compressed uf, it could be close to M*N in practice.
   

@@ -1,6 +1,6 @@
 // O(4^(n-m)), n is # of cell, m is # of obstacles
 // space O(n -m), since we only track visited cells
-
+// direction, 0, 1, 2, 3, top, bot, left, right ,does not matter
 // https://leetcode.com/problems/robot-room-cleaner/discuss/151942/Java-DFS-Solution-with-Detailed-Explanation-and-6ms-(99)-Solution
 
 class Solution {

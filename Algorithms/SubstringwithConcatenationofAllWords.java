@@ -1,4 +1,6 @@
 //reference: http://blog.csdn.net/linhuanmars/article/details/20342851
+// runtime O(2*n * l/ l) = O(n), sliding window, each substrong only got scanned twice
+// space O(L) or O(n*l)?
 
 public class Solution {
     public ArrayList<Integer> findSubstring(String S, String[] L) {

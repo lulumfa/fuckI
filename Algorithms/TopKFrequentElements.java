@@ -1,41 +1,39 @@
 // O(n), space O(n) or use priorityQueue, O(nlogk) space O(k)
 
-public class Solution {
-    public List<Integer> topKFrequent(int[] nums, int k) {
-        if(nums == null) return null;
-        
-        HashMap<Integer, Integer> numCount = new HashMap<Integer, Integer>();
-        for(Integer num : nums) numCount.put(num, numCount.containsKey(num) ? numCount.get(num) + 1 : 1);
-        
-        int n = nums.length;
-        List<Integer>[] buckets = new List[n + 1];
-        
-        for(Integer num : numCount.keySet()) {
-            int count = numCount.get(num);
-            if(buckets[count] == null) buckets[count] = new ArrayList<Integer>();
-            buckets[count].add(num);
-        }
-        
-        int count = 0;
-        List<Integer> res = new ArrayList<Integer>(k);
-        
-        for(int i = n; i > 0 && count < k; i--) {
-            if(buckets[i] != null) {
-                if(buckets[i].size() <= (k - count)) {
-                    res.addAll(buckets[i]);
-                    count += buckets[i].size();
-                } else {
-                    for(int j = 0; j < buckets[i].size() && j < (k - count); j++) {
-                        res.add(buckets[i].get(j));
-                    }
-                    break;   
-                }
-            }
-        }
-        
-        return res;
+class Solution {
+public int[] topKFrequent(int[] nums, int k) {
+
+	List<Integer>[] bucket = new List[nums.length + 1];
+	Map<Integer, Integer> frequencyMap = new HashMap<Integer, Integer>();
+
+	for (int n : nums) {
+		frequencyMap.put(n, frequencyMap.getOrDefault(n, 0) + 1);
+	}
+
+	for (int key : frequencyMap.keySet()) {
+		int frequency = frequencyMap.get(key);
+		if (bucket[frequency] == null) {
+			bucket[frequency] = new ArrayList<>();
+		}
+		bucket[frequency].add(key);
+	}
+
+	List<Integer> res = new ArrayList<>();
+
+	for (int pos = bucket.length - 1; pos >= 0 && res.size() < k; pos--) {
+		if (bucket[pos] != null) {
+			res.addAll(bucket[pos].subList(0, Math.min(k - res.size(), bucket[pos].size()))); // in case the bucket has more than we need
+		}
+	}
+    
+    int[] aRes = new int[res.size()];
+    for (int i = 0; i < res.size(); i++) {
+        aRes[i] = res.get(i);
     }
+	return aRes;
 }
+}
+
 
 // runtime O(nlgk) space O(k)
 public class Solution {

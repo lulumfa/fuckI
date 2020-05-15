@@ -1,5 +1,5 @@
 // https://leetcode.com/discuss/interview-question/124823/dot-product-of-sparse-vector
-
+// sparse case, dup case below
 package Facebook;
 
 public class DotProduct {
@@ -58,5 +58,64 @@ public class DotProduct {
 		}
 		
 		return res;
+	}
+}
+
+// https://leetcode.com/discuss/interview-question/286446/Representation-and-dot-product-of-two-vectors/271143
+
+// A: [1, 1, 4, 4, 4, 4, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2]
+// B: [2, 2, 5, 5, 5, 5, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3]
+
+// find way to represent it with less space (by compressing), then calculate the dot product
+
+import java.util.*;
+import java.lang.*;
+ 
+class Ideone {
+ 
+	public static int plainDotProduct(int[] v1, int[] v2) {
+		int dotProduct = 0;
+		for (int i = 0 ; i < v1.length; i++) {
+			dotProduct += v1[i] * v2[i];
+		}
+		return dotProduct;
+	}
+ 
+	public static int dotProduct(List<int[]> v1, List<int[]> v2) {
+		int dotProduct = 0;
+		for (int i = 0, j = 0; i < v1.size() && j < v2.size(); ) {
+			int[] a = v1.get(i);
+			int[] b = v2.get(j);
+ 
+			int multiplier = Math.min(a[0], b[0]);
+			a[0] -= multiplier;
+			b[0] -= multiplier;
+ 
+			dotProduct += a[1] * b[1] * multiplier;
+ 
+			if (a[0] == 0) i++;
+			if (b[0] == 0) j++;
+		}
+		return dotProduct;
+	}
+ 
+	public static List<int[]> compress(int[] arr) {
+		List<int[]> compressed = new ArrayList<>();
+		for (int i = 0; i < arr.length; i++) {
+			int val = arr[i];
+			int count = 1;
+			for (; i + 1 < arr.length && arr[i + 1] == val; i++) {
+				count++;
+			}
+			compressed.add(new int[] {count, val});
+		}
+		return compressed;
+	}
+ 
+	public static void main (String[] args) {
+		int[] a = {1, 1, 4, 4, 4, 4, 7, 7, 7, 7, 7, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2};
+		int[] b = {2, 2, 5, 5, 5, 5, 5, 5, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
+		System.out.println(plainDotProduct(a, b));
+		System.out.println(dotProduct(compress(a), compress(b)));
 	}
 }

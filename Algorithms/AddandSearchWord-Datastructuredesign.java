@@ -1,4 +1,9 @@
 // O(n) add, O(26 * l) search
+
+// reversed index, suffix trie for faster retrieval?
+
+// https://leetcode.com/problems/add-and-search-word-data-structure-design/discuss/519977/Simple-Trie-with-both-Suffix-and-Prefix-Tree-implementation.
+// https://leetcode.com/problems/add-and-search-word-data-structure-design/discuss/466379/Python-88-reverse-index-7-lines
 public class WordDictionary {
     private TrieNode root;
     

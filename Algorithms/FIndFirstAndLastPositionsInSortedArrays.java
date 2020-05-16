@@ -1,3 +1,8 @@
+// one case from interview
+// 找第一次和最后一次出现的长度而不是index但是有了index长度就出来了。
+// 小哥说有些corner case比如全是要找的k怎么办其实可以在找到后判断start和end的值是否等于k来选择只找一边
+// 但是我当时写的是typic way就是两边都找总时间复杂度没影响但是对于某些corner case会好一些
+
 // logn, constant space
 class Solution {
     public int[] searchRange(int[] nums, int target) {

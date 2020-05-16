@@ -18,6 +18,27 @@ class Solution {
     }
 }
 
+// find min dip
+// O(lgn) space O(1)
+class Solution {
+    public int findPeakElement(int[] nums) {
+        if (nums == null || nums.length == 0) return -1;
+        
+        int left = 0, right = nums.length -1;
+        while (left <= right) {
+            if (left == right) return left;
+            int mid = left + (right -left) /2;
+            
+            if (mid + 1 < nums.length && nums[mid] > nums[mid + 1]) { // not sure if true
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return -1;
+    }
+}
+
 // O(n), space 1
 
 class Solution {

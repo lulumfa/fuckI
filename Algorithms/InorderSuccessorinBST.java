@@ -1,3 +1,6 @@
+// better explanation
+
+// https://leetcode.com/problems/inorder-successor-in-bst/discuss/72700/Iterative-and-Recursive-Java-Solution-with-Detailed-Explanation
 // O(n), space O(1)
 
 //iteratively

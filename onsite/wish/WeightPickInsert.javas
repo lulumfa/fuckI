@@ -1,0 +1,117 @@
+import java.io.*;
+import java.util.*;
+import java.text.*;
+import java.math.*;
+import java.util.regex.*;
+
+// followup dedup by repalcement
+// using suffix tree, leaf node has value, parent nodes all have sum
+
+// DS
+//  .insert(key string, weight int)
+//  .insert("A",3)
+//  .insert("B",2)
+
+//  .get(): string
+//  .get()
+//         "A"   with probbabblity 3/5 60%
+//         "B"   with probbabblity 2/5 40%
+
+// A B C D random(0, 4) = i -> value
+
+// A A A B B A random(0, 5) -> i -> value 1/5 * 3 = 3/5
+
+// [A, B, A]
+// [3, 5, 6] random (0, 5) -> i (2) -> [0, 3) -> 3
+
+
+
+// on duplicate
+//  > accumulate A3 B2 A2 == A5 B2
+// get O(logn) n = # of inserted values
+// insert O(1)
+
+///   replace    A3 B2 A2 == A2 B2
+
+// insert O(n)
+
+//      (   )
+//      /   \
+// 
+//
+
+
+
+
+public class Solution {
+
+
+// DS
+//  .insert(key string, weight int)
+//  .insert("A",3)
+//  .insert("B",2)
+
+    public static void main(String[] args) {
+        DataBase db = new DataBase();
+        
+        db.insert("A",3);
+        db.insert("B",2);
+        
+        Map<String, Integer> map = new HashMap<String, Integer>();
+        for (int i =0; i < 1000; i++) {
+            String key = db.get();
+            if (!map.containsKey(key)) map.put(key, 0);
+            map.put(key, map.get(key) + 1);
+        }
+        
+        System.out.println(map.values());
+    }
+   
+}
+
+class DataBase {
+    
+    List<String> indexToKey;
+    List<Integer> prefixSum;
+    Random random;
+    int total;
+    
+    public DataBase() {
+        indexToKey = new ArrayList<>();
+        prefixSum = new ArrayList<>();
+        random = new Random();
+    }
+    
+    public void insert(String key, int weight) {
+        total += weight;
+        prefixSum.add(total);
+        indexToKey.add(key);
+    }
+    
+    public String get() {
+        int pivot = random.nextInt(total); // [0, total)
+        
+        int lo = 0, hi = prefixSum.size() -1;
+        
+        while (lo < hi) {
+            int mid = (lo + hi) /2;
+            if (pivot >= prefixSum.get(mid)) {
+                lo = mid + 1;
+            } else {
+                hi = mid;
+            }
+        }
+        
+        return indexToKey.get(lo);
+    }
+}
+
+
+
+
+
+
+
+
+
+

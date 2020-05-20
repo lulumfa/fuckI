@@ -7,6 +7,10 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+// O(n), space (n) worst if not balanced
+//  uncomment the code to support double linkedlist, reusing left, and right to be pre and next pointers
+
 public class Solution {
     public void flatten(TreeNode root) {
         if(root==null) return;
@@ -17,11 +21,15 @@ public class Solution {
         while(!stack.isEmpty()) {
             temp = stack.pop();
             header.right = temp;
+            // temp.left = header;
             if(temp.right!=null) stack.push(temp.right);
             if(temp.left!=null) stack.push(temp.left);
             temp.left = null;
             header = header.right;
         }
+	    
+	// create a copy for the dummy header and use it here
+	    // header.right.left = null;
     }
 }
 

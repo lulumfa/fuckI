@@ -14,12 +14,10 @@ public class Solution {
         int end = findMax(L);
         while (start + 1 < end) {
             int mid = start + (end - start) / 2;
-            if (countWood(L, mid) == k) {
+            if (countWood(L, mid) >= k) {
                 start = mid;
-            } else if (countWood(L, mid) < k) {
-                end = mid;
             } else {
-                start = mid;
+                end = mid;
             }
         }
         if (countWood(L, end) <= k) {

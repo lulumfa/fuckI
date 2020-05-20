@@ -5,6 +5,8 @@
 // algo: basically dfs the path and give the chance for each option to override others' so that other loop can be inserted and considered
 // also using linkedlist to reduce the cost at insertion at 0
 
+// eulerian path, only one indgree is odd and one node has outdegree odd, can scan all edges to check this.
+
 public List<String> findItinerary(String[][] tickets) {
     for (String[] ticket : tickets)
         targets.computeIfAbsent(ticket[0], k -> new PriorityQueue()).add(ticket[1]);

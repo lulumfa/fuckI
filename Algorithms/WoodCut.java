@@ -1,4 +1,7 @@
 // https://blog.csdn.net/sinat_32547403/article/details/54657599
+
+// https://www.lintcode.com/problem/wood-cut/description?source=post_page-----57d0e397247b----------------------
+
 // O(n * logw),n # of wood, w is max length of wood
 // space O(1)
 

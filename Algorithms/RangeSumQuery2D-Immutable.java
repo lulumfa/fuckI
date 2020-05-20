@@ -27,5 +27,8 @@ public int sumRegion(int row1, int col1, int row2, int col2) {
     int jMin = Math.min(col1, col2);
     int jMax = Math.max(col1, col2);
     
+    // just this if thw two points are guarantted to from left top to right bot
+    // return dp[row2 + 1][col2 + 1] - dp[row1][col2 + 1] - dp[row2 + 1][col1] + dp[row1][col1];
+
     return dp[iMax + 1][jMax + 1] - dp[iMax + 1][jMin] - dp[iMin][jMax + 1] + dp[iMin][jMin];    
 }

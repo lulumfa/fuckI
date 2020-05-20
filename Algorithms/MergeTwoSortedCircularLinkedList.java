@@ -3,6 +3,11 @@
 
 // Java implementation for Sorted merge of two 
 // sorted doubly circular linked list 
+
+// Time Complexity: O(n1 + n2).
+
+
+
 class GFG 
 { 
 	

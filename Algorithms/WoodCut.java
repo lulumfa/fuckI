@@ -6,40 +6,46 @@
 // space O(1)
 
 public class Solution {
+
     public int woodCut(int[] L, int k) {
-        if (L == null || L.length == 0) {
-            return 0;
-        }
+
+        /* Narrow down the binary search interval */
         int start = 1;
         int end = findMax(L);
+        
+        /* Template */
         while (start + 1 < end) {
             int mid = start + (end - start) / 2;
-            if (countWood(L, mid) >= k) {
+            if (count(L, mid) >= k) { /* The wood block is too small */
                 start = mid;
             } else {
                 end = mid;
             }
         }
-        if (countWood(L, end) <= k) {
+        
+        /* Need the largest one so we starts with the larger one */ 
+        if (count(L, end) >= k) {
             return end;
         }
-        if (countWood(L, start) <= k) {
+        
+        if (count(L, start) >= k) {
             return start;
         }
+        
         return 0;
     }
-    private int findMax(int[] nums) {
-        int max = nums[0];
-        for (int i = 0; i < nums.length; i++) {
-            max = (max < nums[i]) ? nums[i] : max;
+    private int findMax(int[] L) {
+        int max = 0;
+        for (int wood : L) {
+            max = Math.max(wood, max);
         }
         return max;
     }
-    private int countWood(int[] nums, int len) {
-        int sum = 0;
-        for (int i = 0; i < nums.length; i++) {
-            sum += nums[i] / len;
+    private int count(int[] L, int pc) {
+        int count = 0;
+        for (int wood : L) {
+            count += wood / pc;
         }
-        return sum;
+        return count;
     }
 }

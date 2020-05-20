@@ -11,6 +11,7 @@
 // 用另一个TreeSet维护当前被占用的座位标号，记为seats。
 
 // 对于leave操作，seats可以用O(log n)的代价找到某座位相邻的座位。并将两个区间合二为一。
+// pq remove method is O(n), and based on equal method override
 
 // 对于seat操作，可以通过pq获取当前的最大区间，将区间一分为二
 

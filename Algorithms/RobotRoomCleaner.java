@@ -1,3 +1,6 @@
+// constatnt time
+// https://leetcode.com/problems/minimum-knight-moves/discuss/392053/Here-is-how-I-get-the-formula-(with-graphs)
+
 // O(4^(n-m)), n is # of cell, m is # of obstacles
 // space O(n -m), since we only track visited cells
 // direction, 0, 1, 2, 3, top, bot, left, right ,does not matter

@@ -9,9 +9,11 @@
 
 因为你只加入的左子节点都比当前节点深，所以你最多是logn个节点加入盏
 */
+
+// BST, O(n), space (h = n worst case)
 public boolean isSimilarBST(Node a, Node b) {
-    Deque<Node> stackA = new ArrayDeque<>();
-    Deque<Node> stackB = new ArrayDeque<>();
+    Stack<Node> stackA = new Stack<>();
+    Stack<Node> stackB = new Stack<>();
     pushLeft(stackA, a);
     pushLeft(stackB, b);
     while (!stackA.isEmpty() && !stackB.isEmpty()) {
@@ -24,4 +26,11 @@ public boolean isSimilarBST(Node a, Node b) {
         pushLeft(stackB, nodeB.right);
     }
     return stackA.isEmpty() == stackB.isEmpty();
+}
+
+private void pushLeft(Stack stack, TreeNode node) {
+  while(node != null) {
+    stack.push(node);
+    node = node.left;
+  }
 }

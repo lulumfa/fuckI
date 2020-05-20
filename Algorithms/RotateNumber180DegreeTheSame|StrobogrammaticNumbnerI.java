@@ -28,5 +28,60 @@ public boolean isStrobogrammatic(String num) {
     return true;
 }
 
+// input is number instead of string, we can either convert it to string, which is extra space, or doing it math may
+// O(n) n # of digits, space constant 
+
+package fb;
+
+public class Rotate180NumberStillTheSame {
+
+  private final static int[] map = {0, 1, -1, -1, -1, -1, 9, -1, 8,6};
+
+  public static void main(String[] args) {
+    Rotate180NumberStillTheSame rotate180NumberStillTheSame= new Rotate180NumberStillTheSame();
+
+    System.out.println(rotate180NumberStillTheSame.isTheSameNoExtraSpace(123));
+    System.out.println(rotate180NumberStillTheSame.isTheSameNoExtraSpace(16791));
+
+    System.out.println(rotate180NumberStillTheSame.isTheSameNoExtraSpace(8));
+    System.out.println(rotate180NumberStillTheSame.isTheSameNoExtraSpace(69));
+    System.out.println(rotate180NumberStillTheSame.isTheSameNoExtraSpace(0));
+    System.out.println(rotate180NumberStillTheSame.isTheSameNoExtraSpace(1691));
+    System.out.println(rotate180NumberStillTheSame.isTheSameNoExtraSpace(16891));
+
+
+  }
+
+  public boolean isTheSameNoExtraSpace(int n) {
+    if (n == 0) return true;
+
+    int digits = 1;
+
+    int temp = n;
+    while(temp >= 10) {
+      temp /= 10;
+      digits *= 10;
+    }
+
+    temp = n;
+
+    while(digits > 0) {
+      int left = temp/digits;
+      int right = temp%10;
+
+      if (map[left] != right) {
+        return false;
+      }
+
+      temp = (temp%digits) / 10;
+
+      digits /= 100;
+    }
+
+    return true;
+  }
+}
+
+
 
 

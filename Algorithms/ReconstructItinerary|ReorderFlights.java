@@ -1,6 +1,10 @@
 // https://leetcode.com/problems/reconstruct-itinerary/discuss/78768/Short-Ruby-Python-Java-C%2B%2B
 // 
 // O(ELogE) space (E), e is total edges
+
+// algo: basically dfs the path and give the chance for each option to override others' so that other loop can be inserted and considered
+// also using linkedlist to reduce the cost at insertion at 0
+
 public List<String> findItinerary(String[][] tickets) {
     for (String[] ticket : tickets)
         targets.computeIfAbsent(ticket[0], k -> new PriorityQueue()).add(ticket[1]);
